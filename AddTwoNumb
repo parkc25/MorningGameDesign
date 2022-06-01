@@ -6,7 +6,7 @@
 # ignored by the computer 
 #import things
 import os
-os.system("cls")
+os.system("cls)")
 #use variables 
 Num1=23
 Num2=12
