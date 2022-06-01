@@ -6,11 +6,12 @@ os.system("cls")
 height=int(input('height in inches '))
 weight=int(input('weight in pounds '))
 BMI=weight/(height*height)*703
+print('Your BMI is',BMI)
 if BMI<18.5:
     print("You are underweight")
-if BMI<20:
+elif BMI<20:
     print("You are normal")
-if BMI<30:
+elif BMI<30:
     print("You are obese")
 else:
     print("You are obese")
