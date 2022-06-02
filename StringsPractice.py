@@ -13,6 +13,7 @@ message="You are awesome" # a string is an array of characters
 print(message) 
 print(message[5]) #gets specific number
 print(message[0:5]) #prints letters 0-4
+
 if message.isdigit(): #.isdigit is a method you must use with a dot
     sum=message +3 #of statement s true
 else:              #if it is false
@@ -26,5 +27,5 @@ else:
     message=message.upper()
     print(message)
 print(type(message))
-print(help(message)) #tell you everything you can use
+print(dir(message)) #tell you everything you can use
 
