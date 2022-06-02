@@ -1,6 +1,7 @@
 #Christan Park 
 #We are going to learn about strings '' or ""
 #import things
+from curses.ascii import isdigit
 import os
 os.system("cls")
 print('Hi')
@@ -12,5 +13,14 @@ message="You are awesome" # a string is an array of characters
 print(message) 
 print(message[5]) #gets specific number
 print(message[0:5]) #prints letters 0-4
-
-
+if message .isdigit(): #isdigit is a method you must use with a dot
+    sum=message +3 #of statement s true
+else:              #if it is false
+    print(message+"I say so") #concatenation
+print(message.upper())
+print(message)
+if message.upper()
+    print(message)
+else:
+    message=message.upper()
+    print(message)
