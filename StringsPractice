@@ -1,0 +1,16 @@
+#Christan Park 
+#We are going to learn about strings '' or ""
+#import things
+import os
+os.system("cls")
+print('Hi')
+print("Hi") #no difference between apostraphe
+print("Hi, let's go to the park") #use double quotation if use apostraphe in sentence
+message="You are awesome" # a string is an array of characters 
+# H E L L O 
+# 1 2 3 4 5 #all arrays began in zero
+print(message) 
+print(message[5]) #gets specific number
+print(message[0:5]) #prints letters 0-4
+
+
