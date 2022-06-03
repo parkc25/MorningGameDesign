@@ -29,6 +29,15 @@ for element in list: #element = list[times run through the loop]
 
 print()
 
-list.append("pineapple")
+list.append("pineapple") #adds pineapple to end of list
 print(list[0:])
+
+for num in range(10): #ask user 10 different fruits/elements
+    list.append(input("Name a fruit "))
+print(list[0:])
+
+list.insert(0,"pineapple")
+print(list[0:])
+
+
 
