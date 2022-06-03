@@ -15,12 +15,7 @@ else:
 #Question 2: Is the number a multiple of 3 or 5?
 
 num = int(input("Enter any number it test whether it is a multiple of 3 or 5: "))
-if(num % 3 == 0):
-    print("The number is a multiple of 3")
+if(num % 3 == 0 and num % 5 == 0):
+    print("The number is a multiple of 3 and 5")
 else: 
-    print("The number is not a multiple of 3")
-
-if(num % 5 == 0):
-    print("The number is a multiple of 5")
-else: 
-    print("The number is not a multiple of 5")
+    print("The number is not a multiple of 3 and 5")
