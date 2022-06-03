@@ -7,14 +7,8 @@ import os
 import random
 os.system('cls')
 
-list = ['apple','banana','cherry','orange','kiwi','melon','mango','pineapple','papaya','guava']
-
-word = random.choice(list)
-print(word)
-
-
 print("***********************************")
-print("Welcome to Guess the animal!")
+print("Welcome to Guess The Animal!")
 name = input("What is your name? ")
 print("Hi",name,", here are the rules:")
 print("1. Guess a animal")
@@ -22,7 +16,13 @@ print("2. You will have 10 guesses")
 print("Good Luck",name,"!")
 print("***********************************")
  
-words = ['']
+list = ['lion','tiger','turtle','penguin','shark','dolphin','whale','bear','wolf']
+
+random_word = random.choice(list)
+print('our random word', random_word)
+
+
+
 
 
 
