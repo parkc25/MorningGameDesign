@@ -34,9 +34,9 @@ while guess != random_word:
         print("You win! The coreect word was", random_word)
 print("")
 print("Do you want to play again?")
-play_again = input("Type Y if yes or N if no")
-if play_again = "N":
-    repeat = False
+play_again = input("Type Y if yes or N if no ")
+if play_again == "N":
+    
 print("****************************************")
 
 
