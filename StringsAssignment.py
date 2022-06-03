@@ -49,8 +49,8 @@ first1=word3[0]
 first2=word4[0]
 middle3=word3[len(word3)//2]
 middle4=word4[len(word4)//2]
-last2=word3[len-1(word3)]
-last3=word4[len-1(word4)]
+last2=word3[len(word3)-1]
+last3=word4[len(word4)-1]
 print(first1+first2+middle3+middle4+last2+last3)
 
 #Question 5:Arrange string characters such that lowercase letters should come first
