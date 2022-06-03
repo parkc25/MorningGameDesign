@@ -2,6 +2,7 @@
 #We are going to learn about lists, functions to list
 #We are also going to learn about for loop
 import os
+from random import random
 os.system('cls')
 
 list = ['apple','banana','cherry','orange','kiwi','melon','mango']
@@ -19,8 +20,8 @@ if fruit in list:
 else:
     print("No, we do not have", fruit)
 
-for num in range(10):
-    print(num, end = "")
+#for num in range(10):
+    #print(num, end = "")
 
 print() #adds space to make new line from one element to the next/use with end='
 
@@ -39,5 +40,23 @@ print(list[0:])
 list.insert(0,"pineapple")
 print(list[0:])
 
+for i in range(len(list)):
+    print(i, end = ' ')
+print()
+
+list_num = [1,2,3,4]
+list_num.extend(list) #everything in the list + list_num (added to front)
+print(list_num)
+list_num.append(list) #adds list to end of list (list in a list)
+print(list_num)
+
+word = random.choice(list)
+print(word)
+
+guess = input("Guess a fruit")
+if guess in word:
+    print("Congrats you guessed the fruit")
+else:
+    print("Sorry, try again :(")
 
 
