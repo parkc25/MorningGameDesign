@@ -1,8 +1,6 @@
 #Christan Park
 #worksheet on strings 
 import os
-from re import X
-from tkinter import Y
 os.system("cls")
 
 #Question 1: get first middle and last letters
@@ -36,22 +34,22 @@ print(middleFirst)
 #Question 3: Append New string in the middle of a given string
 
 word = input('Your word is ') #get word from user
-word2 = input('Your second word is ')
-middleNumber2 = (len(word)//2)
-half1=len(word)//2
-print(word[0:half1]+word2+word[half1:len(word)])
+word2 = input('Your second word is ') #get seocnd word 
+middleNumber2 = (len(word)//2) #get which number letter is the middle
+half1=len(word)//2 #make half1 = middle letter number 
+print(word[0:half1]+word2+word[half1:len(word)]) #print first word of word1 to half then insert word2 and rest of word with back half of word1
 
 #Question 4: Create a new string made of the first, middle, and last characters of each input string
 
 word3 = input('Your word is ') #get word from user
-word4 = input('Your second word is ')
-first1=word3[0]
-first2=word4[0]
-middle3=word3[len(word3)//2]
-middle4=word4[len(word4)//2]
-last2=word3[len(word3)-1]
-last3=word4[len(word4)-1]
-print(first1+first2+middle3+middle4+last2+last3)
+word4 = input('Your second word is ') #get second word
+first1=word3[0] #get first letter of first word
+first2=word4[0] #get  first letter of second word 
+middle3=word3[len(word3)//2] #get middle letter of first word
+middle4=word4[len(word4)//2] #get middle letter of seocnd word
+last2=word3[len(word3)-1] #get last letter of first word
+last3=word4[len(word4)-1] #get last letter of second word
+print(first1+first2+middle3+middle4+last2+last3) #add all letters together 
 
 #Question 5:Arrange string characters such that lowercase letters should come first
 
