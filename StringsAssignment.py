@@ -55,6 +55,12 @@ print(first1+first2+middle3+middle4+last2+last3)
 
 #Question 5:Arrange string characters such that lowercase letters should come first
 
+word5 = input('Your word is ')
+word5.sort
+
+
+
+
 
 
 
