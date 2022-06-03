@@ -31,6 +31,7 @@ middleFirst = word[middle2-1:middle2+2]
 print(middleFirst)
 #print("The middle three characters are:",word[middle2-1]+word[middle2]+word[middle2+1])
 
+
 #Question 3: Append New string in the middle of a given string
 
 word = input('Your word is ') #get word from user
@@ -38,6 +39,7 @@ word2 = input('Your second word is ') #get seocnd word
 middleNumber2 = (len(word)//2) #get which number letter is the middle
 half1=len(word)//2 #make half1 = middle letter number 
 print(word[0:half1]+word2+word[half1:len(word)]) #print first word of word1 to half then insert word2 and rest of word with back half of word1
+
 
 #Question 4: Create a new string made of the first, middle, and last characters of each input string
 
@@ -50,6 +52,7 @@ middle4=word4[len(word4)//2] #get middle letter of seocnd word
 last2=word3[len(word3)-1] #get last letter of first word
 last3=word4[len(word4)-1] #get last letter of second word
 print(first1+first2+middle3+middle4+last2+last3) #add all letters together 
+
 
 #Question 5:Arrange string characters such that lowercase letters should come first
 
