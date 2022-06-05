@@ -12,7 +12,7 @@ os.system('cls')
 
 #Game with Unlimited Guesses 
 
-#
+#make game pretty, tell them what it is about, and how to play
 print("***************************************************************************") 
 print("") 
 print("Welcome to Guess The Number!")
@@ -27,12 +27,12 @@ print("")
 print("***************************************************************************")
 print("")
 
-random_number = random.randint(1,50)
+random_number = random.randint(1,50) #allows computer to choose a number between 1 and 50
 number_of_guesses = 0
 #print("The random number is", random_number)
 
-while number_of_guesses < 5:
-    guess = int(input("Guess a number: "))
+while number_of_guesses < 5: #makes user limited to 5 guesses
+    guess = int(input("Guess a number: ")) #make into int to allow it to be on the same line as a number
     number_of_guesses += 1
     if guess < random_number:
         print('The random number is higher')
@@ -42,7 +42,7 @@ while number_of_guesses < 5:
         break
 print("")
 if guess == random_number:
-    print("You guessed the number! The number was " + str(random_number) + "!")
+    print("You guessed the number! The number was " + str(random_number) + "!") #make number string to allow to be on the same line as letters
 else:
     print('Sorry, you did not guess the number. The number was ' + str(random_number) + ".")
 print("")
@@ -51,7 +51,7 @@ print("")
 print("Thank you for playing! If you want to play again type 'yes' or 'no' below!")
 play_again = input("Do you want to play again? ")
 if input == "yes": 
-    p
+    a#put something here to allow them to play again 
 else:
     print("Ok, see you later and thank you for playing!")
 print("")
