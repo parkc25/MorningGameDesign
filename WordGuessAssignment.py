@@ -50,8 +50,8 @@ print("*************************************************************************
 print("")
 print("Thank you for playing! If you want to play again type 'yes' or 'no' below!")
 play_again = input("Do you want to play again? ")
-if input == "yes": 
-    a#put something here to allow them to play again 
+if play_again == "yes": 
+    random_number = random.randint(1,50)
 else:
     print("Ok, see you later and thank you for playing!")
 print("")
