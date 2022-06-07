@@ -13,8 +13,8 @@ os.system('cls')
 #Game with Unlimited Guesses 
 #make game pretty, tell them what it is about, and how to play
 
-all_games=True
-while all_games:
+start_game =True
+while start_game:
     print("***************************************************************************") 
     print("") 
     print("Welcome!")
@@ -28,6 +28,7 @@ while all_games:
     print("")
     print("***************************************************************************")
     print("")
+    all_games = True
     while all_games:
         choice = input("What game do you want to play? 1, 2, or 3? ")
         choice=int(choice)
@@ -73,11 +74,12 @@ while all_games:
                 print("To play another game type '2'")
                 print("To stop playing type '3'")
                 play_again = int(input("Type your response here: "))
+                start_game = False
                 if play_again == 1: 
                     number_game=True
                     print("")
                 elif play_again == 2: 
-                    all_games=True #SOMETHING WRONG HERE
+                    start_game=True 
                     print("")
                 elif play_again == 3:
                     print("Ok, see you later and thank you for playing!")
@@ -159,7 +161,7 @@ while all_games:
                     food_game=True
                     print("")
                 elif play_again == 2: 
-                    all_games=True #SOMETHING WRONG HERE
+                    start_game=True 
                     print("")
                 elif play_again == 3:
                     print("Ok, see you later and thank you for playing!")
@@ -241,7 +243,7 @@ while all_games:
                     food_game=True
                     print("")
                 elif play_again == 2: 
-                    all_games=True #SOMETHING WRONG HERE
+                    start_game=True 
                     print("")
                 elif play_again == 3:
                     print("Ok, see you later and thank you for playing!")
