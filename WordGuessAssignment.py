@@ -22,7 +22,7 @@ while all_games:
     print("Hi",name,", here are the rules:")
     print("Pick a game below and play it!")
     print("1. Guess the Number")
-    print("2. Guess the Fruit")
+    print("2. Guess the Food")
     print("3. Guess the Animal")
     print("Good Luck " + name + "!")
     print("")
@@ -92,7 +92,77 @@ while all_games:
                     print("")
                     print("***************************************************************************")
         elif choice == 2:
-            Ksjd
+            food_game = True
+            while food_game:
+                print("***************************************************************************") 
+                print("") 
+                print("Welcome to Guess The Food!")
+                print("Hi",name,", here are the rules:")
+                print("1. Guess a food")
+                print("2. You have 3 guesses")
+                print("3. After each incorrect guess you will recieve a hint of the food")
+                print("Good Luck",name,"!")
+                print("")
+                print("***************************************************************************")
+                print("")
+
+                list_of_food = ['cherry', 'strawberry', 'red apple', 'raspberry', 'cherry', 'plum', 'red cactus fruit', 'red passion fruit', 'red dragon fruit', 'lychee', 'red grapes']
+                random_food = random.choice(list_of_food)
+                number_of_guesses = 0 
+                print(random_food)
+
+                while number_of_guesses < 3: #makes user limited to 5 guesses
+                    guess = input("Guess a food: ") #make into int to allow it to be on the same line as a number
+                    number_of_guesses += 1
+                    if guess == random_food:
+                        print("That is correct! The food was " + random_food + "!")
+                        break
+                    else:
+                        print("Sorry that is inorrect")
+                        print("Here is the first hint:")
+                        print("This food is a type of fruit")
+                        break
+                    guess2 = input("Guess a fruit: ")
+                    if guess2 == random_food:
+                        print("That is correct! The food was " + random_food + "!")
+                    else: 
+                        print("Sorry that is inorrect")
+                        print("Here is the second hint:")
+                        print("This fruit is red")
+                    guess3 = input("Guess a food: ")
+                    if guess3 == random_food:
+                        print("That is correct! The food was " + random_food + "!")
+                    else: 
+                        print("Sorry that is inorrect")
+                        print("Here is the last hint:")
+                        print("This fruit is red")
+                print("")
+                print("***************************************************************************")
+                print("")
+                print("Thank you for playing! ")
+                print("Would you like to play the number game again, choose a new game. or not play at all? ")
+                print("To play the food game again type '1'")
+                print("To play another game type '2'")
+                print("To stop playing type '3'")
+                play_again = int(input("Type your response here: "))
+                if play_again == 1: 
+                    food_game=True
+                    print("")
+                elif play_again == 2: 
+                    all_games=True #SOMETHING WRONG HERE
+                    print("")
+                elif play_again == 3:
+                    print("Ok, see you later and thank you for playing!")
+                    all_games = False
+                    food_game = False
+                    print("")
+                    print("***************************************************************************")
+                else:
+                    print("Ok, see you later and thank you for playing!")
+                    all_games = False
+                    food_game = False
+                    print("")
+                    print("***************************************************************************")
         elif choice == 3:
             jjh
         else:
