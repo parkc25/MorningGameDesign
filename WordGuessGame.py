@@ -74,12 +74,11 @@ while start_game:
                 print("To play another game type '2'")
                 print("To stop playing type '3'")
                 play_again = int(input("Type your response here: "))
-                start_game = False
                 if play_again == 1: 
                     number_game=True
                     print("")
                 elif play_again == 2: 
-                    start_game=True 
+                    all_games=True 
                     print("")
                 elif play_again == 3:
                     print("Ok, see you later and thank you for playing!")
