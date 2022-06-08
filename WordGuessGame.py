@@ -264,7 +264,7 @@ while start_game:
             else:
                 print("Sorry we don't have that game please choose from 1, 2, or 3!")
             score= 2000-40*number_of_guesses 
-            high = 0
+            high = 1800
             if score > high:
                 high=score
             print(name+ " your score is "+str(score)) #tells them their score #must make score a string for it to work
@@ -279,4 +279,3 @@ while start_game:
             scrLine = str(sce)+"\t "+name + "\t" + date.strftime("%m-%d-%Y")+ "\n" #format the way you wnat in score 
             myFile.write(scrLine) 
             myFile.close()
-
