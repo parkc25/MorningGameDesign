@@ -5,9 +5,11 @@
 #If they guess right congratulate them if mot say sorry "you missed"
 from datetime import date, datetime
 from operator import truediv
-import os
+import os, datetime
 import random
 import sys
+date = datetime.datetime.now()
+
 
 from pygame import KMOD_SHIFT, K_h
 os.system('cls')
@@ -274,8 +276,6 @@ while start_game:
             print("your highest score is "+ str(score)) #this is to display the highest score 
             myFile = open("guess_game.txt",'w') #this opens the file to write 
             myFile = open("scre.txt", 'w') 
-            myFile.write(str(score))
-            myFile.write("\t"+name+"\t")
-            myFile.write(date.strftime("%m/%d/%Y"))
+            myFile.write(str(score+"\t"+name+"\t"+date.strftime("%m/%d/%Y")))
             myFile.close()
 
