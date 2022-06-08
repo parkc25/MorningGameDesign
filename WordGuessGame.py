@@ -39,9 +39,9 @@ while start_game:
             answer = input("Would you like to play? ")
             if "no" in answer:
                 print("See you next time!")
-                sys.exit()
+                sys.exit() #makes whole system stop 
             choice = input("What game do you want to play? 1, 2, or 3? ")
-            choice=int(choice)
+            choice=int(choice) #make string into integer for if statements to work
             if choice == 1:
                 number_game = True
                 while number_game:
@@ -63,7 +63,7 @@ while start_game:
 
                     while number_of_guesses < 5: #makes user limited to 5 guesses
                         guess = int(input("Guess a number: ")) #make into int to allow it to be on the same line as a number
-                        number_of_guesses += 1
+                        number_of_guesses += 1 #makes them start at one guess so it adds up from 1
                         if guess < random_number:
                             print('The random number is higher')
                         if guess > random_number:
@@ -82,19 +82,19 @@ while start_game:
                     print("Would you like to play the number game again, choose a new game. or not play at all? ")
                     print("To play the number game again type '1'")
                     print("To play another game type or stop playing '2'")
-                    play_again = int(input("Type your response here: "))
+                    play_again = int(input("Type your response here: ")) #make response of string into integer to make if statements work
                     if play_again == 1: 
-                        number_game=True
+                        number_game=True #makes number game play again
                         print("")
                     elif play_again == 2:
                         print("Follow the instructions below to continue playing!")
-                        all_games = False
+                        all_games = False #stops both number and all games so it can start over
                         number_game = False
                         print("")
                         print("***************************************************************************")
                     else:
                         print("Ok, see you later and thank you for playing!")
-                        all_games = False
+                        all_games = False 
                         number_game = False
                         print("")
                         print("***************************************************************************")
@@ -114,13 +114,13 @@ while start_game:
                     print("")
 
                     list_of_food = ['cherry', 'strawberry', 'red apple', 'raspberry', 'cherry', 'plum', 'red cactus fruit', 'red passion fruit', 'red dragon fruit', 'lychee', 'red grapes']
-                    random_food = random.choice(list_of_food)
+                    random_food = random.choice(list_of_food) #allows computer to randomly choose food from list
                     number_of_guesses = 0 
                     print(random_food)
 
                     while number_of_guesses < 4: #makes user limited to 4 guesses
                         guess = input("Guess a food: ") #make into int to allow it to be on the same line as a number
-                        number_of_guesses += 1
+                        number_of_guesses += 1 
                         if guess == random_food:
                             print("That is correct! The food was " + random_food + "!")
                             break
@@ -129,7 +129,7 @@ while start_game:
                         print("")
                         print("Here is the first hint:")
                         print("This food is a either a fruit or vegatable")
-                        number_of_guesses += 1
+                        number_of_guesses += 1 
                         guess2 = input("Guess a fruit or vegatable: ")
                         if guess2 == random_food:
                             print("That is correct! The food was " + random_food + "!")
@@ -164,7 +164,7 @@ while start_game:
                     print("Would you like to play the number game again, choose a new game. or not play at all? ")
                     print("To play the number game again type '1'")
                     print("To play another game type or stop playing '2'")
-                    play_again = int(input("Type your response here: "))
+                    play_again = int(input("Type your response here: ")) #make response of string into integer to make if statements work
                     if play_again == 1: 
                         animal_game=True
                         print("")
@@ -196,7 +196,7 @@ while start_game:
                     print("")
 
                     list_of_animals = ['ethiopian wolf', 'black rhino', 'white rhino', 'mountain gorilla', 'african wild dog', "rothschild's giraffe", 'chimpanzee', "cuvier's atlas gazelle", 'cheetahs', 'pygmy hippo']
-                    random_animal = random.choice(list_of_animals)
+                    random_animal = random.choice(list_of_animals) #allow computer to choose random animal from list
                     number_of_guesses = 0 
                     print(random_animal)
 
@@ -246,7 +246,7 @@ while start_game:
                     print("Would you like to play the number game again, choose a new game. or not play at all? ")
                     print("To play the number game again type '1'")
                     print("To play another game type or stop playing '2'")
-                    play_again = int(input("Type your response here: "))
+                    play_again = int(input("Type your response here: ")) #make response of string into integer to make if statements work
                     if play_again == 1: 
                         animal_game=True
                         print("")
@@ -267,16 +267,16 @@ while start_game:
             score= 2000-40*number_of_guesses 
             if score > high:
                 high=score
-            print(name+ " your score is "+str(score))    
+            print(name+ " your score is "+str(score)) #tells them their score #must make score a string for it to work
             input("press enter") #spaces out program a bit, makes them press enter to continue 
-            os.system('cls')
+            os.system('cls') #clears screen up to make it easier on eyes
             print("***************************************************************************")
             print("Thank you for playing my game" )
             number_of_guesses == 0
             print("your highest score is "+ str(score)) #this is to display the highest score 
-            sce =str(high)
-            scrLine = str(sce)+"\t "+name + "\t" + date.strftime("%m-%d-%Y")+ "\n"
+            sce =str(high) #
             myFile = open("guess_game.txt",'a') #this opens the file to write 
-            myFile.write(scrLine)
+            scrLine = str(sce)+"\t "+name + "\t" + date.strftime("%m-%d-%Y")+ "\n" #format the way you wnat in score 
+            myFile.write(scrLine) 
             myFile.close()
 
