@@ -7,7 +7,6 @@ import random
 import sys
 date = datetime.datetime.now()
 
-
 from pygame import KMOD_SHIFT, K_h
 os.system('cls')
 

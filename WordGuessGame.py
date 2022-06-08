@@ -274,8 +274,8 @@ while start_game:
             print("Thank you for playing my game" )
             number_of_guesses == 0
             print("your highest score is "+ str(score)) #this is to display the highest score 
-            sce =str(high) #
+            sce =str(high) #make highest score the one you put in file
             myFile = open("guess_game.txt",'a') #this opens the file to write 
-            scrLine = str(sce)+"\t "+name + "\t" + date.strftime("%m-%d-%Y")+ "\n" #format the way you wnat in score 
+            scrLine = str(sce) + "\t" + name + "\t" + date.strftime("%m-%d-%Y")+ "\n" #format the way you wnat in score 
             myFile.write(scrLine) 
             myFile.close()
