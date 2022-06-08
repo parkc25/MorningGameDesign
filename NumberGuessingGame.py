@@ -229,6 +229,7 @@ while start_game:
             else:
                 print("Sorry we don't have that game please choose from 1, 2, or 3!")
 
+            
             score= 2000-40*number_of_guesses 
             if score > high:
                 high=score
