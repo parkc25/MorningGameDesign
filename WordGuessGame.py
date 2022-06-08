@@ -198,11 +198,11 @@ while start_game:
                     number_of_guesses = 0 
                     print(random_animal)
 
-                    while number_of_guesses < 3: #makes user limited to 5 guesses
-                        guess = input("Guess a food: ") #make into int to allow it to be on the same line as a number
+                    while number_of_guesses < 4: #makes user limited to 4 guesses
+                        guess = input("Guess an animal: ") #make into int to allow it to be on the same line as a number
                         number_of_guesses += 1
                         if guess == random_animal:
-                            print("That is correct! The food was " + random_animal + "!")
+                            print("That is correct! The animal was " + random_animal + "!")
                             break
                         else:
                             print("Sorry that is inorrect")
@@ -212,7 +212,7 @@ while start_game:
                         number_of_guesses += 1
                         guess2 = input("Guess an animal: ")
                         if guess2 == random_animal:
-                            print("That is correct! The food was " + random_animal + "!")
+                            print("That is correct! The animal was " + random_animal + "!")
                             break
                         else: 
                             print("Sorry that is inorrect")
@@ -222,7 +222,7 @@ while start_game:
                         number_of_guesses += 1
                         guess3 = input("Guess an animal: ")
                         if guess3 == random_animal:
-                            print("That is correct! The food was " + random_animal + "!")
+                            print("That is correct! The animal was " + random_animal + "!")
                             break
                         else: 
                             print("Sorry that is inorrect")
@@ -235,7 +235,7 @@ while start_game:
                             print("That is correct! The animal was " + random_animal + "!")
                             break
                         else: 
-                            print("Sorry that is inorrect. The food was " + random_animal + "!")
+                            print("Sorry that is inorrect. The animal was " + random_animal + "!")
                             break
                     print("")
                     print("***************************************************************************")
@@ -271,7 +271,7 @@ while start_game:
             print("***************************************************************************")
             print("Thank you for playing my game" )
             number_of_guesses == 0
-    print("your highest score is "+ str(score)) #this is to display the highest score 
-    myFile=open("game.txt",'w') #this opens the file to write 
-    myFile.write (str(score) + "\t"+name+"\t"+ date.strftime("%m/%d/%Y")) 
-    myFile.close()
+            print("your highest score is "+ str(score)) #this is to display the highest score 
+            myFile = open("guess_game.txt",'w') #this opens the file to write 
+            myFile.write(str(score) + "\t"+name+"\t"+ date.strftime("%m/%d/%Y")) #SOMETHING WRONG HERE
+            myFile.close()
