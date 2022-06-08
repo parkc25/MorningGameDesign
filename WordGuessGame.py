@@ -34,7 +34,6 @@ while start_game:
     print("")
     all_games = True
     while all_games:
-        high = 0
         while True:
             answer = input("Would you like to play? ")
             if "no" in answer:
@@ -265,6 +264,7 @@ while start_game:
             else:
                 print("Sorry we don't have that game please choose from 1, 2, or 3!")
             score= 2000-40*number_of_guesses 
+            high = 0
             if score > high:
                 high=score
             print(name+ " your score is "+str(score)) #tells them their score #must make score a string for it to work
