@@ -3,9 +3,11 @@
 #Randomly select a word
 #ask the user to guess the word (give a hint about what kind of words you are using: fruits, animals,etc)
 #If they guess right congratulate them if mot say sorry "you missed"
+from datetime import date
 from operator import truediv
 import os
 import random
+import sys
 
 from pygame import KMOD_SHIFT, K_h
 os.system('cls')
@@ -13,7 +15,7 @@ os.system('cls')
 #Game with Unlimited Guesses 
 #make game pretty, tell them what it is about, and how to play
 
-start_game =True
+start_game = True
 while start_game:
     print("***************************************************************************") 
     print("") 
@@ -30,11 +32,12 @@ while start_game:
     print("")
     all_games = True
     while all_games:
-        answer = input("Would you like to play? ")
-        if "no" in answer:
-            print("See you next time!")
-            break
+        high = 0
         while True:
+            answer = input("Would you like to play? ")
+            if "no" in answer:
+                print("See you next time!")
+                sys.exit()
             choice = input("What game do you want to play? 1, 2, or 3? ")
             choice=int(choice)
             if choice == 1:
@@ -76,17 +79,13 @@ while start_game:
                     print("Thank you for playing! You guessed it in "+ str(number_of_guesses) + " tries!")
                     print("Would you like to play the number game again, choose a new game. or not play at all? ")
                     print("To play the number game again type '1'")
-                    print("To play another game type '2'")
-                    print("To stop playing type '3'")
+                    print("To play another game type or stop playing '2'")
                     play_again = int(input("Type your response here: "))
                     if play_again == 1: 
                         number_game=True
                         print("")
-                    elif play_again == 2: 
-                        all_games=True 
-                        print("")
-                    elif play_again == 3:
-                        print("Ok, see you later and thank you for playing!")
+                    elif play_again == 2:
+                        print("Follow the instructions below to continue playing!")
                         all_games = False
                         number_game = False
                         print("")
@@ -117,8 +116,9 @@ while start_game:
                     number_of_guesses = 0 
                     print(random_food)
 
-                    while number_of_guesses < 3: #makes user limited to 5 guesses
+                    while number_of_guesses < 4: #makes user limited to 4 guesses
                         guess = input("Guess a food: ") #make into int to allow it to be on the same line as a number
+                        number_of_guesses += 1
                         if guess == random_food:
                             print("That is correct! The food was " + random_food + "!")
                             break
@@ -127,6 +127,7 @@ while start_game:
                         print("")
                         print("Here is the first hint:")
                         print("This food is a either a fruit or vegatable")
+                        number_of_guesses += 1
                         guess2 = input("Guess a fruit or vegatable: ")
                         if guess2 == random_food:
                             print("That is correct! The food was " + random_food + "!")
@@ -136,6 +137,7 @@ while start_game:
                         print("")
                         print("Here is the second hint:")
                         print("This food is a fruit not a vegatable")
+                        number_of_guesses += 1
                         guess3 = input("Guess a fruit: ")
                         if guess3 == random_food:
                             print("That is correct! The food was " + random_food + "!")
@@ -145,6 +147,7 @@ while start_game:
                         print("")
                         print("Here is the last hint:")
                         print("This fruit is red")
+                        number_of_guesses += 1
                         guess4 = input("Guess a red fruit: ")
                         if guess4 == random_food:
                             print("That is correct! The food was " + random_food + "!")
@@ -157,18 +160,14 @@ while start_game:
                     print("")
                     print("Thank you for playing! You guessed it in "+ str(number_of_guesses) + " tries!")
                     print("Would you like to play the number game again, choose a new game. or not play at all? ")
-                    print("To play the food game again type '1'")
-                    print("To play another game type '2'")
-                    print("To stop playing type '3'")
+                    print("To play the number game again type '1'")
+                    print("To play another game type or stop playing '2'")
                     play_again = int(input("Type your response here: "))
                     if play_again == 1: 
-                        food_game=True
+                        animal_game=True
                         print("")
-                    elif play_again == 2: 
-                        start_game=True 
-                        print("")
-                    elif play_again == 3:
-                        print("Ok, see you later and thank you for playing!")
+                    elif play_again == 2:
+                        print("Follow the instructions below to continue playing!")
                         all_games = False
                         food_game = False
                         print("")
@@ -201,6 +200,7 @@ while start_game:
 
                     while number_of_guesses < 3: #makes user limited to 5 guesses
                         guess = input("Guess a food: ") #make into int to allow it to be on the same line as a number
+                        number_of_guesses += 1
                         if guess == random_animal:
                             print("That is correct! The food was " + random_animal + "!")
                             break
@@ -209,6 +209,7 @@ while start_game:
                         print("")
                         print("Here is the first hint:")
                         print("This animal lives in Africa")
+                        number_of_guesses += 1
                         guess2 = input("Guess an animal: ")
                         if guess2 == random_animal:
                             print("That is correct! The food was " + random_animal + "!")
@@ -218,6 +219,7 @@ while start_game:
                         print("")
                         print("Here is the second hint:")
                         print("This animal is a mammal")
+                        number_of_guesses += 1
                         guess3 = input("Guess an animal: ")
                         if guess3 == random_animal:
                             print("That is correct! The food was " + random_animal + "!")
@@ -227,6 +229,7 @@ while start_game:
                         print("")
                         print("Here is the last hint:")
                         print("This animal is endangered")
+                        number_of_guesses += 1
                         guess4 = input("Guess an animal: ")
                         if guess4 == random_animal:
                             print("That is correct! The animal was " + random_animal + "!")
@@ -239,28 +242,36 @@ while start_game:
                     print("")
                     print("Thank you for playing! You guessed it in "+ str(number_of_guesses) + " tries!")
                     print("Would you like to play the number game again, choose a new game. or not play at all? ")
-                    print("To play the animal game again type '1'")
-                    print("To play another game type '2'")
-                    print("To stop playing type '3'")
+                    print("To play the number game again type '1'")
+                    print("To play another game type or stop playing '2'")
                     play_again = int(input("Type your response here: "))
                     if play_again == 1: 
-                        food_game=True
+                        animal_game=True
                         print("")
-                    elif play_again == 2: 
-                        start_game=True 
-                        print("")
-                    elif play_again == 3:
-                        print("Ok, see you later and thank you for playing!")
+                    elif play_again == 2:
+                        print("Follow the instructions below to continue playing!")
                         all_games = False
-                        food_game = False
+                        animal_game = False
                         print("")
                         print("***************************************************************************")
                     else:
                         print("Ok, see you later and thank you for playing!")
                         all_games = False
-                        food_game = False
+                        animal_game = False
                         print("")
                         print("***************************************************************************")
             else:
                 print("Sorry we don't have that game please choose from 1, 2, or 3!")
-                
+            score= 2000-40*number_of_guesses 
+            if score > high:
+                high=score
+            print(name+ " your score is "+str(score))    
+            input("press enter") #spaces out program a bit, makes them press enter to continue 
+            os.system('cls')
+            print("***************************************************************************")
+            print("Thank you for playing my game" )
+            number_of_guesses == 0
+    print("your highest score is "+ str(score)) #this is to display the highest score 
+    myFile=open("game.txt",'w') #this opens the file to write 
+    myFile.write (str(score) + "\t"+name+"\t"+ date.strftime("%m/%d/%Y")) 
+    myFile.close()
