@@ -21,13 +21,14 @@ start_game = True
 while start_game:
     print("***************************************************************************") 
     print("") 
-    print("Welcome!")
+    print("Welcome ot Guess a Number!")
     name = input("What is your name? ")
     print("Hi",name,", here are the rules:")
-    print("Pick a game below and play it!")
-    print("1. Guess the Number")
-    print("2. Guess the Food")
-    print("3. Guess the Animal")
+    print("There are three levels to this game")
+    print("Pikc a level and have fun!")
+    print("1. Guessing from 1-25")
+    print("2. Guessing from 1-50")
+    print("3. GUessing from 1-100")
     print("Good Luck " + name + "!")
     print("")
     print("***************************************************************************")
@@ -47,9 +48,9 @@ while start_game:
                 while number_game:
                     print("***************************************************************************") 
                     print("") 
-                    print("Welcome to Guess The Number!")
+                    print("Welcome to Guess a Number from 1-25!")
                     print("Hi",name,", here are the rules:")
-                    print("1. Guess a number from 0 to 50")
+                    print("1. Guess a number from 1 to 25")
                     print("2. You have 5 guesses")
                     print("3. After each incorrect guess you will recieve a hint of lower or higher")
                     print("Good Luck",name,"!")
@@ -57,7 +58,7 @@ while start_game:
                     print("***************************************************************************")
                     print("")
 
-                    random_number = random.randint(1,50) #allows computer to choose a number between 1 and 50
+                    random_number = random.randint(1,25) #allows computer to choose a number between 1 and 50
                     number_of_guesses = 0
                     #print("The random number is", random_number)
 
@@ -99,64 +100,38 @@ while start_game:
                         print("")
                         print("***************************************************************************")
             elif choice == 2:
-                food_game = True
-                while food_game:
+                number_game = True
+                while number_game:
                     print("***************************************************************************") 
                     print("") 
-                    print("Welcome to Guess The Food!")
+                    print("Welcome to Guess a Number from 1-50!")
                     print("Hi",name,", here are the rules:")
-                    print("1. Guess a food")
-                    print("2. You have 4 guesses")
-                    print("3. After each incorrect guess you will recieve a hint of the food")
+                    print("1. Guess a number from 1 to 50")
+                    print("2. You have 8 guesses")
+                    print("3. After each incorrect guess you will recieve a hint of lower or higher")
                     print("Good Luck",name,"!")
                     print("")
                     print("***************************************************************************")
                     print("")
 
-                    list_of_food = ['cherry', 'strawberry', 'red apple', 'raspberry', 'cherry', 'plum', 'red cactus fruit', 'red passion fruit', 'red dragon fruit', 'lychee', 'red grapes']
-                    random_food = random.choice(list_of_food)
-                    number_of_guesses = 0 
-                    print(random_food)
+                    random_number = random.randint(1,50) #allows computer to choose a number between 1 and 50
+                    number_of_guesses = 0
+                    #print("The random number is", random_number)
 
-                    while number_of_guesses < 4: #makes user limited to 4 guesses
-                        guess = input("Guess a food: ") #make into int to allow it to be on the same line as a number
+                    while number_of_guesses < 8: #makes user limited to 5 guesses
+                        guess = int(input("Guess a number: ")) #make into int to allow it to be on the same line as a number
                         number_of_guesses += 1
-                        if guess == random_food:
-                            print("That is correct! The food was " + random_food + "!")
+                        if guess < random_number:
+                            print('The random number is higher')
+                        if guess > random_number:
+                            print('The random number is lower')
+                        if guess == random_number:
                             break
-                        else:
-                            print("Sorry that is inorrect")
-                        print("")
-                        print("Here is the first hint:")
-                        print("This food is a either a fruit or vegatable")
-                        number_of_guesses += 1
-                        guess2 = input("Guess a fruit or vegatable: ")
-                        if guess2 == random_food:
-                            print("That is correct! The food was " + random_food + "!")
-                            break
-                        else: 
-                            print("Sorry that is inorrect")
-                        print("")
-                        print("Here is the second hint:")
-                        print("This food is a fruit not a vegatable")
-                        number_of_guesses += 1
-                        guess3 = input("Guess a fruit: ")
-                        if guess3 == random_food:
-                            print("That is correct! The food was " + random_food + "!")
-                            break
-                        else: 
-                            print("Sorry that is inorrect")
-                        print("")
-                        print("Here is the last hint:")
-                        print("This fruit is red")
-                        number_of_guesses += 1
-                        guess4 = input("Guess a red fruit: ")
-                        if guess4 == random_food:
-                            print("That is correct! The food was " + random_food + "!")
-                            break
-                        else: 
-                            print("Sorry that is inorrect. The food was " + random_food + "!")
-                            break
+                    print("")
+                    if guess == random_number:
+                        print("You guessed the number! The number was " + str(random_number) + "!") #make number string to allow to be on the same line as letters
+                    else:
+                        print('Sorry, you did not guess the number. The number was ' + str(random_number) + ".")
                     print("")
                     print("***************************************************************************")
                     print("")
@@ -166,79 +141,53 @@ while start_game:
                     print("To play another game type or stop playing '2'")
                     play_again = int(input("Type your response here: "))
                     if play_again == 1: 
-                        animal_game=True
+                        number_game=True
                         print("")
                     elif play_again == 2:
                         print("Follow the instructions below to continue playing!")
                         all_games = False
-                        food_game = False
+                        number_game = False
                         print("")
                         print("***************************************************************************")
                     else:
                         print("Ok, see you later and thank you for playing!")
                         all_games = False
-                        food_game = False
+                        number_game = False
                         print("")
                         print("***************************************************************************")
             elif choice == 3:
-                animal_game = True
-                while animal_game:
+                number_game = True
+                while number_game:
                     print("***************************************************************************") 
                     print("") 
-                    print("Welcome to Guess The Animal!")
+                    print("Welcome to Guess a Number from 1-100!")
                     print("Hi",name,", here are the rules:")
-                    print("1. Guess an animal")
-                    print("2. You have 4 guesses")
-                    print("3. After each incorrect guess you will recieve a hint of the animal")
+                    print("1. Guess a number from 1 to 100")
+                    print("2. You have 10 guesses")
+                    print("3. After each incorrect guess you will recieve a hint of lower or higher")
                     print("Good Luck",name,"!")
                     print("")
                     print("***************************************************************************")
                     print("")
 
-                    list_of_animals = ['ethiopian wolf', 'black rhino', 'white rhino', 'mountain gorilla', 'african wild dog', "rothschild's giraffe", 'chimpanzee', "cuvier's atlas gazelle", 'cheetahs', 'pygmy hippo']
-                    random_animal = random.choice(list_of_animals)
-                    number_of_guesses = 0 
-                    print(random_animal)
+                    random_number = random.randint(1,100) #allows computer to choose a number between 1 and 50
+                    number_of_guesses = 0
+                    #print("The random number is", random_number)
 
-                    while number_of_guesses < 4: #makes user limited to 4 guesses
-                        guess = input("Guess an animal: ") #make into int to allow it to be on the same line as a number
+                    while number_of_guesses < 10: #makes user limited to 5 guesses
+                        guess = int(input("Guess a number: ")) #make into int to allow it to be on the same line as a number
                         number_of_guesses += 1
-                        if guess == random_animal:
-                            print("That is correct! The animal was " + random_animal + "!")
+                        if guess < random_number:
+                            print('The random number is higher')
+                        if guess > random_number:
+                            print('The random number is lower')
+                        if guess == random_number:
                             break
-                        else:
-                            print("Sorry that is inorrect")
-                        print("")
-                        print("Here is the first hint:")
-                        print("This animal lives in Africa")
-                        number_of_guesses += 1
-                        guess2 = input("Guess an animal: ")
-                        if guess2 == random_animal:
-                            print("That is correct! The animal was " + random_animal + "!")
-                            break
-                        else: 
-                            print("Sorry that is inorrect")
-                        print("")
-                        print("Here is the second hint:")
-                        print("This animal is a mammal")
-                        number_of_guesses += 1
-                        guess3 = input("Guess an animal: ")
-                        if guess3 == random_animal:
-                            print("That is correct! The animal was " + random_animal + "!")
-                            break
-                        else: 
-                            print("Sorry that is inorrect")
-                        print("")
-                        print("Here is the last hint:")
-                        print("This animal is endangered")
-                        number_of_guesses += 1
-                        guess4 = input("Guess an animal: ")
-                        if guess4 == random_animal:
-                            print("That is correct! The animal was " + random_animal + "!")
-                            break
-                        else: 
-                            print("Sorry that is inorrect. The animal was " + random_animal + "!")
-                            break
+                    print("")
+                    if guess == random_number:
+                        print("You guessed the number! The number was " + str(random_number) + "!") #make number string to allow to be on the same line as letters
+                    else:
+                        print('Sorry, you did not guess the number. The number was ' + str(random_number) + ".")
                     print("")
                     print("***************************************************************************")
                     print("")
@@ -248,18 +197,18 @@ while start_game:
                     print("To play another game type or stop playing '2'")
                     play_again = int(input("Type your response here: "))
                     if play_again == 1: 
-                        animal_game=True
+                        number_game=True
                         print("")
                     elif play_again == 2:
                         print("Follow the instructions below to continue playing!")
                         all_games = False
-                        animal_game = False
+                        number_game = False
                         print("")
                         print("***************************************************************************")
                     else:
                         print("Ok, see you later and thank you for playing!")
                         all_games = False
-                        animal_game = False
+                        number_game = False
                         print("")
                         print("***************************************************************************")
             else:
@@ -276,7 +225,8 @@ while start_game:
             print("your highest score is "+ str(score)) #this is to display the highest score 
             sce =str(high)
             scrLine = str(sce)+"\t "+name + "\t" + date.strftime("%m-%d-%Y")+ "\n"
-            myFile = open("guess_game.txt",'a') #this opens the file to write 
+            myFile = open("number_game.txt",'a') #this opens the file to write 
             myFile.write(scrLine)
+            score.sort(reverse=True)
             myFile.close()
 
