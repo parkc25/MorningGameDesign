@@ -3,7 +3,7 @@
 #Randomly select a word
 #ask the user to guess the word (give a hint about what kind of words you are using: fruits, animals,etc)
 #If they guess right congratulate them if mot say sorry "you missed"
-from datetime import date
+from datetime import date, datetime
 from operator import truediv
 import os
 import random
@@ -273,5 +273,9 @@ while start_game:
             number_of_guesses == 0
             print("your highest score is "+ str(score)) #this is to display the highest score 
             myFile = open("guess_game.txt",'w') #this opens the file to write 
-            myFile.write(str(score) + "\t"+name+"\t"+ date.strftime("%m/%d/%Y")) #SOMETHING WRONG HERE
+            myFile = open("scre.txt", 'w') 
+            myFile.write(str(score))
+            myFile.write("\t"+name+"\t")
+            myFile.write(date.strftime("%m/%d/%Y"))
             myFile.close()
+
