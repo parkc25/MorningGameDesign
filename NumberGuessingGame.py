@@ -212,7 +212,6 @@ while start_game:
     print("")
     all_games = True
     while all_games:
-        high = 0
         while True:
             answer = input("Would you like to play? ")
             if "no" in answer:
@@ -229,10 +228,8 @@ while start_game:
             else:
                 print("Sorry we don't have that game please choose from 1, 2, or 3!")
 
-            
+            high=1880
             score= 2000-40*number_of_guesses 
-            if score > high:
-                high=score
             print(name+ " your score is "+str(score))    
             input("press enter") #spaces out program a bit, makes them press enter to continue 
             os.system('cls')
@@ -240,10 +237,11 @@ while start_game:
             print("Thank you for playing my game" )
             number_of_guesses == 0
             print("your highest score is "+ str(score)) #this is to display the highest score 
-            sce =str(high)
-            scrLine = str(sce)+"\t "+name + "\t" + date.strftime("%m-%d-%Y")+ "\n"
-            myFile = open("number_game.txt",'a') #this opens the file to write 
-            myFile.write(scrLine)
+            if score > high:
+                sce =str(high)
+                scrLine = str(sce)+"\t "+name + "\t" + date.strftime("%m-%d-%Y")+ "\n"
+                myFile = open("number_game.txt",'a') #this opens the file to write 
+                myFile.write(scrLine)
             score.sort(reverse=True)
             myFile.close()
 
