@@ -274,8 +274,13 @@ while start_game:
             print("Thank you for playing my game" )
             number_of_guesses == 0
             print("your highest score is "+ str(score)) #this is to display the highest score 
+            sce =str(high)
+            scrLine = str(sce)+"\t "+name + "\t" + date.strftime("%m-%d%Y")+ "\n"
             myFile = open("guess_game.txt",'w') #this opens the file to write 
-            myFile = open("scre.txt", 'w') 
-            myFile.write(str(score+"\t"+name+"\t"+date.strftime("%m/%d/%Y")))
+            myFile.write(scrLine)
+            stuff=myFile.readlines()
+            sorted = stuff.sort(reverse=True)
             myFile.close()
+            for line in sorted:
+                print(line)
 
