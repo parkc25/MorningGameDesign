@@ -1,0 +1,11 @@
+***************************************************************************
+ 
+Here are the rules:
+1. Guess a number
+2. You will recieve a hint of higher or lower after each guess
+3. For level 1 you are limited to 5 gueses
+4. For level 2 you are limited to 8 gueses
+5. For level 3 you are limited to 10 gueses
+Have fun and good luck!
+ 
+***************************************************************************
