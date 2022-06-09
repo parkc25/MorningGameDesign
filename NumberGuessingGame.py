@@ -34,14 +34,13 @@ while MENU:
     print("Welcome ot Guess a Number!")
     name = input("What is your name? ")
     print("Hi",name)
-    rules = input("Would you like to see the rules? ")
-    if rules == ('yes' or 'Yes'):
-        instructions()
-    print("There are three levels to this game")
-    print("Pick a level and have fun!")
-    print("1. Guessing from 1-25")
-    print("2. Guessing from 1-50")
-    print("3. GUessing from 1-100")
+    print("Choose a selection")
+    print("1. Instructions")
+    print("2. Guessing from 1-25")
+    print("3. Guessing from 1-50")
+    print("4. GUessing from 1-100")
+    print("5. Print Score")
+    print("Exit")
     print("Good Luck " + name + "!")
     print("")
     print("***************************************************************************")
@@ -49,13 +48,11 @@ while MENU:
     games = True
     while games:
         while True:
-            answer = input("Would you like to play? ")
-            if "no" in answer:
-                print("See you next time!")
-                sys.exit()
-            choice = input("What game do you want to play? 1, 2, or 3? ")
+            choice = input("What is your selection? ")
             choice=int(choice)
-            if choice == 1:
+            if choice ==1:
+                instructions()
+            elif choice == 2:
                 print("") 
                 print("***************************************************************************") 
                 print("") 
@@ -82,7 +79,7 @@ while MENU:
                 else:
                     print('Sorry, you ran out of guesses. The number was ' + str(random_number) + ".")
 
-            elif choice == 2:
+            elif choice == 3:
                 print("") 
                 print("***************************************************************************") 
                 print("") 
@@ -109,7 +106,7 @@ while MENU:
                 else:
                     print('Sorry, you ran out of guesses. The number was ' + str(random_number) + ".")
 
-            elif choice == 3:
+            elif choice == 4:
                 print("") 
                 print("***************************************************************************") 
                 print("") 
@@ -135,20 +132,22 @@ while MENU:
                     print("You guessed the number! The number was " + str(random_number) + "!") #make number string to allow to be on the same line as letters
                 else:
                     print('Sorry, you ran out of guesses. The number was ' + str(random_number) + ".")
-
+            elif choice ==5:
+                score= 2000-40*number_of_guesses 
+                print(name+ " your score is "+str(score))    
+                input("press enter") #spaces out program a bit, makes them press enter to continue 
+                os.system('cls')
+                print("***************************************************************************")
+                print("Thank you for playing my game" )
+                number_of_guesses == 0
+                print("your highest score is "+ str(score)) #this is to display the highest score 
+                scrLine = str(score)+"\t "+name + "\t" + date.strftime("%m-%d-%Y")+ "\n"
+                myFile = open("number_game.txt",'a') #this opens the file to write 
+                myFile.write(scrLine)
+                myFile.close()
+            elif choice ==6:
+                print("See you next time!")
+                sys.exit()
             else:
-                print("Sorry we don't have that game please choose from 1, 2, or 3!")
-
-            score= 2000-40*number_of_guesses 
-            print(name+ " your score is "+str(score))    
-            input("press enter") #spaces out program a bit, makes them press enter to continue 
-            os.system('cls')
-            print("***************************************************************************")
-            print("Thank you for playing my game" )
-            number_of_guesses == 0
-            print("your highest score is "+ str(score)) #this is to display the highest score 
-            scrLine = str(score)+"\t "+name + "\t" + date.strftime("%m-%d-%Y")+ "\n"
-            myFile = open("number_game.txt",'a') #this opens the file to write 
-            myFile.write(scrLine)
-            myFile.close()
+                print("Sorry, please choose from 1, 2, 3, 4, 5, or 6!")
 
