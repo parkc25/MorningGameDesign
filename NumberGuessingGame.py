@@ -31,16 +31,16 @@ MENU = True
 while MENU:
     print("***************************************************************************") 
     print("") 
-    print("Welcome ot Guess a Number!")
+    print("Welcome to Guess a Number!")
     name = input("What is your name? ")
     print("Hi",name)
-    print("Choose a selection")
+    print("Choose a selection below:")
     print("1. Instructions")
     print("2. Guessing from 1-25")
     print("3. Guessing from 1-50")
     print("4. GUessing from 1-100")
     print("5. Print Score")
-    print("Exit")
+    print("6. Exit")
     print("Good Luck " + name + "!")
     print("")
     print("***************************************************************************")
@@ -119,7 +119,7 @@ while MENU:
                 random_number = random.randint(1,100) #allows computer to choose a number between 1 and 50
                 number_of_guesses = 0
 
-                while number_of_guesses < 5: #makes user limited to 5 guesses
+                while number_of_guesses < 10: #makes user limited to 5 guesses
                     guess = int(input("Guess a number: ")) #make into int to allow it to be on the same line as a number
                     number_of_guesses += 1
                     if guess < random_number:
