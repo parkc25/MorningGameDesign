@@ -36,6 +36,13 @@ wb = 50
 xb = 100
 yb = 300
 square = (xb,yb,wb,hb) #creat the object to draw
+hb = 100 
+wb = 100
+xb = 50 
+yb = 150
+ab = 200 
+ac = 100
+polygon = [(xb,yb),(wb,hb),(ab,ac)]
 backgroundColor = greenColor
 run = True
 while run: 
@@ -49,4 +56,5 @@ while run:
     pygame.draw.rect(screen, blueColor, square)
     #circle(surface, color, center, radius)
     pygame.draw.circle(screen, purpleColor, [350,350], 25)
+    pygame.draw.polygon(screen, redColor, polygon)
     pygame.display.update()
