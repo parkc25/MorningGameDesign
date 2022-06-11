@@ -50,8 +50,6 @@ def redrawGameWindow():
         walkCount = 0
         
     pygame.display.update() 
-    
-
 
 run = True
 
@@ -94,6 +92,5 @@ while run:
             isJump = False
 
     redrawGameWindow() 
-    
     
 pygame.quit()
