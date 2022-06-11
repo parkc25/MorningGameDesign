@@ -12,12 +12,12 @@
 
 from operator import truediv
 import os
-from random
+import random
+import math
 from turtle import width
 os.system('cls')
 
 import pygame
-import time
 pygame.init() #initialize the pygame package 
 
 #making dimentions 
@@ -43,30 +43,42 @@ blueColor = (0,0,255)
 #pygame.time.delay(1000)
 #to make it keep running create a loop 
 purpleColor = (125,0,125)
+
+#images
+bg = pygame.image.load('pygame files\Images\pygame background.jpg')
+character = pygame.image.load('pygame files\Images\character image.png')
+character = pygame.transform.scale(character, (64,64))
+# screen.blit(bg)
+# pygame.display.update()
+# pygame.time.delay(5000)
+
+#square dimentions
 hb = 50 
 wb = 50 
 xb = 100
 yb = 300
-square = pygame.Rect(xb,yb,wb,hb) #creat the object to draw
-hb = 100 
-wb = 100
-xb = 200
-yb = 200
-ab = 150 
-ac = 150
-ba = 250 
-bb = 250 
-ca = 300 
-cb = 300
-polygon = [(xb,yb),(wb,hb),(ab,ac), (ba, bb), (ca,cb)]
+
+#character dimentions
+charx = 300
+chary = 150 
+
+#circle dimentions 
 rad = 25
 cx = 350
 cy = 350 
+#incribred square dimentions 
+ibox = rad*math.sqrt(2)
+a = cx-(ibox/2)
+b = cy-(ibox/2)
+
+square = pygame.Rect(xb,yb,wb,hb) #creat the object to draw
+insSquare = pygame.Rect(a,b,ibox,ibox)
 backgroundColor = clr
 run = True
 speed=2
 while run: 
-    screen.fill(backgroundColor)
+    # screen.fill(backgroundColor)
+    screen.blit(bg,(0,0))
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
             run = False
@@ -82,26 +94,49 @@ while run:
         square.y -= speed
     if keys[pygame.K_DOWN] and square.y <HEIGHT - hb:  #means clser t max value HEIGHT
         square.y += speed
-
 #move circle 
     keys = pygame.key.get_pressed() #have to make variables for circle becuase it can only be drawn 
     if keys[pygame.K_d] and cx <WIDTH - (rad):
         cx += speed
+        insSquare.x += speed
     if keys[pygame.K_a] and cx> (speed+rad):
         cx -= speed
+        insSquare.x -= speed
     if keys[pygame.K_w] and cy > (speed+rad):
         cy -= speed
+        insSquare.x -= speed
     if keys[pygame.K_s] and cy < HEIGHT -(rad):
         cy += speed
-    if square.collidepoint(cx,cy):
-        print("BOOM!")
-        cx.random.radiant(rad, WIDTH-rad)
-        cy.random.radiant(rad, HEIGHT-rad)
+        insSquare.x += speed
+#move character
+    keys = pygame.key.get_pressed() #have to make variables for circle becuase it can only be drawn 
+    if keys[pygame.K_d] and charx <WIDTH - (rad):
+        charx += speed
+        insSquare.x += speed
+    if keys[pygame.K_a] and charx> (speed+rad):
+        charx -= speed
+        insSquare.x -= speed
+    if keys[pygame.K_w] and chary > (speed+rad):
+        chary -= speed
+        insSquare.x -= speed
+    if keys[pygame.K_s] and chary < HEIGHT -(rad):
+        chary += speed
+        insSquare.x += speed
+
+    if square.colliderect(insSquare):
+        print("BOOM")
+        rad+=1
+        cx=random.randint(rad, WIDTH-rad)
+        cy=random.randint(rad, HEIGHT-rad)
+        ibox = rad*math.sqrt(2)
+        xig = cx-(ibox/2)
+        yig = cy-(ibox/2)
+        insSquare=pygame.Rect(a,b,ibox,ibox)
 
     ##rect(surface, color, rect)
-    pygame.draw.rect(screen, blueColor, square)
+    pygame.draw.rect(screen, redColor, square)
+    screen.blit(character,(charx,chary))
     #circle(surface, color, center, radius)
     pygame.draw.circle(screen, purpleColor, (cx,cy), rad)
-    pygame.draw.polygon(screen, redColor, polygon)
+    pygame.draw.rect(screen, redColor, insSquare)
     pygame.display.update()
-
