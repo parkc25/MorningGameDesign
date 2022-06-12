@@ -72,8 +72,8 @@ def compare_scores(card1, card2):
 
 player1 = input("Please enter player 1's name: ")
 player2 = input("Please enter player 2's name: ")
-player1_score = 0
-player2_score = 0
+player1_score = 26
+player2_score = 26
 player1_deck = []
 player2_deck = []
 
@@ -83,36 +83,39 @@ while True:
     player1_card = draw_card(player1)
     player2_card = draw_card(player2)
     #compare cards 
-    if player1_card[0] > player2_card[0]:
-        winner = player1
+    compare_cards = compare_scores(player1_card, player2_card)
+    if compare_cards == 1:
+        print(player1 +" has the higher card!")
+        player1_deck.append(player1_card)
+        player1_deck.append(player2_card)
         player1_score += 2
-    elif player1_card[0] < player2_card[0]:
-        winner = player2
-        player2_score += 2
-    else:
-        winner = "Tie, draw again!"
-    print(winner + ' wins!')      
-
+        player2_score -= 2
+        print(player1 + ": " +str(player1_score) +" vs. " + player2 + ": " + str(player2_score))
+        print("")
+    elif compare_cards == 2:
+        print(player1 +" has the higher card!")
+        player2_deck.append(player1_card)
+        player2_deck.append(player2_card)
+        player1_score += 2
+        player2_score -= 2
+        print(player1 + ": " +str(player1_score) +" vs. " + player2 + ": " + str(player2_score))
+        print("")
     #if tie
-    print("War!!!")
-    war_pool = [player1_card, player2_card]
-    while compare_cards ==0:
-        player1_card = player_turn(player1, playerCards)
-        player2_card = player_turn(player2, playerCards)
-
-        war_pool.append(player1_card)
-        war_pool.append(player2_card)
-        compare_cards = compare_scores(player1_card, player2_card)
-
-        if compare_cards ==1:
-            print(player1 + "has the higher card!")
-            player1_deck.extend(war_pool)
+    elif compare_cards == 0:
+        print("War!!!")
+        war_pool = [player1_card, player2_card]
+        compare_cards = compare_scores(war_pool)
+        if compare_cards == 1:
+            print(player1 +" has the higher card!")
+            player1_deck.append(player1_card)
+            player1_deck.append(player2_card)
             player1_score = len(player1_deck)
             print(player1 + ": " +str(player1_score) +" vs. " + player2 + ": " + str(player2_score))
             print("")
-        elif compare_cards ==2:
-            print(player2 + "has the higher card!")
-            player2_deck.extend(war_pool)
+        elif compare_cards == 2:
+            print(player1 +" has the higher card!")
+            player2_deck.append(player1_card)
+            player2_deck.append(player2_card)
             player2_score = len(player2_deck)
             print(player1 + ": " +str(player1_score) +" vs. " + player2 + ": " + str(player2_score))
             print("")
