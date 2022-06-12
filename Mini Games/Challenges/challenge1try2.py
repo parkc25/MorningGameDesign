@@ -33,6 +33,7 @@ def create_DECK():
             counter +=1
         print()
     #deck before shuffling
+    print("Deck: ", end=' ')
     print(deck)
     print("")
 create_DECK()
@@ -47,9 +48,9 @@ def playerCards():
             player1_deck.append(deck[l])
         else:
             player2_deck.append(deck[l])
-    print("player1 ",player1_deck)
+    print(player1 + ": " +player1_deck)
     print()
-    print("player2 ",player2_deck)
+    print(player2 + ": ",player2_deck)
     #I also want to see what the deck looks like before shuffling. We should have
         #done that a while ago... oh well! 
 playerCards()
@@ -79,6 +80,10 @@ while game < 50:
         winner = player1
         print(player1 +" has the higher card!")
         player1_score += 2
+        player1_deck.append(player2_card)
+        player1_deck.append(player1_card)
+        print(player1_deck) #WONT ADD TO DECK -> MAKES NEW DECK INSTEAD 
+        print(player2_deck)
         player2_score -= 2
         print(player1 + ": " +str(player1_score) +" vs. " + player2 + ": " + str(player2_score))
         print("")
@@ -87,8 +92,13 @@ while game < 50:
         print(player2 +" has the higher card!")
         player1_score -= 2
         player2_score += 2
+        player2_deck.append(player1_card)
+        player2_deck.append(player2_card)
+        print(player1_deck)
+        print(player2_deck)
         print(player1 + ": " +str(player1_score) +" vs. " + player2 + ": " + str(player2_score))
         print("")
+
     #if tie
     while player1_card == player2_card:
         player1_card = draw_card(player1)
