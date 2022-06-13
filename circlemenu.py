@@ -26,7 +26,7 @@ WIDTH=700 #like constant
 HEIGHT=700
 colors={"white":(255,255,255),"pink":(255,0,255),"blue":(0,0,255),"limeGreen":(153,255,51)}
 clr=colors.get("limeGreen")
-message = ['Instructions', 'Settings', 'Game 1', 'Game 2', 'Scoreboard', 'Exit']
+message = ['       Instructions', '       Settings', '       Game 1', '       Game 2', '       Scoreboard', '       Exit']
 #create dispay wind with any name y like
 screen=pygame.display.set_mode((WIDTH,HEIGHT)) 
 pygame.display.set_caption("My First Game")  #change the title of my window
@@ -57,9 +57,13 @@ ibox = rad*math.sqrt(2)
 xig = cx-(ibox/2)
 yig = cy-(ibox/2)
 
-#mouse varuables
+#instruction variables
 mx = 0
 my = 0
+
+#setting variables
+sx = 0
+sy = 0
 
 square=pygame.Rect(xb,yb,wb,hb)# create the object to draw
 insSquare=pygame.Rect(xig,yig,ibox,ibox)
@@ -83,11 +87,20 @@ def menu():
         pygame.display.update()
         pygame.time.delay(50)
         ymenu += 50
-    pygame.time.delay(5000)  
 
-    #creating instruction button 
-    Button_instruct = pygame.Rect(200, 400, 100, 50)
+    #creating buttons
+    Button_instruct = pygame.Rect(25, 150, 40, 40)
+    Button_settings = pygame.Rect(25, 200, 40, 40)
+    Button_game1 = pygame.Rect(25, 250, 40, 40)
+    Button_game2 = pygame.Rect(25, 300, 40, 40)
+    Button_score = pygame.Rect(25, 350, 40, 40)
+    Button_exit = pygame.Rect(25, 400, 40, 40)
     pygame.draw.rect(screen, colors.get("pink"), Button_instruct)
+    pygame.draw.rect(screen, colors.get("pink"), Button_settings)
+    pygame.draw.rect(screen, colors.get("pink"), Button_game1)
+    pygame.draw.rect(screen, colors.get("pink"), Button_game2)
+    pygame.draw.rect(screen, colors.get("pink"), Button_score)
+    pygame.draw.rect(screen, colors.get("pink"), Button_exit)
 
     pygame.display.update()
     while True:
@@ -100,8 +113,32 @@ def menu():
                 mx = mousePos[0]
                 my = mousePos[1]
                 if Button_instruct.collidepoint((mx, my)):
-                    return True
+                    Instructions()
+                if Button_settings.collidepoint((25, 200)):
+                    settings()
+                if Button_game1.collidepoint((mx, my)):
+                    pass
+                if Button_game2.collidepoint((mx, my)):
+                    pass
+                if Button_score.collidepoint((mx, my)):
+                    pass
+                if Button_exit.collidepoint((mx, my)):
+                    pass
 
+def settings():
+    Title = TITLE_FONT.render("Settings", 1, colors.get("blue"))
+    text_music = MENU_FONT.render("Music: ", 1, colors.get("blue"))
+    text1 = MENU_FONT.render("Yes", 1, colors.get("blue"))
+    text2 = MENU_FONT.render("No", 1, colors.get("blue"))
+
+    #fills screen with white
+    screen.fill(colors.get("white"))
+
+    #creating button options
+    Button_1 = pygame.Rect(100, 150, 75, 75)
+    Button_2 = pygame.Rect(100, 150, 75, 75)
+    pygame.draw.rect(screen, colors.get("limeGreen"), Button_1)
+    pygame.draw.rect(screen, colors.get("limeGreen"), Button_2)  
 
 def Instructions():
     #rendering text objects
