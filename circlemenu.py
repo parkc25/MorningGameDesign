@@ -26,6 +26,7 @@ WIDTH=700 #like constant
 HEIGHT=700
 colors={"white":(255,255,255),"pink":(255,0,255),"blue":(0,0,255),"limeGreen":(153,255,51)}
 clr=colors.get("limeGreen")
+message = ['Instructions', 'Settings', 'Game 1', 'Game 2', 'Scoreboard', 'Exit']
 #create dispay wind with any name y like
 screen=pygame.display.set_mode((WIDTH,HEIGHT)) 
 pygame.display.set_caption("My First Game")  #change the title of my window
@@ -70,7 +71,37 @@ run = True
 Game = False
 
 def menu():
-    Title = TITLE_FONT.render("Circle eats Square", 1, colors.gte("blue"))
+    #gets names for stuff on menu
+    Title = TITLE_FONT.render("Circle eats Square", 1, colors.get("blue"))
+    screen.fill(colors.get("white"))
+    xd = WIDTH//2 - (Title.get_width()//2)
+    screen.blit(Title, (xd, 50))
+    ymenu = 155
+    for item in message:
+        text = MENU_FONT.render(item, 1, colors.get('blue'))
+        screen.blit(text, (40, ymenu))
+        pygame.display.update()
+        pygame.time.delay(50)
+        ymenu += 50
+    pygame.time.delay(5000)  
+
+    #creating instruction button 
+    Button_instruct = pygame.Rect(200, 400, 100, 50)
+    pygame.draw.rect(screen, colors.get("pink"), Button_instruct)
+
+    pygame.display.update()
+    while True:
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                run=False
+                print("Y quit")
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mousePos = pygame.mouse.get_pos()
+                mx = mousePos[0]
+                my = mousePos[1]
+                if Button_instruct.collidepoint((mx, my)):
+                    return True
+
 
 def Instructions():
     #rendering text objects
@@ -122,7 +153,7 @@ def Instructions():
                     return True
                 if Button_2.collidepoint((mx, my)):
                     return False
-
+menu()
 run = Instructions()
 
 while run:
