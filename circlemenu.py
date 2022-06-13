@@ -100,7 +100,7 @@ def menu():
             if event.type==pygame.QUIT:
                 run=False
                 print("Y quit")
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            elif event.type == pygame.MOUSEBUTTONDOWN:
                 mousePos = pygame.mouse.get_pos()
                 mx = mousePos[0]
                 my = mousePos[1]
@@ -118,25 +118,59 @@ def menu():
                 gy = mousePos[1]
                 if Button_game1.collidepoint((gx, gy)):
                     pass
-            elif Button_game2.collidepoint((mx, my)):
-                pass
-            elif Button_score.collidepoint((mx, my)):
-                pass
-            elif Button_exit.collidepoint((mx, my)):
-                pass
+            # elif Button_game2.collidepoint((mx, my)):
+            #     pass
+            # elif Button_score.collidepoint((mx, my)):
+            #     pass
+            # elif Button_exit.collidepoint((mx, my)):
+            #     pass
 
 def settings():
-    screen.fill(colors.get("white"))
-    Title = TITLE_FONT.render("Settings", 1, colors.get("blue"))
-    text_music = MENU_FONT.render("Music: ", 1, colors.get("blue"))
+    Title = TITLE_FONT.render("Instructions", 1, colors.get("blue"))
     text1 = MENU_FONT.render("Yes", 1, colors.get("blue"))
     text2 = MENU_FONT.render("No", 1, colors.get("blue"))
 
+    #fills screen with white
+    screen.fill(colors.get("white"))
+
     #creating button options
-    Button_1 = pygame.Rect(100, 150, 75, 75)
-    Button_2 = pygame.Rect(100, 150, 75, 75)
+    Button_1 = pygame.Rect(200, 400, 100, 50)
+    Button_2 = pygame.Rect(400, 400, 100, 50)
     pygame.draw.rect(screen, colors.get("limeGreen"), Button_1)
-    pygame.draw.rect(screen, colors.get("limeGreen"), Button_2)  
+    pygame.draw.rect(screen, colors.get("limeGreen"), Button_2)
+
+    #Instructions
+    myFile = open("instruction.txt", "r")
+    content = myFile.readlines()
+
+    #var to controll change of line
+    yinstructions = 150
+    for line in content:
+        Instruc = MENU_FONT.render(line[0:-1], 1, colors.get("blue"))
+        screen.blit(Instruc, (40, yinstructions))
+        pygame.display.update()
+        pygame.time.delay(50)
+        yinstructions += 40
+
+    myFile.close()
+
+    # #renderig fonts to the screen
+    # xd = WIDTH//2 - (Title.get_width()//2)
+    # screen.blit(Title, (xd, 50))
+    # screen.blit(text1, (225, 410))
+    # screen.blit(text2, (425, 410))
+
+    # screen.fill(colors.get("white"))
+    # Title = TITLE_FONT.render("Settings", 1, colors.get("blue"))
+    # text_music = MENU_FONT.render("Music: ", 1, colors.get("blue"))
+    # text1 = MENU_FONT.render("Yes", 1, colors.get("blue"))
+    # text2 = MENU_FONT.render("No", 1, colors.get("blue"))
+
+    # #creating button options
+    # Button_1 = pygame.Rect(100, 150, 75, 75)
+    # Button_2 = pygame.Rect(100, 150, 75, 75)
+    # pygame.draw.rect(screen, colors.get("limeGreen"), Button_1)
+    # pygame.draw.rect(screen, colors.get("limeGreen"), Button_2)  
 
 def Instructions():
     #rendering text objects
