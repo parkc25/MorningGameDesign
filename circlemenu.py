@@ -1,7 +1,8 @@
-#Christan Park 
-# June 9th, 2022 
-#we are learning pygame's basic functions, 
-#creating screen, clrs, and shapes 
+#Christan Park
+#6/9/2022
+#We are learning pygame basic functins, 
+# creating screens, clrs, shape ,move 
+# move  the square
 # K_UP                  up arrow
 # K_DOWN                down arrow
 # K_RIGHT               right arrow
@@ -10,166 +11,158 @@
 #picture = pygame. transform. scale(picture, (1280, 720))
 #bg=pygame.image.load('ClassStuff\CircleEatsSquare\Images\\bgSmaller.jpg')
 
-from operator import truediv
-import os
-import random
-import math
-from turtle import width
-import xdrlib
-os.system('cls')
+import re
+from tkinter import Button
+import pygame, time,os,random, math
+pygame.init()#initialize the pygame package
 
-import pygame
-pygame.init() #initialize the pygame package 
-
-#finding fonts you have 
 # print(pygame.font.get_fonts())
-# pygame.time.delay(5000)
+# pygame.time.delay(10000)
 TITLE_FONT = pygame.font.SysFont('comicsans', 40)
 MENU_FONT = pygame.font.SysFont('comicsans', 20)
 
-
-#making dimentions 
-WIDTH = 700 #like a constant 
-HEIGHT = 700
-colors = {'white':(255,255,255), 'pink':(255,0,255), 'blue': (0,204,204)}
-clr = colors.get('white')
-#creating display window with any name you want
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("My First Pygame") #change title of the window
-pygame.time.delay(1000) #set time the window shows up 
-redColor = (255,0,0)
-#screen.fill(redColor)
-#pygame.display.update()
-#pygame.time.delay(1000)
-greenColor = (0,255,0)
-#screen.fill(greenColor)
-#pygame.display.update()
-#pygame.time.delay(1000)
-blueColor = (0,0,255)
-#screen.fill(blueColor)
-#pygame.display.update()
-#pygame.time.delay(1000)
-#to make it keep running create a loop 
-purpleColor = (125,0,125)
+os.system('cls')
+WIDTH=700 #like constant
+HEIGHT=700
+colors={"white":(255,255,255),"pink":(255,0,255),"blue":(0,0,255),"limeGreen":(153,255,51)}
+clr=colors.get("limeGreen")
+#create dispay wind with any name y like
+screen=pygame.display.set_mode((WIDTH,HEIGHT)) 
+pygame.display.set_caption("My First Game")  #change the title of my window
 
 #images
-bg = pygame.image.load('pygame files\Images\pygame background.jpg')
-character = pygame.image.load('pygame files\Images\character image.png')
-character = pygame.transform.scale(character, (64,64))
-# screen.blit(bg)
+bg=pygame.image.load('pygame files\Images\pygame background.jpg')
+char = pygame.image.load('pygame files\Images\character image.png')
+char = pygame.transform.scale(char, (50, 50))
+# screen.blit(bg, (0,0))
 # pygame.display.update()
 # pygame.time.delay(5000)
 
-#square dimentions
-hb = 50 
-wb = 50 
-xb = 100
-yb = 300
 
-#character dimentions
-charx = 300
-chary = 150 
+#square Var
+hb=50
+wb=50
+xb=100
+yb=300
 
-#circle dimentions 
-rad = 25
-cx = 350
-cy = 350 
-#incribred square dimentions 
-ibox = rad*math.sqrt(2)
-a = cx-(ibox/2)
-b = cy-(ibox/2)
+charx = xb
+chary = yb
 
-square = pygame.Rect(xb,yb,wb,hb) #creat the object to draw
-insSquare = pygame.Rect(a,b,ibox,ibox)
-backgroundColor = clr
-run = True
+cx=350
+cy=350
+rad=25
 speed=2
+ibox = rad*math.sqrt(2)
+xig = cx-(ibox/2)
+yig = cy-(ibox/2)
+
+#mouse varuables
+mx = 0
+my = 0
+
+square=pygame.Rect(xb,yb,wb,hb)# create the object to draw
+insSquare=pygame.Rect(xig,yig,ibox,ibox)
+squareClr=colors.get("pink")
+#keep running create a lp
+circleClr=colors.get("blue")
+backgrnd=colors.get("limeGreen")
+run = True
+Game = False
+
+def menu():
+    Title = TITLE_FONT.render("Circle eats Square", 1, colors.gte("blue"))
 
 def Instructions():
-    #creating text objects
-    title = TITLE_FONT.render("Instructions", 1, purpleColor)
-    text_1 = MENU_FONT.render('Yes', 1, colors.get('white'))
-    text_2 = MENU_FONT.render('No', 1, colors.get('white'))
-    #putting background
-    screen.fill(colors.get("white"))
-    #creating buttons
-    button_1 = pygame.Rect(200,400,100,50)
-    button_2 = pygame.Rect(400,400,100,50)
-    pygame.draw.rect(screen, colors.get("pink"), button_1)
-    pygame.draw.rect(screen, colors.get("pink"), button_2)
+    #rendering text objects
+    Title = TITLE_FONT.render("Instructions", 1, colors.get("blue"))
+    text1 = MENU_FONT.render("Yes", 1, colors.get("blue"))
+    text2 = MENU_FONT.render("No", 1, colors.get("blue"))
 
-    #instructions
-    myFile = open("instruction.txt", 'r')  
+    #fills screen with white
+    screen.fill(colors.get("white"))
+
+    #creating button options
+    Button_1 = pygame.Rect(200, 400, 100, 50)
+    Button_2 = pygame.Rect(400, 400, 100, 50)
+    pygame.draw.rect(screen, colors.get("limeGreen"), Button_1)
+    pygame.draw.rect(screen, colors.get("limeGreen"), Button_2)
+
+    #Instructions
+    myFile = open("instruction.txt", "r")
     content = myFile.readlines()
-    #variable to controll change of line
-    yi = 150
+
+    #var to controll change of line
+    yinstructions = 150
     for line in content:
-        instruct = MENU_FONT.render(line[0:-1], 1, blueColor)
-        screen.blit(instruct, (40, yi))
+        Instruc = MENU_FONT.render(line[0:-1], 1, colors.get("blue"))
+        screen.blit(Instruc, (40, yinstructions))
+        pygame.display.update()
         pygame.time.delay(50)
-        yi += 40
+        yinstructions += 40
+
     myFile.close()
 
-    #rendering fonts to the screen 
-    xd = WIDTH//2- (title.get_width()//2)
-    screen.blit(title, (xd,50))
-    screen.blit(text_1, (230,410))
-    screen.blit(text_2, (435,410))
+    #renderig fonts to the screen
+    xd = WIDTH//2 - (Title.get_width()//2)
+    screen.blit(Title, (xd, 50))
+    screen.blit(text1, (225, 410))
+    screen.blit(text2, (425, 410))
 
     pygame.display.update()
-    pygame.time.delay(5000)
+    while True:
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                run=False
+                print("Y quit")
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mousePos = pygame.mouse.get_pos()
+                mx = mousePos[0]
+                my = mousePos[1]
+                if Button_1.collidepoint((mx, my)):
+                    return True
+                if Button_2.collidepoint((mx, my)):
+                    return False
 
-Instructions()
+run = Instructions()
 
-
-while run: 
-    # screen.fill(backgroundColor)
-    screen.blit(bg,(0,0))
+while run:
+    # screen.fill(backgrnd)
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
-            run = False
+            run=False
             print("Y quit")
         if event.type == pygame.MOUSEBUTTONDOWN:
-            mousePos = pygame.mouse.get_pos
-
-#move square
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_RIGHT] and square.x < WIDTH - wb:
+            mousePos = pygame.mouse.get_pos()
+            mx = mousePos[0]
+            my = mousePos[1]
+    screen.blit(bg, (0,0))
+    keys= pygame.key.get_pressed() #this is a list
+    #mve square
+    if keys[pygame.K_RIGHT] and square.x < WIDTH -(wb):
         square.x += speed
+        charx += speed
     if keys[pygame.K_LEFT] and  square.x > speed:
         square.x -= speed
+        charx -= speed
     if keys[pygame.K_UP] and square.y >speed:   #means clser t 0
         square.y -= speed
-    if keys[pygame.K_DOWN] and square.y <HEIGHT - hb:  #means clser t max value HEIGHT
+        chary -= speed
+    if keys[pygame.K_DOWN] and square.y <HEIGHT -hb:  #means clser t max value HEIGHT
         square.y += speed
-#move circle 
-    keys = pygame.key.get_pressed() #have to make variables for circle becuase it can only be drawn 
-    if keys[pygame.K_d] and cx <WIDTH - (rad):
+        chary += speed
+        #mve Circle
+    if keys[pygame.K_d] and cx < WIDTH -(rad):
         cx += speed
         insSquare.x += speed
-    if keys[pygame.K_a] and cx> (speed+rad):
+    if keys[pygame.K_a] and  cx > (speed+rad):
         cx -= speed
         insSquare.x -= speed
-    if keys[pygame.K_w] and cy > (speed+rad):
+    if keys[pygame.K_w] and cy >(speed+rad):   #means clser t 0
         cy -= speed
-        insSquare.x -= speed
-    if keys[pygame.K_s] and cy < HEIGHT -(rad):
+        insSquare.y -= speed
+    if keys[pygame.K_s] and cy <HEIGHT -(rad):  #means clser t max value HEIGHT
         cy += speed
-        insSquare.x += speed
-#move character
-    keys = pygame.key.get_pressed() #have to make variables for circle becuase it can only be drawn 
-    if keys[pygame.K_d] and charx <WIDTH - (rad):
-        charx += speed
-        insSquare.x += speed
-    if keys[pygame.K_a] and charx> (speed+rad):
-        charx -= speed
-        insSquare.x -= speed
-    if keys[pygame.K_w] and chary > (speed+rad):
-        chary -= speed
-        insSquare.x -= speed
-    if keys[pygame.K_s] and chary < HEIGHT -(rad):
-        chary += speed
-        insSquare.x += speed
+        insSquare.y += speed
 
     if square.colliderect(insSquare):
         print("BOOM")
@@ -179,12 +172,11 @@ while run:
         ibox = rad*math.sqrt(2)
         xig = cx-(ibox/2)
         yig = cy-(ibox/2)
-        insSquare=pygame.Rect(a,b,ibox,ibox)
-
-    ##rect(surface, color, rect)
-    pygame.draw.rect(screen, redColor, square)
-    screen.blit(character,(charx,chary))
+        insSquare=pygame.Rect(xig,yig,ibox,ibox)
+    #rect(surface, color, rect) -> Rect
+    pygame.draw.rect(screen, squareClr,square)
+    screen.blit(char, (charx, chary))
     #circle(surface, color, center, radius)
-    pygame.draw.circle(screen, purpleColor, (cx,cy), rad)
-    pygame.draw.rect(screen, redColor, insSquare)
+    pygame.draw.circle(screen, circleClr, (cx,cy), rad)
+    pygame.draw.rect(screen, squareClr, insSquare)
     pygame.display.update()
