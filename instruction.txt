@@ -2,5 +2,3 @@ In this game we need to use
 to move the square use the arrow keys 
 to move the circle use W,A,S and D 
  
- 
-Are you ready to play? 
