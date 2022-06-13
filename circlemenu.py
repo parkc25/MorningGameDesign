@@ -57,14 +57,6 @@ ibox = rad*math.sqrt(2)
 xig = cx-(ibox/2)
 yig = cy-(ibox/2)
 
-#instruction variables
-mx = 0
-my = 0
-
-#setting variables
-sx = 0
-sy = 0
-
 square=pygame.Rect(xb,yb,wb,hb)# create the object to draw
 insSquare=pygame.Rect(xig,yig,ibox,ibox)
 squareClr=colors.get("pink")
@@ -114,25 +106,31 @@ def menu():
                 my = mousePos[1]
                 if Button_instruct.collidepoint((mx, my)):
                     Instructions()
-                if Button_settings.collidepoint((25, 200)):
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mousePos = pygame.mouse.get_pos()
+                sx = mousePos[0]
+                sy = mousePos[1]
+                if Button_settings.collidepoint((sx, sy)):
                     settings()
-                if Button_game1.collidepoint((mx, my)):
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mousePos = pygame.mouse.get_pos()
+                gx = mousePos[0]
+                gy = mousePos[1]
+                if Button_game1.collidepoint((gx, gy)):
                     pass
-                if Button_game2.collidepoint((mx, my)):
-                    pass
-                if Button_score.collidepoint((mx, my)):
-                    pass
-                if Button_exit.collidepoint((mx, my)):
-                    pass
+            elif Button_game2.collidepoint((mx, my)):
+                pass
+            elif Button_score.collidepoint((mx, my)):
+                pass
+            elif Button_exit.collidepoint((mx, my)):
+                pass
 
 def settings():
+    screen.fill(colors.get("white"))
     Title = TITLE_FONT.render("Settings", 1, colors.get("blue"))
     text_music = MENU_FONT.render("Music: ", 1, colors.get("blue"))
     text1 = MENU_FONT.render("Yes", 1, colors.get("blue"))
     text2 = MENU_FONT.render("No", 1, colors.get("blue"))
-
-    #fills screen with white
-    screen.fill(colors.get("white"))
 
     #creating button options
     Button_1 = pygame.Rect(100, 150, 75, 75)
