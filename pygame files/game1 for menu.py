@@ -167,7 +167,6 @@ while run:
     
     #circle square collide
     if square.colliderect(insSquare): 
-        score += 1
         print("BOOM")
         cx = random.randint(rad, WIDTH-rad)
         cy = random.randint(rad, HEIGHT-rad)
@@ -176,6 +175,7 @@ while run:
         xig = cx-(ibox/2)
         yig = cy-(ibox/2)
         insSquare=pygame.Rect(xig,yig,ibox,ibox)
+        score += 1
     
     #mountain collide square
     if square.colliderect(mountainSquare):
