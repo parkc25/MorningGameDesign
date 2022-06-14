@@ -1,0 +1,6 @@
+Welcome to Level 1 of Circle Eats Square 
+Use your arrows to control the square to run away
+Use keys W A S D to catch the Circle 
+
+
+Do you want to play? 
