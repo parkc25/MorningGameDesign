@@ -279,23 +279,10 @@ def scoreboard():
 
 def exit():
     title=TITLE_FONT.render('Bye-Bye', 1, colors.get('blue'))
-    #text4=MENU_FONT.render('Click to Exit', 1, colors.get('blue'))
     screen.fill(colors.get('white'))
-    #Button_4=pygame.Rect(25, 350, 200, 50)
-    #pygame.draw.rect(screen, colors.get('limeGreen'), Button_4)
-    screen.blit(title, (300,50))
-    #screen.blit(text4, (30, 355))
-    #exit=True
-    #while exit:
-        #for event in pygame.event.get():
-            #if event.type==pygame.QUIT:
-                #exit=False
-                #pygame.display.quit()
-                #print('You quit')
-            #if event.type==pygame.MOUSEBUTTONDOWN:
-                #mousePos=pygame.mouse.get_pos()
-                #mx=mousePos[0]
-                #my=mousePos[1]
+    screen.blit(title, (275,200))
+    pygame.display.update()
+
                 
 
 mainMenu()
