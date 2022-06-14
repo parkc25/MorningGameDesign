@@ -115,7 +115,7 @@ def mainMenu():
                 if Button_settings.collidepoint((mx, my)):
                     settings()
                 if Button_game1.collidepoint((mx, my)):
-                    return True
+                    pass
                 if Button_game2.collidepoint((mx, my)):
                     pass
                 if Button_score.collidepoint((mx, my)):
@@ -169,6 +169,7 @@ def Instructions():
                 if Button_1.collidepoint((mx, my)):
                     mainMenu()
 
+
 def settings():
     Title2=TITLE_FONT.render('Settings', 1, colors.get('blue'))
     text2=MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
@@ -212,6 +213,7 @@ def settings():
     while True:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
+                run=False
                 mainMenu()
                 print("You quit")
             if event.type==pygame.MOUSEBUTTONDOWN:
@@ -266,6 +268,7 @@ def scoreboard():
     while scoreboard:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
+                run=False
                 mainMenu()
                 print("You quit")
             if event.type==pygame.MOUSEBUTTONDOWN:
@@ -280,11 +283,13 @@ def exit():
     screen.fill(colors.get('white'))
     screen.blit(title, (275,200))
     pygame.display.update()
-    pygame.display.delay(5000)
+    pygame.time.delay(3000)
     pygame.quit()
     sys.exit()
+                
 
-run = mainMenu()
+mainMenu()
+Instructions()
 
 while run:
     # screen.fill(backgrnd)
@@ -349,18 +354,11 @@ while run:
     #pygame.draw.rect(screen, colors.get('white'), mountainSquare,)
     pygame.display.update()
 
-    # high = 100
-    # score= 40*score 
-    # if score > high:
-    #         high=score
-    # sce =str(high)
-    # myFile = open("pygame files\score.txt", "a")
-    # scrLine = str(sce) + "\t" + "\t" + date.strftime("%m-%d-%Y")+ "\n" #format the way you wnat in score 
-    # myFile.write(scrLine) 
-
-
-
-
-    
-
-        
+    high = 100
+    score= 40*score 
+    if score > high:
+            high=score
+    sce =str(high)
+    myFile = open("pygame files\score.txt", "a")
+    scrLine = str(sce) + "\t" + "\t" + date.strftime("%m-%d-%Y")+ "\n" #format the way you wnat in score 
+    myFile.write(scrLine) 
