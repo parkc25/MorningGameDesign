@@ -242,77 +242,60 @@ def exit():
                 #mousePos=pygame.mouse.get_pos()
                 #mx=mousePos[0]
                 #my=mousePos[1]
-                
 
-mainMenu()
-Instructions()
+def game1():
+    while run:
+        # screen.fill(backgrnd)
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                run=False
+                print("Y quit")
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mousePos = pygame.mouse.get_pos()
+                mx = mousePos[0]
+                my = mousePos[1]
+        screen.blit(bg, (0,0))
+        keys= pygame.key.get_pressed() #this is a list
+        #mve square
+        if keys[pygame.K_RIGHT] and square.x < WIDTH -(wb):
+            square.x += speed
+            charx += speed
+        if keys[pygame.K_LEFT] and  square.x > speed:
+            square.x -= speed
+            charx -= speed
+        if keys[pygame.K_UP] and square.y >speed:   #means clser t 0
+            square.y -= speed
+            chary -= speed
+        if keys[pygame.K_DOWN] and square.y <HEIGHT -hb:  #means clser t max value HEIGHT
+            square.y += speed
+            chary += speed
+            #mve Circle
+        if keys[pygame.K_d] and cx < WIDTH -(rad):
+            cx += speed
+            insSquare.x += speed
+        if keys[pygame.K_a] and  cx > (speed+rad):
+            cx -= speed
+            insSquare.x -= speed
+        if keys[pygame.K_w] and cy >(speed+rad):   #means clser t 0
+            cy -= speed
+            insSquare.y -= speed
+        if keys[pygame.K_s] and cy <HEIGHT -(rad):  #means clser t max value HEIGHT
+            cy += speed
+            insSquare.y += speed
 
-while run:
-    # screen.fill(backgrnd)
-    for event in pygame.event.get():
-        if event.type==pygame.QUIT:
-            run=False
-            print("Y quit")
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            mousePos = pygame.mouse.get_pos()
-            mx = mousePos[0]
-            my = mousePos[1]
-    screen.blit(bg, (0,0))
-    keys= pygame.key.get_pressed() #this is a list
-    #mve square
-    if keys[pygame.K_RIGHT] and square.x < WIDTH -(wb):
-        square.x += speed
-        charx += speed
-    if keys[pygame.K_LEFT] and  square.x > speed:
-        square.x -= speed
-        charx -= speed
-    if keys[pygame.K_UP] and square.y >speed:   #means clser t 0
-        square.y -= speed
-        chary -= speed
-    if keys[pygame.K_DOWN] and square.y <HEIGHT -hb:  #means clser t max value HEIGHT
-        square.y += speed
-        chary += speed
-        #mve Circle
-    if keys[pygame.K_d] and cx < WIDTH -(rad):
-        cx += speed
-        insSquare.x += speed
-    if keys[pygame.K_a] and  cx > (speed+rad):
-        cx -= speed
-        insSquare.x -= speed
-    if keys[pygame.K_w] and cy >(speed+rad):   #means clser t 0
-        cy -= speed
-        insSquare.y -= speed
-    if keys[pygame.K_s] and cy <HEIGHT -(rad):  #means clser t max value HEIGHT
-        cy += speed
-        insSquare.y += speed
-
-    if square.colliderect(insSquare):
-        print("BOOM")
-        rad+=1
-        cx=random.randint(rad, WIDTH-rad)
-        cy=random.randint(rad, HEIGHT-rad)
-        ibox = rad*math.sqrt(2)
-        xig = cx-(ibox/2)
-        yig = cy-(ibox/2)
-        insSquare=pygame.Rect(xig,yig,ibox,ibox)
-        
-    #if square.colliderect(mountainSquare):
-        #square.x=10
-        #square.y=10
-        #charx=10
-        #chary=10
-    #rect(surface, color, rect) -> Rect
-    pygame.draw.rect(screen, squareClr,square)
-    #circle(surface, color, center, radius)
-    pygame.draw.circle(screen, circleClr, (cx,cy), rad)
-    pygame.draw.rect(screen, squareClr, insSquare)
-
-    #pygame.draw.rect(screen, colors.get('white'), mountainSquare,)
-    pygame.display.update()
-
-
-
-
-    
-
-        
+        if square.colliderect(insSquare):
+            print("BOOM")
+            rad+=1
+            cx=random.randint(rad, WIDTH-rad)
+            cy=random.randint(rad, HEIGHT-rad)
+            ibox = rad*math.sqrt(2)
+            xig = cx-(ibox/2)
+            yig = cy-(ibox/2)
+            insSquare=pygame.Rect(xig,yig,ibox,ibox)
+        #rect(surface, color, rect) -> Rect
+        pygame.draw.rect(screen, squareClr,square)
+        screen.blit(char, (charx, chary))
+        #circle(surface, color, center, radius)
+        pygame.draw.circle(screen, circleClr, (cx,cy), rad)
+        pygame.draw.rect(screen, squareClr, insSquare)
+        pygame.display.update()
