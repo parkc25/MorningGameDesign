@@ -13,8 +13,9 @@
 
 
 import sys
+from turtle import title, width
 import pygame, time,os,random, math
-from datetime import date, datetime
+import datetime
 pygame.init()#initialize the pygame package
 
 # print(pygame.font.get_fonts())
@@ -45,6 +46,7 @@ Button_exit = pygame.Rect(25, 400, 40, 40)
 bg=pygame.image.load('pygame files\Images\pygame background.jpg')
 char = pygame.image.load('pygame files\Images\character image.png')
 char = pygame.transform.scale(char, (50, 50))
+square = pygame.draw.Rect(50,50,100,300)
 # screen.blit(bg, (0,0))
 # pygame.display.update()
 # pygame.time.delay(5000)
@@ -111,68 +113,37 @@ def mainMenu():
                 mx = mousePos[0]
                 my = mousePos[1]
                 if Button_instruct.collidepoint((mx, my)):
-                    Instructions()
+                    readFile("Instructions", "pygame files\instruction.txt")
                 if Button_settings.collidepoint((mx, my)):
                     settings()
                 if Button_game1.collidepoint((mx, my)):
-                    pass
+                    Game_1()
                 if Button_game2.collidepoint((mx, my)):
-                    pass
+                    Game_2()
                 if Button_score.collidepoint((mx, my)):
-                    scoreboard()
+                    readFile("Score Board", "pygame files\score.txt")
                 if Button_exit.collidepoint((mx, my)):
                     exit()
-    
-def Instructions():
-    #rendering text objects
-    Title1 = TITLE_FONT.render("Instructions", 1, colors.get("blue"))
-    text1=MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
-
-    #fills screen with white
-    screen.fill(colors.get("white"))
-
-    #creating button options
-    Button_1 = pygame.Rect(450, 600, 200, 50)
-    pygame.draw.rect(screen, colors.get("pink"), Button_1)
-
-    #Instructions
-    myFile = open("pygame files\instruction.txt", "r")
-    content = myFile.readlines()
-
-    #var to controll change of line
-    yinstructions = 110
-    for line in content:
-        Instruc = MENU_FONT.render(line[0:-1], 1, colors.get("blue"))
-        screen.blit(Instruc, (40, yinstructions))
-        pygame.display.update()
-        pygame.time.delay(50)
-        yinstructions += 40
-
-    myFile.close()
-
-    #renderig fonts to the screen
-    xd = WIDTH//2 - (Title1.get_width()//2)
-    screen.blit(Title1, (xd, 50))
-    screen.blit(text1, (480,605))
-
-    pygame.display.update()
-    while True:
-        for event in pygame.event.get():
-            if event.type==pygame.QUIT:
-                run=False
-                mainMenu()
-                print("You quit")
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mousePos = pygame.mouse.get_pos()
-                mx = mousePos[0]
-                my = mousePos[1]
-                if Button_1.collidepoint((mx, my)):
-                    mainMenu()
-
+                if Button_exit.collidepoint((mx, my)):
+                    textTitle = TITLE_FONT.render("Bye-Bye", 1, colors.get("blue"))
+                    name = "Christan" 
+                    sce = 300 
+                    date=datetime.datetime.now()
+                    scrLine = str(sce) + "     " + name + "     " + date.strftime("%m-%d-%Y") + "\n"
+                    myFile = open("score.txt", 'a')
+                    myFile.write(scrLine)
+                    myFile.close()
+                    screen.fill(colors.get('white'))
+                    xd = WIDTH//2 - (textTitle.get_width()//2)
+                    yd = HEIGHT//2 - 40
+                    screen.blit(textTitle, (xd, yd))
+                    pygame.display.update()
 
 def settings():
     Title2=TITLE_FONT.render('Settings', 1, colors.get('blue'))
     text2=MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
+    text3=MENU_FONT.render('On', 1, colors.get('blue'))
+    text4=MENU_FONT.render('Off', 1, colors.get('blue'))
     screen.fill(colors.get('white'))
 
     myFile = open("pygame files\settings.txt", "r")
@@ -188,13 +159,15 @@ def settings():
 
     myFile.close()
 
-    Button_2 = pygame.Rect(40, 400, 200, 50)
+    Button_2 = pygame.Rect(450, 600, 200, 50)
     Button_red = pygame.Rect(150, 220, 50, 50)
     Button_orange = pygame.Rect(220, 220, 50, 50)
     Button_yellow = pygame.Rect(290, 220, 50, 50)
     Button_green = pygame.Rect(360, 220, 50, 50)
     Button_purple = pygame.Rect(430, 220, 50, 50)
     Button_grey = pygame.Rect(500, 220, 50, 50)
+    Button_sound_on = pygame.Rect(175, 360, 150, 50)
+    Button_sound_off = pygame.Rect(375, 360, 150, 50)
 
     pygame.draw.rect(screen, colors.get("pink"), Button_2)
     pygame.draw.rect(screen, colors2.get("red"), Button_red)
@@ -203,10 +176,14 @@ def settings():
     pygame.draw.rect(screen, colors2.get("green"), Button_green)
     pygame.draw.rect(screen, colors2.get("purple"), Button_purple)
     pygame.draw.rect(screen, colors2.get("grey"), Button_grey)
+    pygame.draw.rect(screen, colors.get("pink"), Button_sound_on)
+    pygame.draw.rect(screen, colors.get("pink"), Button_sound_off)
 
     xd = WIDTH//2 - (Title2.get_width()//2)
     screen.blit(Title2, (xd, 50))
-    screen.blit(text2, (60,410))
+    screen.blit(text2, (480,605))
+    screen.blit(text3, (235,370))
+    screen.blit(text4, (430,370))
 
     pygame.display.update()
 
@@ -235,20 +212,24 @@ def settings():
                 if Button_grey.collidepoint((mx,my)):
                     screen.fill(colors2.get('grey'))
 
-def scoreboard():
-    Title3=TITLE_FONT.render('Scoreboad', 1, colors.get('blue'))
+def readFile(titleF, fileN):
+    screen.fill(colors.get('white'))
+    Title=TITLE_FONT.render(titleF, 1, colors.get('blue'))
+    xd = WIDTH//2 - (Title.get_width()//2)
+    screen.blit(Title, (xd,50))
     text3 = MENU_FONT.render("Return to Menu", 1, colors.get("blue"))
 
-    screen.fill(colors.get('white'))
-    Button_3 = pygame.Rect(40, 400, 200, 50)
+    Button_3 = pygame.Rect(450, 600, 200, 50)
     pygame.draw.rect(screen, colors.get("pink"), Button_3)
 
+
     #Instructions
-    myFile = open("pygame files\score.txt", "r")
+    myFile = open(fileN, "r")
     content = myFile.readlines()
+    myFile.close()
 
     #var to controll change of line
-    yinstructions = 150
+    yinstructions = 105
     for line in content:
         Instruc = MENU_FONT.render(line[0:-1], 1, colors.get("blue"))
         screen.blit(Instruc, (40, yinstructions))
@@ -259,9 +240,9 @@ def scoreboard():
     myFile.close()
 
     
-    xd = WIDTH//2 - (Title3.get_width()//2)
-    screen.blit(Title3, (xd, 50))
-    screen.blit(text3, (60,410))
+    xd = WIDTH//2 - (Title.get_width()//2)
+    screen.blit(Title, (xd, 50))
+    screen.blit(text3, (480,605))
     pygame.display.update()
 
     scoreboard=True
@@ -285,80 +266,217 @@ def exit():
     pygame.display.update()
     pygame.time.delay(3000)
     pygame.quit()
-    sys.exit()
-                
+    sys.exit()                
+
+def Game_1():
+
+    global score, hb, wb, xb, rad, yb, charx, chary, cx, cy, speed, ibox, xig, yig, char, bg, mx, my, insSquare
+    title=TITLE_FONT.render('Game Level 1', 1, colors.get('blue'))
+    screen.fill(colors.get('white'))
+
+    screen.blit(title, (275,50))
+    pygame.display.update()
+    score=0
+    Game=True
+    while Game:
+        pygame.draw.rect(screen, colors.get("white"), mountainSquare)
+        screen.blit(bg, (0,0))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+                mainMenu()
+                print("you quit")
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mousePos = pygame.mouse.get_pos()
+                # print(mousePos)
+        keys = pygame.key.get_pressed() #allow us to see what key was pressed
+
+        #square movement
+        if keys[pygame.K_d] and square.x < WIDTH-wb:
+            square.x += speed
+            charx += speed
+        if keys[pygame.K_a] and square.x > 0:
+            square.x -= speed
+            charx -= speed
+        if keys[pygame.K_s] and square.y < HEIGHT-hb:
+            square.y += speed
+            chary += speed
+        if keys[pygame.K_w] and square.y > 0:
+            square.y -= speed
+            chary -= speed
+
+        #circle and inscribed square movement
+        if keys[pygame.K_RIGHT] and cx < WIDTH-rad:
+            cx += speed
+            insSquare.x += speed
+        if keys[pygame.K_LEFT] and cx > 0+rad:
+            cx -= speed
+            insSquare.x -= speed
+        if keys[pygame.K_DOWN] and cy < HEIGHT-rad:
+            cy += speed
+            insSquare.y += speed
+        if keys[pygame.K_UP] and cy > 0+rad:
+            cy -= speed
+            insSquare.y -= speed
+        
+        #circle square collide
+        if square.colliderect(insSquare): 
+            print("BOOM")
+            score += 5
+            cx = random.randint(rad, WIDTH-rad)
+            cy = random.randint(rad, HEIGHT-rad)
+            rad += 5
+            ibox = rad*math.sqrt(2)
+            xig = cx-(ibox/2)
+            yig = cy-(ibox/2)
+            insSquare=pygame.Rect(xig,yig,ibox,ibox)
+        
+        #mountain collide square
+        if square.colliderect(mountainSquare):
+            square.x = 10
+            square.y = 10
+            charx = 10
+            chary = 10
+        
+        #mountain collide circle
+        if insSquare.colliderect(mountainSquare):
+            cx = rad + 10
+            cy = rad + 10
+            ibox = rad*math.sqrt(2)
+            xig = cx-(ibox/2)
+            yig = cy-(ibox/2)
+            insSquare=pygame.Rect(xig,yig,ibox,ibox)
+
+        #rect(surface, color, object)
+        pygame.draw.rect(screen, colors.get("blue"), square)
+        pygame.draw.rect(screen, colors.get("blue"), insSquare)
+        screen.blit(char, (charx, chary))
+
+        #circle(surface, color, center, radius)
+        pygame.draw.circle(screen, colors.get("pink"), (cx, cy), rad)
+        
+        pygame.display.update()
+        pygame.time.delay(5)
+
+    title=TITLE_FONT.render('Scoreboard', 1, colors.get('blue'))
+    text3 = MENU_FONT.render("Return to Menu", 1, colors.get("blue"))
+
+    screen.fill(colors.get('white'))
+    Button_3 = pygame.Rect(25, 350, 200, 50)
+    pygame.draw.rect(screen, colors.get("limeGreen"), Button_3)
+    
+    screen.blit(title, (250,50))
+    screen.blit(text3, (30, 355))
+    pygame.display.update()
+    
+    print(score)
+    File=open('pygame files\score.txt', 'a')
+    File.write(str(score))
+    File.close()
+
+    scoreboard=True
+    while scoreboard:
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                run=False
+                mainMenu()
+                print("You quit")
+            if event.type==pygame.MOUSEBUTTONDOWN:
+                mousePos=pygame.mouse.get_pos()
+                mx=mousePos[0]
+                my=mousePos[1]
+                if Button_3.collidepoint((mx, my)):
+                    mainMenu()
 
 mainMenu()
-Instructions()
 
-while run:
-    # screen.fill(backgrnd)
-    for event in pygame.event.get():
-        if event.type==pygame.QUIT:
-            run=False
-            print("Y quit")
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            mousePos = pygame.mouse.get_pos()
-            mx = mousePos[0]
-            my = mousePos[1]
-    screen.blit(bg, (0,0))
-    keys= pygame.key.get_pressed() #this is a list
-    #mve square
-    if keys[pygame.K_RIGHT] and square.x < WIDTH -(wb):
-        square.x += speed
-        charx += speed
-    if keys[pygame.K_LEFT] and  square.x > speed:
-        square.x -= speed
-        charx -= speed
-    if keys[pygame.K_UP] and square.y >speed:   #means clser t 0
-        square.y -= speed
-        chary -= speed
-    if keys[pygame.K_DOWN] and square.y <HEIGHT -hb:  #means clser t max value HEIGHT
-        square.y += speed
-        chary += speed
-        #mve Circle
-    if keys[pygame.K_d] and cx < WIDTH -(rad):
-        cx += speed
-        insSquare.x += speed
-    if keys[pygame.K_a] and  cx > (speed+rad):
-        cx -= speed
-        insSquare.x -= speed
-    if keys[pygame.K_w] and cy >(speed+rad):   #means clser t 0
-        cy -= speed
-        insSquare.y -= speed
-    if keys[pygame.K_s] and cy <HEIGHT -(rad):  #means clser t max value HEIGHT
-        cy += speed
-        insSquare.y += speed
+def Game_2():
+    global score, hb, wb, xb, rad, yb, charx, chary, cx, cy, speed, ibox, xig, yig, char, bg, mx, my, insSquare
+    title=TITLE_FONT.render('Game Level 2', 1, colors.get('blue'))
+    screen.fill(colors.get('white'))
 
-    if square.colliderect(insSquare):
-        print("BOOM")
-        rad+=1
-        cx=random.randint(rad, WIDTH-rad)
-        cy=random.randint(rad, HEIGHT-rad)
-        ibox = rad*math.sqrt(2)
-        xig = cx-(ibox/2)
-        yig = cy-(ibox/2)
-        insSquare=pygame.Rect(xig,yig,ibox,ibox)
-        
-    #if square.colliderect(mountainSquare):
-        #square.x=10
-        #square.y=10
-        #charx=10
-        #chary=10
-    #rect(surface, color, rect) -> Rect
-    pygame.draw.rect(screen, squareClr,square)
-    #circle(surface, color, center, radius)
-    pygame.draw.circle(screen, circleClr, (cx,cy), rad)
-    pygame.draw.rect(screen, squareClr, insSquare)
-
-    #pygame.draw.rect(screen, colors.get('white'), mountainSquare,)
+    screen.blit(title, (275,50))
     pygame.display.update()
+    score=0
+    Game=True
+    while Game:
+        pygame.draw.rect(screen, colors.get("white"), mountainSquare)
+        screen.blit(bg, (0,0))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+                mainMenu()
+                print("you quit")
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mousePos = pygame.mouse.get_pos()
+                # print(mousePos)
+        keys = pygame.key.get_pressed() #allow us to see what key was pressed
 
-    high = 100
-    score= 40*score 
-    if score > high:
-            high=score
-    sce =str(high)
-    myFile = open("pygame files\score.txt", "a")
-    scrLine = str(sce) + "\t" + "\t" + date.strftime("%m-%d-%Y")+ "\n" #format the way you wnat in score 
-    myFile.write(scrLine) 
+        #square movement
+        if keys[pygame.K_d] and square.x < WIDTH-wb:
+            square.x += speed
+            charx += speed
+        if keys[pygame.K_a] and square.x > 0:
+            square.x -= speed
+            charx -= speed
+        if keys[pygame.K_s] and square.y < HEIGHT-hb:
+            square.y += speed
+            chary += speed
+        if keys[pygame.K_w] and square.y > 0:
+            square.y -= speed
+            chary -= speed
+
+        #circle and inscribed square movement
+        if keys[pygame.K_RIGHT] and cx < WIDTH-rad:
+            cx += speed
+            insSquare.x += speed
+        if keys[pygame.K_LEFT] and cx > 0+rad:
+            cx -= speed
+            insSquare.x -= speed
+        if keys[pygame.K_DOWN] and cy < HEIGHT-rad:
+            cy += speed
+            insSquare.y += speed
+        if keys[pygame.K_UP] and cy > 0+rad:
+            cy -= speed
+            insSquare.y -= speed
+        
+        #circle square collide
+        if square.colliderect(insSquare): 
+            print("BOOM")
+            score += 5
+            cx = random.randint(rad, WIDTH-rad)
+            cy = random.randint(rad, HEIGHT-rad)
+            rad += 5
+            ibox = rad*math.sqrt(2)
+            xig = cx-(ibox/2)
+            yig = cy-(ibox/2)
+            insSquare=pygame.Rect(xig,yig,ibox,ibox)
+        
+        #mountain collide square
+        if square.colliderect(mountainSquare):
+            square.x = 10
+            square.y = 10
+            charx = 10
+            chary = 10
+        
+        #mountain collide circle
+        if insSquare.colliderect(mountainSquare):
+            cx = rad + 10
+            cy = rad + 10
+            ibox = rad*math.sqrt(2)
+            xig = cx-(ibox/2)
+            yig = cy-(ibox/2)
+            insSquare=pygame.Rect(xig,yig,ibox,ibox)
+
+        #rect(surface, color, object)
+        pygame.draw.rect(screen, colors.get("blue"), square)
+        pygame.draw.rect(screen, colors.get("blue"), insSquare)
+        screen.blit(char, (charx, chary))
+
+        #circle(surface, color, center, radius)
+        pygame.draw.circle(screen, colors.get("pink"), (cx, cy), rad)
+        
+        pygame.display.update()
+        pygame.time.delay(5)
+
+mainMenu()
