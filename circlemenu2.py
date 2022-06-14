@@ -114,9 +114,9 @@ def mainMenu():
                 if Button_settings.collidepoint((mx, my)):
                     settings()
                 if Button_game1.collidepoint((mx, my)):
-                    run=True
+                    pass
                 if Button_game2.collidepoint((mx, my)):
-                    run=True
+                    pass
                 if Button_score.collidepoint((mx, my)):
                     scoreboard()
                 if Button_exit.collidepoint((mx, my)):
@@ -124,7 +124,7 @@ def mainMenu():
     
 def Instructions():
      #rendering text objects
-    Title = TITLE_FONT.render("Instructions", 1, colors.get("blue"))
+    Title1 = TITLE_FONT.render("Instructions", 1, colors.get("blue"))
     text1=MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
 
     #fills screen with white
@@ -150,8 +150,8 @@ def Instructions():
     myFile.close()
 
     #renderig fonts to the screen
-    xd = WIDTH//2 - (Title.get_width()//2)
-    screen.blit(Title, (xd, 50))
+    xd = WIDTH//2 - (Title1.get_width()//2)
+    screen.blit(Title1, (xd, 50))
     screen.blit(text1, (60,410))
 
     pygame.display.update()
@@ -169,16 +169,32 @@ def Instructions():
 
 
 def settings():
-    title=TITLE_FONT.render('Settings', 1, colors.get('blue'))
-    text=MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
+    Title2=TITLE_FONT.render('Settings', 1, colors.get('blue'))
+    text2=MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
 
     screen.fill(colors.get('white'))
 
-    Button_3 = pygame.Rect(25, 350, 200, 50)
-    pygame.draw.rect(screen, colors.get("pink"), Button_3)
+    Button_2 = pygame.Rect(40, 400, 200, 50)
+    pygame.draw.rect(screen, colors.get("pink"), Button_2)
 
-    screen.blit(title, (275,50))
-    screen.blit(text, (30,355))
+    #Instructions
+    myFile = open("instruction.txt", "r")
+    content = myFile.readlines()
+
+    #var to controll change of line
+    yinstructions = 150
+    for line in content:
+        Instruc = MENU_FONT.render(line[0:-1], 1, colors.get("blue"))
+        screen.blit(Instruc, (40, yinstructions))
+        pygame.display.update()
+        pygame.time.delay(50)
+        yinstructions += 40
+
+    myFile.close()
+
+    xd = WIDTH//2 - (Title2.get_width()//2)
+    screen.blit(Title2, (xd, 50))
+    screen.blit(text2, (60,410))
     pygame.display.update()
 
     while True:
@@ -191,22 +207,22 @@ def settings():
                 mousePos=pygame.mouse.get_pos()
                 mx=mousePos[0]
                 my=mousePos[1]
-                if Button_3.collidepoint((mx, my)):
+                if Button_2.collidepoint((mx, my)):
                     mainMenu()
 
 
 def scoreboard():
-    title=TITLE_FONT.render('Scoreboad', 1, colors.get('blue'))
+    Title3=TITLE_FONT.render('Scoreboad', 1, colors.get('blue'))
     text3 = MENU_FONT.render("Return to Menu", 1, colors.get("blue"))
 
 
     screen.fill(colors.get('white'))
-    Button_3 = pygame.Rect(25, 350, 200, 50)
-    pygame.draw.rect(screen, colors.get("limeGreen"), Button_3)
+    Button_3 = pygame.Rect(40, 400, 200, 50)
+    pygame.draw.rect(screen, colors.get("pink"), Button_3)
     
-
-    screen.blit(title, (200,200))
-    screen.blit(text3, (30, 355))
+    xd = WIDTH//2 - (Title3.get_width()//2)
+    screen.blit(Title3, (xd, 50))
+    screen.blit(text3, (60,410))
     pygame.display.update()
 
     scoreboard=True
