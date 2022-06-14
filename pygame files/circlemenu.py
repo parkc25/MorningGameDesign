@@ -26,6 +26,7 @@ os.system('cls')
 WIDTH=700 #like constant
 HEIGHT=700
 colors={"white":(255,255,255),"pink":(255,0,255),"blue":(0,0,255),"limeGreen":(153,255,51)}
+colors2 = {"grey":(96,96,96), "black":(0,0,0), "red":(255,0,0), "green":(0,255,0), "orange":(255,128,0), "yellow":(255,255,0), "purple":(127,0,255)}
 clr=colors.get("limeGreen")
 message=['Instructions', 'Settings', 'Game 1', 'Game 2', 'Scoreboard', 'Exit']
 #create dispay wind with any name y like
@@ -172,15 +173,41 @@ def Instructions():
 def settings():
     Title2=TITLE_FONT.render('Settings', 1, colors.get('blue'))
     text2=MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
-
     screen.fill(colors.get('white'))
 
+    myFile = open("pygame files\settings.txt", "r")
+    content = myFile.readlines()
+
+    yinstructions = 150
+    for line in content:
+        Instruc = MENU_FONT.render(line[0:-1], 1, colors.get("blue"))
+        screen.blit(Instruc, (40, yinstructions))
+        pygame.display.update()
+        pygame.time.delay(50)
+        yinstructions += 40
+
+    myFile.close()
+
     Button_2 = pygame.Rect(40, 400, 200, 50)
+    Button_red = pygame.Rect(150, 230, 50, 50)
+    Button_orange = pygame.Rect(220, 230, 50, 50)
+    Button_yellow = pygame.Rect(290, 230, 50, 50)
+    Button_green = pygame.Rect(360, 230, 50, 50)
+    Button_purple = pygame.Rect(430, 230, 50, 50)
+    Button_grey = pygame.Rect(500, 230, 50, 50)
+
     pygame.draw.rect(screen, colors.get("pink"), Button_2)
+    pygame.draw.rect(screen, colors2.get("red"), Button_red)
+    pygame.draw.rect(screen, colors2.get("orange"), Button_orange)
+    pygame.draw.rect(screen, colors2.get("yellow"), Button_yellow)
+    pygame.draw.rect(screen, colors2.get("green"), Button_green)
+    pygame.draw.rect(screen, colors2.get("purple"), Button_purple)
+    pygame.draw.rect(screen, colors2.get("grey"), Button_grey)
 
     xd = WIDTH//2 - (Title2.get_width()//2)
     screen.blit(Title2, (xd, 50))
     screen.blit(text2, (60,410))
+
     pygame.display.update()
 
     while True:
@@ -195,7 +222,6 @@ def settings():
                 my=mousePos[1]
                 if Button_2.collidepoint((mx, my)):
                     mainMenu()
-
 
 def scoreboard():
     Title3=TITLE_FONT.render('Scoreboad', 1, colors.get('blue'))
