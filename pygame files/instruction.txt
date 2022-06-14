@@ -1,8 +1,6 @@
 Goal Of Game:
-CIRCLE goal: chase square around screen 
-to eat and grow bigger 
-SQUARE goal: run around scrren to  
-avoid being eaten by circle 
+CIRCLE goal: chase square around screen to eat and grow bigger 
+SQUARE goal: run around scrren to avoid being eaten by circle 
 
 Who is the winner? 
 Square wins IF it avoids the square for 1 minute 
@@ -10,7 +8,9 @@ Circle wins IF it catches the circle 3 times in 1 minutes
 
 Keys: 
 circle = up, down, right, left 
-square, a, s, w, d 
+square = a, s, w, d 
+
+*Use return button or X to return to Menu
 
 
  
