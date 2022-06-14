@@ -201,17 +201,25 @@ def scoreboard():
     Title3=TITLE_FONT.render('Scoreboad', 1, colors.get('blue'))
     text3 = MENU_FONT.render("Return to Menu", 1, colors.get("blue"))
 
-
     screen.fill(colors.get('white'))
     Button_3 = pygame.Rect(40, 400, 200, 50)
     pygame.draw.rect(screen, colors.get("pink"), Button_3)
 
     #Instructions
-    myFile = open("pygame files\score.txt", "a")
-    scrLine = str(sce) + "\t" + name + "\t" + date.strftime("%m-%d-%Y")+ "\n" #format the way you wnat in score 
-    myFile.write(scrLine) 
+    myFile = open("pygame files\score.txt", "r")
+    content = myFile.readlines()
+
+    #var to controll change of line
+    yinstructions = 150
+    for line in content:
+        Instruc = MENU_FONT.render(line[0:-1], 1, colors.get("blue"))
+        screen.blit(Instruc, (40, yinstructions))
+        pygame.display.update()
+        pygame.time.delay(50)
+        yinstructions += 40
 
     myFile.close()
+
     
     xd = WIDTH//2 - (Title3.get_width()//2)
     screen.blit(Title3, (xd, 50))
@@ -318,6 +326,15 @@ while run:
 
     #pygame.draw.rect(screen, colors.get('white'), mountainSquare,)
     pygame.display.update()
+
+    high = 100
+    score= 40*score 
+    if score > high:
+            high=score
+    sce =str(high)
+    myFile = open("pygame files\score.txt", "a")
+    scrLine = str(sce) + "\t" + "\t" + date.strftime("%m-%d-%Y")+ "\n" #format the way you wnat in score 
+    myFile.write(scrLine) 
 
 
 

@@ -12,6 +12,7 @@
 # K_d                   d key
 
 import pygame, os, time, random, math
+import datetime
 pygame.init()
 
 # print(pygame.font.get_fonts())
@@ -80,7 +81,7 @@ def instruction():
     screen.blit(Title, (xd, 50))\
 
     #Instructions File
-    myFile = open("instruction.txt", "r")
+    myFile = open("pygame files\instruction.txt", "r")
     content = myFile.readlines()
 
     #print instructions
@@ -124,6 +125,7 @@ instruction()
 #main Game
 while run:
     # screen.fill(background)
+    score = 0
     pygame.draw.rect(screen, colors.get("white"), mountainSquare)
     screen.blit(bg, (0,0))
     for event in pygame.event.get():
@@ -134,8 +136,6 @@ while run:
             mousePos = pygame.mouse.get_pos()
             # print(mousePos)
     keys = pygame.key.get_pressed() #allow us to see what key was pressed
-
-    
 
     #square movement
     if keys[pygame.K_d] and square.x < WIDTH-wb:
@@ -167,6 +167,7 @@ while run:
     
     #circle square collide
     if square.colliderect(insSquare): 
+        score += 1
         print("BOOM")
         cx = random.randint(rad, WIDTH-rad)
         cy = random.randint(rad, HEIGHT-rad)
@@ -202,3 +203,10 @@ while run:
     
     pygame.display.update()
     pygame.time.delay(5)
+
+    date = datetime.datetime.now()
+    score= 40*score 
+    myFile = open("pygame files\score.txt", "a")
+    scrLine = str(score) + "\t" + "\t" + date.strftime("%m-%d-%Y")+ " " + "\n" #format the way you want in score 
+    myFile.write(scrLine)
+    myFile.close()
