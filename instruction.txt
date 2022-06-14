@@ -1,4 +1,6 @@
-In this game we need to use
-to move the square use the arrow keys 
-to move the circle use W,A,S and D 
+In this game we need to use: 
+arrow keys to move the character 
+W A S D to move the circle 
+Have fun! 
+
  
