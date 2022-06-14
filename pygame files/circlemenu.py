@@ -49,7 +49,6 @@ char = pygame.transform.scale(char, (50, 50))
 # pygame.display.update()
 # pygame.time.delay(5000)
 
-
 #square Var
 hb=50
 wb=50
@@ -137,7 +136,7 @@ def Instructions():
     pygame.draw.rect(screen, colors.get("pink"), Button_1)
 
     #Instructions
-    myFile = open("instruction.txt", "r")
+    myFile = open("pygame files\instruction.txt", "r")
     content = myFile.readlines()
 
     #var to controll change of line
@@ -189,12 +188,12 @@ def settings():
     myFile.close()
 
     Button_2 = pygame.Rect(40, 400, 200, 50)
-    Button_red = pygame.Rect(150, 230, 50, 50)
-    Button_orange = pygame.Rect(220, 230, 50, 50)
-    Button_yellow = pygame.Rect(290, 230, 50, 50)
-    Button_green = pygame.Rect(360, 230, 50, 50)
-    Button_purple = pygame.Rect(430, 230, 50, 50)
-    Button_grey = pygame.Rect(500, 230, 50, 50)
+    Button_red = pygame.Rect(150, 220, 50, 50)
+    Button_orange = pygame.Rect(220, 220, 50, 50)
+    Button_yellow = pygame.Rect(290, 220, 50, 50)
+    Button_green = pygame.Rect(360, 220, 50, 50)
+    Button_purple = pygame.Rect(430, 220, 50, 50)
+    Button_grey = pygame.Rect(500, 220, 50, 50)
 
     pygame.draw.rect(screen, colors.get("pink"), Button_2)
     pygame.draw.rect(screen, colors2.get("red"), Button_red)
@@ -222,6 +221,18 @@ def settings():
                 my=mousePos[1]
                 if Button_2.collidepoint((mx, my)):
                     mainMenu()
+                if Button_red.collidepoint((mx,my)):
+                    screen.fill(colors2.get('red'))
+                if Button_orange.collidepoint((mx,my)):
+                    screen.fill(colors2.get('orange'))
+                if Button_yellow.collidepoint((mx,my)):
+                    screen.fill(colors2.get('yellow'))
+                if Button_green.collidepoint((mx,my)):
+                    screen.fill(colors2.get('green')) 
+                if Button_purple.collidepoint((mx,my)):
+                    screen.fill(colors2.get('purple'))
+                if Button_grey.collidepoint((mx,my)):
+                    screen.fill(colors2.get('grey'))
 
 def scoreboard():
     Title3=TITLE_FONT.render('Scoreboad', 1, colors.get('blue'))
