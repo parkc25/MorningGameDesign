@@ -14,6 +14,7 @@
 import sys
 import pygame, time,os,random, math
 import datetime
+from pygame import mixer
 pygame.init()#initialize the pygame package
 os.system('cls')
 
@@ -25,6 +26,7 @@ WIDTH=700 #like constant
 HEIGHT=700
 TITLE_FONT = pygame.font.SysFont('comicsans', 40)
 MENU_FONT = pygame.font.SysFont('comicsans', 20)
+score = 0
 
 #colors for game
 colors={"white":(255,255,255),"pink":(255,0,255),"blue":(0,0,255),"limeGreen":(153,255,51)}
@@ -54,6 +56,10 @@ square = pygame.Rect(50,50,100,300)
 # screen.blit(bg, (0,0))
 # pygame.display.update()
 # pygame.time.delay(5000)
+
+#background sound
+mixer.music.load("pygame files\\background.wav")
+mixer.music.play(-1)
 
 #square Var
 hb=50
@@ -137,7 +143,7 @@ def mainMenu(Title, message, MENU):
                 if Button_game2.collidepoint((mx, my)):
                     Game_2()
                 if Button_score.collidepoint((mx, my)):
-                    readFile("Score Board", "pygame files\score.txt")
+                    scoreboard()
                 if Button_exit.collidepoint((mx, my)):
                     exit()
 
@@ -188,8 +194,6 @@ def settings():
     screen.blit(text3, (235,370))
     screen.blit(text4, (430,370))
 
-    pygame.display.update()
-
     while True:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
@@ -214,6 +218,13 @@ def settings():
                     screen.fill(colors2.get('purple'))
                 if Button_grey.collidepoint((mx,my)):
                     screen.fill(colors2.get('grey'))
+                # if Button_sound_on.collidepoint((mx,my)):
+                #     pygame.mixer.music.unpause("pygame files\\background.wav")
+                # if Button_sound_on.collidepoint((mx,my)):
+                #     pygame.mixer.music.stop("pygame files\\background.wav")
+    
+    pygame.display.update()
+
 
 def readFile(titleF, fileN):
     #fill screen with white
@@ -282,11 +293,11 @@ def scoreboard():
     # scrLine=str(high)+"\t " (':')+ "\t" +date.strftime('%m/%d/%Y')+ "\n"
     date = datetime.datetime.now()
     scrLine=str(score)+(': ')+ "\t"+date.strftime("%m-%d-%Y")+ "\n"
-    myFile = open("PygameFiles\scoreboard.txt", "a")
+    myFile = open("pygame files\score.txt", "a")
     myFile.write(str(scrLine))
     myFile.close()
 
-    myFile=open('pygameFiles\scoreboard.txt', 'r')
+    myFile=open('pygame files\score.txt', 'r')
     content = myFile.readlines()
 
     #var to controll change of line
@@ -312,7 +323,7 @@ def scoreboard():
                 mx=mousePos[0]
                 my=mousePos[1]
                 if Button_3.collidepoint((mx, my)):
-                    mainMenu()
+                    mainMenu(title_main, message_menu, True)
 
 def exit():
     title=TITLE_FONT.render('Bye-Bye', 1, colors.get('blue'))
