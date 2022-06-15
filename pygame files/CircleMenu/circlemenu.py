@@ -159,9 +159,9 @@ def settings():
     text3=MENU_FONT.render('On', 1, colors.get('blue'))
     text4=MENU_FONT.render('Off', 1, colors.get('blue'))
     text5=MENU_FONT.render('Random', 1, colors.get('blue'))
-    text6=MENU_FONT.render('size0', 1, colors.get('blue'))
-    text7=MENU_FONT.render('size1', 1, colors.get('blue'))
-    text8=MENU_FONT.render('size2', 1, colors.get('blue'))
+    text6=MENU_FONT.render('Original Size', 1, colors.get('blue'))
+    text7=MENU_FONT.render('Full Screen', 1, colors.get('blue'))
+    text8=MENU_FONT.render('Adjustable', 1, colors.get('blue'))
     screen.fill(menu_color)
 
     myFile = open("pygame files\CircleMenu\settings.txt", "r")
@@ -199,9 +199,9 @@ def settings():
     screen.blit(text3, (235,370))
     screen.blit(text4, (430,370))
     screen.blit(text5, (305,230))
-    screen.blit(text6, (140,530))
-    screen.blit(text7, (315,530))
-    screen.blit(text8, (490,530))
+    screen.blit(text6, (115,530))
+    screen.blit(text7, (300,530))
+    screen.blit(text8, (475,530))
 
     pygame.display.update()
 
@@ -219,16 +219,17 @@ def settings():
                     mainMenu(title_main, message_menu, True)
                 if Button_color.collidepoint((mx,my)):
                     menu_color = (random.randint(0,255), random.randint(0,255), random.randint(0,255))
+                    pygame.display.update()
                     print("change color")
                 if Button_sound_on.collidepoint((mx,my)):
                     mixer.music.play(-1)
                 if Button_sound_off.collidepoint((mx,my)):
                     mixer.music.stop()
                 if Button_size0.collidepoint((mx,my)):
-                    pygame.display.set_mode((1368, 912), pygame.RESIZABLE)
+                    pygame.display.set_mode((700, 700), pygame.RESIZABLE)
                     print("change size0")
                 if Button_size1.collidepoint((mx,my)):
-                    pygame.display.set_mode((800, 1000), pygame.RESIZABLE)
+                    pygame.display.set_mode((1400, 900), pygame.RESIZABLE)
                     print("change size1")
                 if Button_size2.collidepoint((mx,my)):
                     pygame.display.set_mode((500, 500), pygame.RESIZABLE)
