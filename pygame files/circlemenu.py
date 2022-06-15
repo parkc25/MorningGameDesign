@@ -15,6 +15,7 @@ import sys
 import pygame, time,os,random, math
 import datetime
 from pygame import mixer
+from pygame.locals import*
 pygame.init()#initialize the pygame package
 os.system('cls')
 
@@ -31,6 +32,9 @@ score = 0
 #colors for game
 colors={"white":(255,255,255),"pink":(255,0,255),"blue":(0,0,255),"limeGreen":(153,255,51)}
 colors2 = {"grey":(96,96,96), "black":(0,0,0), "red":(255,0,0), "green":(0,255,0), "orange":(255,128,0), "yellow":(255,255,0), "purple":(127,0,255)}
+
+#background colors
+menu_color = (random.randint(0,255), random.randint(0,255), random.randint(0,255))
 
 message_menu=['          Instructions', '             Settings', '              Game 1', '              Game 2', '          Scoreboard', '                Exit']
 title_main = "Circle Eats Square Menu"
@@ -102,8 +106,9 @@ run = True
 Game = False
 
 def mainMenu(Title, message, MENU):
+    global menu_color
     text_title = TITLE_FONT.render(Title, 1, colors.get("blue"))
-    screen.fill(colors.get('white'))
+    screen.fill(menu_color)
     xd = WIDTH//2- (text_title.get_width()//2)
     screen.blit(text_title, (xd, 50))
     yMenu=150
@@ -121,7 +126,7 @@ def mainMenu(Title, message, MENU):
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 text_title = TITLE_FONT.render("Bye-Bye", 1, colors.get("blue"))
-                screen.fill(colors.get("white"))
+                screen.fill(menu_color)
                 xd = WIDTH//2 - (text_title.get_width()//2)
                 yd = HEIGHT//2-40
                 screen.blit(text_title, (xd, yd))
@@ -147,13 +152,14 @@ def mainMenu(Title, message, MENU):
                 if Button_exit.collidepoint((mx, my)):
                     exit()
 
-
 def settings():
+    global menu_color
     Title2=TITLE_FONT.render('Settings', 1, colors.get('blue'))
     text2=MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
     text3=MENU_FONT.render('On', 1, colors.get('blue'))
     text4=MENU_FONT.render('Off', 1, colors.get('blue'))
-    screen.fill(colors.get('white'))
+    text5=MENU_FONT.render('Random', 1, colors.get('blue'))
+    screen.fill(menu_color)
 
     myFile = open("pygame files\settings.txt", "r")
     content = myFile.readlines()
@@ -169,22 +175,12 @@ def settings():
     myFile.close()
 
     Button_2 = pygame.Rect(450, 600, 200, 50)
-    Button_red = pygame.Rect(150, 220, 50, 50)
-    Button_orange = pygame.Rect(220, 220, 50, 50)
-    Button_yellow = pygame.Rect(290, 220, 50, 50)
-    Button_green = pygame.Rect(360, 220, 50, 50)
-    Button_purple = pygame.Rect(430, 220, 50, 50)
-    Button_grey = pygame.Rect(500, 220, 50, 50)
+    Button_color = pygame.Rect(250, 220, 200, 50)
     Button_sound_on = pygame.Rect(175, 360, 150, 50)
     Button_sound_off = pygame.Rect(375, 360, 150, 50)
 
     pygame.draw.rect(screen, colors.get("pink"), Button_2)
-    pygame.draw.rect(screen, colors2.get("red"), Button_red)
-    pygame.draw.rect(screen, colors2.get("orange"), Button_orange)
-    pygame.draw.rect(screen, colors2.get("yellow"), Button_yellow)
-    pygame.draw.rect(screen, colors2.get("green"), Button_green)
-    pygame.draw.rect(screen, colors2.get("purple"), Button_purple)
-    pygame.draw.rect(screen, colors2.get("grey"), Button_grey)
+    pygame.draw.rect(screen, colors.get("pink"), Button_color)
     pygame.draw.rect(screen, colors.get("pink"), Button_sound_on)
     pygame.draw.rect(screen, colors.get("pink"), Button_sound_off)
 
@@ -193,6 +189,9 @@ def settings():
     screen.blit(text2, (480,605))
     screen.blit(text3, (235,370))
     screen.blit(text4, (430,370))
+    screen.blit(text5, (305,230))
+
+    pygame.display.update()
 
     while True:
         for event in pygame.event.get():
@@ -206,29 +205,18 @@ def settings():
                 my=mousePos[1]
                 if Button_2.collidepoint((mx, my)):
                     mainMenu(title_main, message_menu, True)
-                if Button_red.collidepoint((mx,my)):
-                    screen.fill(colors2.get('red'))
-                if Button_orange.collidepoint((mx,my)):
-                    screen.fill(colors2.get('orange'))
-                if Button_yellow.collidepoint((mx,my)):
-                    screen.fill(colors2.get('yellow'))
-                if Button_green.collidepoint((mx,my)):
-                    screen.fill(colors2.get('green')) 
-                if Button_purple.collidepoint((mx,my)):
-                    screen.fill(colors2.get('purple'))
-                if Button_grey.collidepoint((mx,my)):
-                    screen.fill(colors2.get('grey'))
-                # if Button_sound_on.collidepoint((mx,my)):
-                #     pygame.mixer.music.unpause("pygame files\\background.wav")
-                # if Button_sound_on.collidepoint((mx,my)):
-                #     pygame.mixer.music.stop("pygame files\\background.wav")
+                if Button_color.collidepoint((mx,my)):
+                    menu_color = (random.randint(0,255), random.randint(0,255), random.randint(0,255))
+                    print("change color")
+                if Button_sound_on.collidepoint((mx,my)):
+                    mixer.music.play(-1)
+                if Button_sound_off.collidepoint((mx,my)):
+                    mixer.music.stop()
     
-    pygame.display.update()
-
-
 def readFile(titleF, fileN):
+    global menu_color
     #fill screen with white
-    screen.fill(colors.get('white'))
+    screen.fill(menu_color)
     #rendering text objects
     Title=TITLE_FONT.render(titleF, 1, colors.get('blue'))
     xd = WIDTH//2 - (Title.get_width()//2)
@@ -275,16 +263,17 @@ def readFile(titleF, fileN):
                     mainMenu(title_main, message_menu, True)
 
 def scoreboard():
+    global menu_color
     high=0
     title=TITLE_FONT.render('Scoreboard', 1, colors.get('blue'))
     text3 = MENU_FONT.render("Return to Menu", 1, colors.get("blue"))
 
-    screen.fill(colors.get('white'))
-    Button_3 = pygame.Rect(WIDTH//18, HEIGHT/1.1, WIDTH//4, 40)
-    pygame.draw.rect(screen, colors.get("limeGreen"), Button_3)
+    screen.fill(menu_color)
+    Button_3 = pygame.Rect(450, 600, 200, 50)
+    pygame.draw.rect(screen, colors.get("pink"), Button_3)
     
     screen.blit(title, (WIDTH//3,50))
-    screen.blit(text3, (WIDTH//17, HEIGHT/1.1))
+    screen.blit(text3, (480,605))
     pygame.display.update()
     
     print(score)
@@ -292,7 +281,7 @@ def scoreboard():
     #     high=score
     # scrLine=str(high)+"\t " (':')+ "\t" +date.strftime('%m/%d/%Y')+ "\n"
     date = datetime.datetime.now()
-    scrLine=str(score)+(': ')+ "\t"+date.strftime("%m-%d-%Y")+ "\n"
+    scrLine=str(score)+('      ')+ ("Christan") + ('      ') + date.strftime("%m-%d-%Y")+ "\n"
     myFile = open("pygame files\score.txt", "a")
     myFile.write(str(scrLine))
     myFile.close()
