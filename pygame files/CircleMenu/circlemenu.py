@@ -159,15 +159,15 @@ def mainMenu(Title, message, MENU):
                     exit()
 
 def settings():
-    global menu_color
+    global menu_color, screen, WIDTH, HEIGHT
     Title2=TITLE_FONT.render('Settings', 1, colors.get('blue'))
     text2=MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
     text3=MENU_FONT.render('On', 1, colors.get('blue'))
     text4=MENU_FONT.render('Off', 1, colors.get('blue'))
     text5=MENU_FONT.render('Random', 1, colors.get('blue'))
     text6=MENU_FONT.render('Original Size', 1, colors.get('blue'))
-    text7=MENU_FONT.render('Full Screen', 1, colors.get('blue'))
-    text8=MENU_FONT.render('Adjustable', 1, colors.get('blue'))
+    text7=MENU_FONT.render('Width +100', 1, colors.get('blue'))
+    text8=MENU_FONT.render('Width-100', 1, colors.get('blue'))
     screen.fill(menu_color)
 
     myFile = open("pygame files\CircleMenu\settings.txt", "r")
@@ -224,7 +224,7 @@ def settings():
                 if Button_2.collidepoint((mx, my)):
                     mainMenu(title_main, message_menu, True)
                 if Button_color.collidepoint((mx,my)):
-                    menu_color = (random.randint(0,255), random.randint(0,255), random.randint(0,255))
+                    menu_color == (random.randint(0,255), random.randint(0,255), random.randint(0,255))
                     pygame.display.update()
                     print("change color")
                 if Button_sound_on.collidepoint((mx,my)):
@@ -232,14 +232,13 @@ def settings():
                 if Button_sound_off.collidepoint((mx,my)):
                     mixer.music.stop()
                 if Button_size0.collidepoint((mx,my)):
-                    pygame.display.set_mode((700, 700), pygame.RESIZABLE)
-                    print("change size0")
+                    screen=pygame.display.set_mode((WIDTH,HEIGHT)) 
                 if Button_size1.collidepoint((mx,my)):
-                    pygame.display.set_mode((1400, 900), pygame.RESIZABLE)
-                    print("change size1")
-                if Button_size2.collidepoint((mx,my)):
-                    pygame.display.set_mode((500, 500), pygame.RESIZABLE)
-                    print("change size2")
+                    WIDTH+=100
+                    screen=pygame.display.set_mode((WIDTH,HEIGHT)) 
+                if Button_size2.collidepoint((mx, my)and WIDTH > 500): 
+                    WIDTH+=100
+                    screen=pygame.display.set_mode((WIDTH,HEIGHT)) 
     
 def readFile(titleF, fileN):
     global menu_color
@@ -290,7 +289,6 @@ def readFile(titleF, fileN):
                 if Button_3.collidepoint((mx, my)):
                     mainMenu(title_main, message_menu, True)
 
-    global menu_color
     high=0
     title=TITLE_FONT.render('Scoreboard', 1, colors.get('blue'))
     text3 = MENU_FONT.render("Return to Menu", 1, colors.get("blue"))
