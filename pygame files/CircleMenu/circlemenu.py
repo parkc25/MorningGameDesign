@@ -148,7 +148,13 @@ def mainMenu(Title, message, MENU):
                 if Button_game2.collidepoint((mx, my)):
                     Game_2()
                 if Button_score.collidepoint((mx, my)):
-                    scoreboard()
+                    print(score)
+                    date = datetime.datetime.now()
+                    scrLine=str(score)+('      ')+ ("Christan") + ('      ') + date.strftime("%m-%d-%Y")+ "\n"
+                    myFile = open("pygame files\CircleMenu\score.txt", "a")
+                    myFile.write(str(scrLine))
+                    myFile.close()
+                    readFile("Scoreboard", "pygame files\CircleMenu\score.txt")
                 if Button_exit.collidepoint((mx, my)):
                     exit()
 
@@ -284,7 +290,6 @@ def readFile(titleF, fileN):
                 if Button_3.collidepoint((mx, my)):
                     mainMenu(title_main, message_menu, True)
 
-def scoreboard():
     global menu_color
     high=0
     title=TITLE_FONT.render('Scoreboard', 1, colors.get('blue'))
