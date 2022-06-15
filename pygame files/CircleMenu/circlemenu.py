@@ -62,7 +62,7 @@ square = pygame.Rect(50,50,100,300)
 # pygame.time.delay(5000)
 
 #background sound
-mixer.music.load("pygame files\\background.wav")
+mixer.music.load("pygame files\CircleMenu\\background.wav")
 mixer.music.play(-1)
 
 #square Var
@@ -140,7 +140,7 @@ def mainMenu(Title, message, MENU):
                 mx = mousePos[0]
                 my = mousePos[1]
                 if Button_instruct.collidepoint((mx, my)):
-                    readFile("Instructions", "pygame files\instruction.txt")
+                    readFile("Instructions", "pygame files\CircleMenu\instruction.txt")
                 if Button_settings.collidepoint((mx, my)):
                     settings()
                 if Button_game1.collidepoint((mx, my)):
@@ -164,7 +164,7 @@ def settings():
     text8=MENU_FONT.render('size2', 1, colors.get('blue'))
     screen.fill(menu_color)
 
-    myFile = open("pygame files\settings.txt", "r")
+    myFile = open("pygame files\CircleMenu\settings.txt", "r")
     content = myFile.readlines()
 
     yinstructions = 150
@@ -303,11 +303,11 @@ def scoreboard():
     # scrLine=str(high)+"\t " (':')+ "\t" +date.strftime('%m/%d/%Y')+ "\n"
     date = datetime.datetime.now()
     scrLine=str(score)+('      ')+ ("Christan") + ('      ') + date.strftime("%m-%d-%Y")+ "\n"
-    myFile = open("pygame files\score.txt", "a")
+    myFile = open("pygame files\CircleMenu\score.txt", "a")
     myFile.write(str(scrLine))
     myFile.close()
 
-    myFile=open('pygame files\score.txt', 'r')
+    myFile=open('pygame files\CircleMenu\score.txt', 'r')
     content = myFile.readlines()
 
     #var to controll change of line

@@ -7,5 +7,6 @@ circle =  a, s, w, d
 square = up, down, right, left 
 
 *Use return button or X to return to Menu
+*Play one game, exit, then play another for your score to be correct
 
 
