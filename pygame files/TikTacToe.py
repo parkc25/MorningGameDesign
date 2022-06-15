@@ -21,6 +21,8 @@ screen=pygame.display.set_mode((WIDTH,HEIGHT))
 pygame.display.set_caption("Tik Tac Tow")  #change the title of my window
 
 colors={"white":(255,255,255),"pink":(255,0,255),"blue":(0,0,255),"limeGreen":(153,255,51), "grey":(96,96,96), "black":(0,0,0), "red":(255,0,0), "green":(0,255,0), "orange":(255,128,0), "yellow":(255,255,0), "purple":(127,0,255)}
+background_color = colors.get("white")
+line_color = colors.get("blue")
 
 SIZE = 3
 markers = []
@@ -44,32 +46,31 @@ def zero_grid():
 # print(markers[1][1])
 
 def draw_grid():
-    background_color = colors.get("white")
-    line_color = colors.get("blue")
-    screen.fill(background_color)
+    global line_color
     for x in range(1,3):
         pygame.draw.line(screen, line_color,(0,HEIGHT//3*x),(WIDTH, HEIGHT//3*x), line_width) #horizonal lines
         pygame.draw.line(screen, line_color,(WIDTH//3*x, 0),(WIDTH//3*x, HEIGHT), line_width)
         pygame.display.update()
 
 def draw_markers():
-    global line_width, xValue, yValue
+    global line_width, xValue, yValue, x_color
     xValue = 0
     for x in markers: #give me each row
         yValue = 0
         for y in x: #give me each column
-            if y == 1:
+            if y == 1: #each element row
                 #draw x
-                pygame.draw.line((xValue*WIDTH//3+15, yValue*HEIGHT//3+15),(xValue*WIDTH//3+WIDTH//3-15, yValue*HEIGHT-15), line_width)
+                pygame.draw.line(screen, x_color, (xValue*WIDTH//3+15, yValue*HEIGHT//3+15),(xValue*WIDTH//3+WIDTH//3-15, yValue*HEIGHT-15), line_width)
             if y == -1:
                 #draw o 
                 pygame.draw.circle(screen, circle_color, (xValue*WIDTH//3+WIDTH//6+5, yValue*HEIGHT//3+HEIGHT//6), WIDTH, line_width)
-
-
+            yValue += 1
+        xValue += 1
 
 zero_grid()
 Game = True 
 while Game:
+    screen.fill(background_color)
     draw_grid()
     draw_markers()
     for event in pygame.event.get():
@@ -84,3 +85,6 @@ while Game:
         if markers[cellx][celly]==0:
             markers[cellx][celly]=player
             player += 1
+            #check for winner here
+        pygame.time.delay(50)
+        pygame.display.update()
