@@ -1,5 +1,5 @@
-#Maria Suarez
-#6/9/2022
+#Christan Park
+#6/9/2022 - 6/14/2022
 #We are learning pygame basic functins, 
 # creating screens, clrs, shape ,move 
 # move  the square
@@ -10,7 +10,6 @@
 #picture = pygame. image. load(filename)
 #picture = pygame. transform. scale(picture, (1280, 720))
 #bg=pygame.image.load('ClassStuff\CircleEatsSquare\Images\\bgSmaller.jpg')
-
 
 import sys
 from turtle import title, width
@@ -44,9 +43,10 @@ Button_exit = pygame.Rect(25, 400, 40, 40)
 
 #images
 bg=pygame.image.load('pygame files\Images\pygame background.jpg')
-char = pygame.image.load('pygame files\Images\character image.png')
+char = pygame.image.load('pygame files\Images\\alien.jpg')
 ball = pygame.image.load("pygame files\Images\\ball.png")
 char = pygame.transform.scale(char, (50, 50))
+ball_size = pygame.transform.scale(ball, (50,50))
 square = pygame.Rect(50,50,100,300)
 # screen.blit(bg, (0,0))
 # pygame.display.update()
@@ -283,7 +283,7 @@ def Game_1():
     Game=True
     while Game:
         pygame.draw.rect(screen, colors.get("white"), mountainSquare)
-        screen.blit(bg, (0,0))
+        screen.fill(colors2.get('black'))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -326,8 +326,8 @@ def Game_1():
         if square.colliderect(insSquare): 
             print("BOOM")
             score += 5
-            cx = random.randint(rad, WIDTH-rad)
-            cy = random.randint(rad, HEIGHT-rad)
+            cx = WIDTH +5
+            cy = HEIGHT +5 
             rad += 5
             ibox = rad*math.sqrt(2)
             xig = cx-(ibox/2)
@@ -343,6 +343,7 @@ def Game_1():
         
         #mountain collide circle
         if insSquare.colliderect(mountainSquare):
+            rad += 5
             cx = rad + 10
             cy = rad + 10
             ibox = rad*math.sqrt(2)
@@ -391,8 +392,8 @@ def Game_1():
                     mainMenu()
 
 def level_2():
-    global score, hb, wb, xb, rad, yb, charx, chary, cx, cy, speed, ibox, xig, yig, char, bg, mx, my, insSquare, ball
-    title=TITLE_FONT.render('Game Level 2', 1, colors.get('blue'))
+    global score, hb, wb, xb, rad, yb, squarex, squarey, cx, cy, speed, ibox, xig, yig, char, bg, mx, my, insSquare
+    title=TITLE_FONT.render('Game Level 1', 1, colors.get('blue'))
     screen.fill(colors.get('white'))
 
     screen.blit(title, (275,50))
@@ -400,83 +401,55 @@ def level_2():
     score=0
     Game=True
     while Game:
-        pygame.draw.rect(screen, colors.get("white"), mountainSquare)
         screen.blit(bg, (0,0))
+        # screen.fill(backgrnd)
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-                mainMenu()
-                print("you quit")
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mousePos = pygame.mouse.get_pos()
-                # print(mousePos)
-        keys = pygame.key.get_pressed() #allow us to see what key was pressed
-
-        #square movement
-        if keys[pygame.K_d] and square.x < WIDTH-wb:
+            if event.type==pygame.QUIT:
+                run=False
+                print("Y quit")
+        keys= pygame.key.get_pressed() #this is a list
+        #mve square
+        if keys[pygame.K_RIGHT] and square.x < WIDTH -(wb):
             square.x += speed
-            charx += speed
-        if keys[pygame.K_a] and square.x > 0:
+            squarex += speed
+        if keys[pygame.K_LEFT] and  square.x > speed:
             square.x -= speed
-            charx -= speed
-        if keys[pygame.K_s] and square.y < HEIGHT-hb:
-            square.y += speed
-            chary += speed
-        if keys[pygame.K_w] and square.y > 0:
+            squarex -= speed
+        if keys[pygame.K_UP] and square.y >speed:   #means clser t 0
             square.y -= speed
-            chary -= speed
-
-        #circle and inscribed square movement
-        if keys[pygame.K_RIGHT] and cx < WIDTH-rad:
+            squarey -= speed
+        if keys[pygame.K_DOWN] and square.y <HEIGHT -hb:  #means clser t max value HEIGHT
+            square.y += speed
+            squarey += speed
+            #mve Circle
+        if keys[pygame.K_d] and cx < WIDTH -(rad):
             cx += speed
             insSquare.x += speed
-        if keys[pygame.K_LEFT] and cx > 0+rad:
+        if keys[pygame.K_a] and  cx > (speed+rad):
             cx -= speed
             insSquare.x -= speed
-        if keys[pygame.K_DOWN] and cy < HEIGHT-rad:
-            cy += speed
-            insSquare.y += speed
-        if keys[pygame.K_UP] and cy > 0+rad:
+        if keys[pygame.K_w] and cy >(speed+rad):   #means clser t 0
             cy -= speed
             insSquare.y -= speed
-        
-        #circle square collide
-        if square.colliderect(insSquare): 
+        if keys[pygame.K_s] and cy <HEIGHT -(rad):  #means clser t max value HEIGHT
+            cy += speed
+            insSquare.y += speed
+
+        if square.colliderect(insSquare):
             print("BOOM")
-            score += 5
-            cx = random.randint(rad, WIDTH-rad)
-            cy = random.randint(rad, HEIGHT-rad)
-            rad += 5
+            rad+=1
+            cx=random.randint(rad, WIDTH-rad)
+            cy=random.randint(rad, HEIGHT-rad)
             ibox = rad*math.sqrt(2)
             xig = cx-(ibox/2)
             yig = cy-(ibox/2)
             insSquare=pygame.Rect(xig,yig,ibox,ibox)
-        
-        #mountain collide square
-        if square.colliderect(mountainSquare):
-            square.x = 10
-            square.y = 10
-            charx = 10
-            chary = 10
-        
-        #mountain collide circle
-        if insSquare.colliderect(mountainSquare):
-            cx = rad + 10
-            cy = rad + 10
-            ibox = rad*math.sqrt(2)
-            xig = cx-(ibox/2)
-            yig = cy-(ibox/2)
-            insSquare=pygame.Rect(xig,yig,ibox,ibox)
-
-        #rect(surface, color, object)
-        pygame.draw.rect(screen, colors.get("blue"), square)
-        pygame.draw.rect(screen, colors.get("blue"), insSquare)
-        screen.blit(char, (charx, chary))
-
+        #rect(surface, color, rect) -> Rect
+        pygame.draw.rect(screen, colors2.get("yellow"),square)
+        screen.blit(char, (squarex, squarey))
         #circle(surface, color, center, radius)
-        screen.blit
-        pygame.draw.circle(screen, colors.get("pink"), (cx, cy), rad)
-        
+        pygame.draw.circle(screen, colors.get("white"), (cx,cy), rad)
+        pygame.draw.rect(screen, colors2.get("orange"), insSquare)
         pygame.display.update()
         pygame.time.delay(5)
 
