@@ -1,19 +1,6 @@
 #Christan Park
 #create grid- draw lines
-#for loop for lines
-#need two things to draw line: x y beginning, xy end
-#Width//3- linewidth//2, height//3-linewidth//2
-#instructions
-#3 lists, 2 dimentional 
-#x=1, o=-1
-#times negative after each turn so that it goes to the opposite players turn
-#[100]
-#[010]
-#[001]
-#if sum column = 3 or negative three, someone wins- horizon
-#if sum of all list at  certain index = 3 or -3- vertical
-#if sum list 1 index 0, list two index 1, list three index 2, = 3 or -3- diagonal
-from itertools import count
+#Tic tac toe game
 import pygame, time,os,random, math, datetime, sys
 pygame.init()
 TITLE_FONT = pygame.font.SysFont('comicsans', 40)
@@ -656,6 +643,16 @@ def draw_markers():
         xvalue+=1
     pygame.display.update()
 
+def end_game():
+    global title, TITLE_FONT, colors, screen
+    title=TITLE_FONT.render('Bye-Bye', 1, colors.get('blue'))
+    screen.fill(colors.get('white'))
+    screen.blit(title, (275,200))
+    pygame.display.update()
+    pygame.time.delay(3000)
+    pygame.quit()
+    sys.exit() 
+
 def play_again():
     global Game
     Game = False
@@ -687,13 +684,7 @@ def play_again():
                 cnt = 0 
                 Game = True
             if button_no.collidepoint((mx, my)):
-                title=TITLE_FONT.render('Bye-Bye', 1, colors.get('blue'))
-                screen.fill(colors.get('white'))
-                screen.blit(title, (275,200))
-                pygame.display.update()
-                pygame.time.delay(3000)
-                pygame.quit()
-                sys.exit()  
+                end_game() 
 
 def vertical_0():
     pygame.draw.line(screen, linecolor, (WIDTH//(2*size), 15), (WIDTH//(2*size), HEIGHT-15), lineWidth)
