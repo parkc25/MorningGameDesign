@@ -204,7 +204,7 @@ def settings():
     screen.blit(text2, (480,605))
     screen.blit(text3, (235,370))
     screen.blit(text4, (430,370))
-    screen.blit(text5, (305,230))
+    screen.blit(text5, (310,230))
     screen.blit(text6, (115,530))
     screen.blit(text7, (300,530))
     screen.blit(text8, (475,530))
@@ -236,8 +236,8 @@ def settings():
                 if Button_size1.collidepoint((mx,my)):
                     WIDTH+=100
                     screen=pygame.display.set_mode((WIDTH,HEIGHT)) 
-                if Button_size2.collidepoint((mx, my)and WIDTH > 500): 
-                    WIDTH+=100
+                if Button_size2.collidepoint((mx, my)): 
+                    WIDTH-=100
                     screen=pygame.display.set_mode((WIDTH,HEIGHT)) 
     
 def readFile(titleF, fileN):
