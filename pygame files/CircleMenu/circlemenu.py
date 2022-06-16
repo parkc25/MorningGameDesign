@@ -160,6 +160,7 @@ def mainMenu(Title, message, MENU):
 
 def settings():
     global menu_color, screen, WIDTH, HEIGHT
+    screen.fill(menu_color)
     Title2=TITLE_FONT.render('Settings', 1, colors.get('blue'))
     text2=MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
     text3=MENU_FONT.render('On', 1, colors.get('blue'))
@@ -168,20 +169,18 @@ def settings():
     text6=MENU_FONT.render('Original Size', 1, colors.get('blue'))
     text7=MENU_FONT.render('Width +100', 1, colors.get('blue'))
     text8=MENU_FONT.render('Width-100', 1, colors.get('blue'))
-    screen.fill(menu_color)
 
     myFile = open("pygame files\CircleMenu\settings.txt", "r")
     content = myFile.readlines()
+    myFile.close()
 
-    yinstructions = 150
+    yi = 150
     for line in content:
         Instruc = MENU_FONT.render(line[0:-1], 1, colors.get("blue"))
-        screen.blit(Instruc, (40, yinstructions))
+        screen.blit(Instruc, (40, yi))
         pygame.display.update()
-        pygame.time.delay(50)
-        yinstructions += 40
-
-    myFile.close()
+        # pygame.time.delay(50)
+        yi += 40
 
     Button_2 = pygame.Rect(450, 600, 200, 50)
     Button_color = pygame.Rect(250, 220, 200, 50)
@@ -224,21 +223,25 @@ def settings():
                 if Button_2.collidepoint((mx, my)):
                     mainMenu(title_main, message_menu, True)
                 if Button_color.collidepoint((mx,my)):
-                    menu_color == (random.randint(0,255), random.randint(0,255), random.randint(0,255))
-                    pygame.display.update()
+                    menu_color = (random.randint(0,255), random.randint(0,255), random.randint(0,255))
                     print("change color")
                 if Button_sound_on.collidepoint((mx,my)):
                     mixer.music.play(-1)
+                    print("music on")
                 if Button_sound_off.collidepoint((mx,my)):
                     mixer.music.stop()
+                    print("music off")
                 if Button_size0.collidepoint((mx,my)):
                     screen=pygame.display.set_mode((WIDTH,HEIGHT)) 
-                if Button_size1.collidepoint((mx,my)):
+                if Button_size1.collidepoint((mx,my)) and WIDTH < 1100:
                     WIDTH+=100
                     screen=pygame.display.set_mode((WIDTH,HEIGHT)) 
-                if Button_size2.collidepoint((mx, my)): 
+                if Button_size2.collidepoint((mx, my)) and WIDTH > 600: 
                     WIDTH-=100
                     screen=pygame.display.set_mode((WIDTH,HEIGHT)) 
+            pygame.display.update()
+            settings()
+            
     
 def readFile(titleF, fileN):
     global menu_color
