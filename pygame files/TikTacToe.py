@@ -656,19 +656,19 @@ def draw_markers():
         xvalue+=1
     pygame.display.update()
 
-def again():
+def play_again():
     global Game
     Game = False
     screen.fill(bgcolor)
-    play_again=WORD_FONT.render('Want to play again?', 1, (linecolor))
+    play_again_question=WORD_FONT.render('Want to play again?', 1, (linecolor))
 
     button_yes=pygame.Rect(WIDTH//4-50, HEIGHT//2-50, 100, 50)
     button_no=pygame.Rect(3*WIDTH//4-50, HEIGHT//2-50, 100, 50)
 
     text_yes=WORD_FONT.render('Yes', 1, (linecolor))
     text_no=WORD_FONT.render('No', 1, (linecolor))
-    xd = WIDTH//2 - (play_again.get_width()//2)
-    screen.blit(play_again, (xd, 70))
+    xd = WIDTH//2 - (play_again_question.get_width()//2)
+    screen.blit(play_again_question, (xd, 70))
 
     pygame.draw.rect(screen, colors.get('iron'), button_yes)
     pygame.draw.rect(screen, colors.get('iron'), button_no)
@@ -733,14 +733,14 @@ def x_win():
     screen.blit(textx, (WIDTH//2-65, HEIGHT//2-50))
     pygame.display.update()
     pygame.time.delay(3000)
-    again()
+    play_again()
 def O_win():
     screen.fill(circle_color)
     texto=WORD_FONT.render('Team O won!', 1, (linecolor))
     screen.blit(texto, (WIDTH//2-65, HEIGHT//2-50))
     pygame.display.update()
     pygame.time.delay(3000)
-    again()
+    play_again()
 
 def check_winner():
     global Game
@@ -824,4 +824,4 @@ if cnt==9:
     screen.blit(count_text, (10, HEIGHT//2))
     pygame.display.update()
     pygame.time.delay(2000)
-    again()
+    play_again()
