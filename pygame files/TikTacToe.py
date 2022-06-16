@@ -1,4 +1,4 @@
-#Elizabeth Nassi
+#Christan Park
 #create grid- draw lines
 #for loop for lines
 #need two things to draw line: x y beginning, xy end
