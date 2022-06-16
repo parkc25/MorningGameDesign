@@ -821,7 +821,7 @@ while Game and cnt<9:
 if cnt==9:
     screen.fill(linecolor)
     count_text = WORD_FONT.render('Nobody Wins.', 1, (bgcolor))
-    screen.blit(count_text, (10, HEIGHT//2))
+    screen.blit(count_text, (WIDTH//2-55, HEIGHT//2-30))
     pygame.display.update()
     pygame.time.delay(2000)
     play_again()
