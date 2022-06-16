@@ -654,6 +654,7 @@ def end_game():
     sys.exit() 
 
 def play_again():
+
     global Game
     Game = False
     screen.fill(bgcolor)
@@ -686,38 +687,11 @@ def play_again():
             if button_no.collidepoint((mx, my)):
                 end_game() 
 
-def vertical_0():
-    pygame.draw.line(screen, linecolor, (WIDTH//(2*size), 15), (WIDTH//(2*size), HEIGHT-15), lineWidth)
-    pygame.display.update()
-    pygame.time.delay(1000)
-def vertical_1():
-    pygame.draw.line(screen, linecolor, (WIDTH//2, 15), (WIDTH//2, HEIGHT-15), lineWidth)
-    pygame.display.update()
-    pygame.time.delay(1000)
-def vertical_2():
-    pygame.draw.line(screen, linecolor, ((2*size-1)*WIDTH//(2*size), 15), ((2*size-1)*WIDTH//(2*size), HEIGHT-15), lineWidth)
-    pygame.display.update()
-    pygame.time.delay(1000)
-def horizontal_0():
-    pygame.draw.line(screen, linecolor, (15, HEIGHT//(2*size)), (WIDTH-15, HEIGHT//(2*size)), lineWidth)
-    pygame.display.update()
-    pygame.time.delay(1000)
-def horiontal_1():
-    pygame.draw.line(screen, linecolor, (15, HEIGHT//2), (WIDTH-15, HEIGHT//2), lineWidth)
-    pygame.display.update()
-    pygame.time.delay(1000)
-def horiontal_2():
-    pygame.draw.line(screen, linecolor, (15, (2*size-1)*HEIGHT//(2*size)), (WIDTH-15, (2*size-1)*HEIGHT//(2*size)), lineWidth)
-    pygame.display.update()
-    pygame.time.delay(1000)
-def diagonal_1():
-    pygame.draw.line(screen, linecolor, (15, 15), (WIDTH-15, HEIGHT-15), lineWidth)
-    pygame.display.update()
-    pygame.time.delay(1000)
-def diagonal_2():
+
     pygame.draw.line(screen, linecolor, (WIDTH-15, 15), (15, HEIGHT-15), lineWidth)
     pygame.display.update()
     pygame.time.delay(1000)
+
 def x_win():
     screen.fill(x_color)
     textx=WORD_FONT.render('Team X won!', 1, (linecolor))
@@ -725,6 +699,7 @@ def x_win():
     pygame.display.update()
     pygame.time.delay(3000)
     play_again()
+
 def O_win():
     screen.fill(circle_color)
     texto=WORD_FONT.render('Team O won!', 1, (linecolor))
@@ -736,52 +711,36 @@ def O_win():
 def check_winner():
     global Game
     if markers[0][0] + markers[0][1] + markers[0][2] == 3:
-        vertical_0()
         x_win()
     elif markers[0][0] + markers[0][1] + markers[0][2] == -3:
-        vertical_0()
         O_win()
     elif markers[1][0] + markers[1][1] + markers[1][2] == 3:
-        vertical_1()
         x_win()
     elif markers[1][0] + markers[1][1] + markers[1][2] == -3:
-        vertical_1()
         O_win()
     elif markers[2][0] + markers[2][1] + markers[2][2] == 3:
-        vertical_2()
         x_win()
     elif markers[2][0] + markers[2][1] + markers[2][2] == -3:
-        vertical_2()
         O_win()
     elif markers[0][0] + markers[1][0] + markers[2][0] == 3:
-        horizontal_0()
         x_win()
     elif markers[0][0] + markers[1][0] + markers[2][0] == -3:
-        horizontal_0()
         O_win()
     elif markers[0][1] + markers[1][1] + markers[2][1] == 3:
-        horiontal_1()
         x_win()
     elif markers[0][1] + markers[1][1] + markers[2][1] == -3:
-        horiontal_1()
         O_win()
     elif markers[0][2] + markers[1][2] + markers[2][2] == 3:
-        horiontal_2()
         x_win()
     elif markers[0][2] + markers[1][2] + markers[2][2] == -3:
-        horiontal_2()
         O_win()
     elif markers[0][0] + markers[1][1] + markers[2][2] == 3:
-        diagonal_1()
         x_win()
     elif markers[0][0] + markers[1][1] + markers[2][2] == -3:
-        diagonal_1()
         O_win()
     elif markers[2][0] + markers[1][1] + markers[0][2] == 3:
-        diagonal_2()
         x_win()
     elif markers[2][0] + markers[1][1] + markers[0][2] == -3:
-        diagonal_2()
         O_win()
     else:
         Game = True
