@@ -25,27 +25,27 @@ os.system('cls')
 #basic stuff for game
 WIDTH=700 #like constant
 HEIGHT=700
-TITLE_FONT = pygame.font.SysFont('comicsans', 40)
+TITLE_FONT = pygame.font.SysFont('comicsans', 40) #making specific fonts for different text
 MENU_FONT = pygame.font.SysFont('comicsans', 20)
-score = 0
+score = 0 #set score to 0 to start game
 
 #colors for game
 colors={"white":(255,255,255),"pink":(255,0,255),"blue":(0,0,255),"limeGreen":(153,255,51)}
 colors2 = {"grey":(96,96,96), "black":(0,0,0), "red":(255,0,0), "green":(0,255,0), "orange":(255,128,0), "yellow":(255,255,0), "purple":(127,0,255)}
 
 #background colors
-menu_color = (random.randint(0,255), random.randint(0,255), random.randint(0,255))
+menu_color = (random.randint(0,255), random.randint(0,255), random.randint(0,255)) #random color generator
 
 message_menu=['          Instructions', '             Settings', '              Game 1', '              Game 2', '          Scoreboard', '                Exit']
 title_main = "Circle Eats Square Menu"
 
 #create dispay wind with any name y like
-screen=pygame.display.set_mode((WIDTH,HEIGHT)) 
+screen=pygame.display.set_mode((WIDTH,HEIGHT)) #setting screen size to set height and width
 pygame.display.set_caption("Circle Square Game")  #change the title of my window
 
 #creating buttons
-bx = WIDTH//3
-Button_instruct = pygame.Rect(bx, 150, WIDTH//4, 40)
+bx = WIDTH//3 #making buttons be in the same spot no matter the size of screen
+Button_instruct = pygame.Rect(bx, 150, WIDTH//4, 40) #//4 to make words in the center
 Button_settings = pygame.Rect(bx, 200, WIDTH//4, 40)
 Button_game1 = pygame.Rect(bx, 250, WIDTH//4, 40)
 Button_game2 = pygame.Rect(bx, 300, WIDTH//4, 40)
@@ -63,7 +63,7 @@ square = pygame.Rect(50,50,100,300)
 
 #background sound
 mixer.music.load("pygame files\CircleMenu\\background.wav")
-mixer.music.play(-1)
+mixer.music.play(0)
 
 #square Var
 hb=50
@@ -95,6 +95,7 @@ yig = cy-(ibox/2)
 mx = 0
 my = 0
 
+#colors and sizes of game squares and circles
 square=pygame.Rect(xb,yb,wb,hb)# create the object to draw
 insSquare=pygame.Rect(xig,yig,ibox,ibox)
 squareClr=colors.get("pink")
@@ -106,10 +107,10 @@ run = True
 Game = False
 
 def mainMenu(Title, message, MENU):
-    global menu_color
-    text_title = TITLE_FONT.render(Title, 1, colors.get("blue"))
+    global menu_color #have to import undefined variables 
+    text_title = TITLE_FONT.render(Title, 1, colors.get("blue")) 
     screen.fill(menu_color)
-    xd = WIDTH//2- (text_title.get_width()//2)
+    xd = WIDTH//2- (text_title.get_width()//2) #to make center by putting width//2 minus the space the words take
     screen.blit(text_title, (xd, 50))
     yMenu=150
     
@@ -125,16 +126,18 @@ def mainMenu(Title, message, MENU):
     while MENU:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
-                text_title = TITLE_FONT.render("Bye-Bye", 1, colors.get("blue"))
+                #bye-bye screen
+                text_title = TITLE_FONT.render("Bye-Bye", 1, colors.get("blue")) 
                 screen.fill(menu_color)
-                xd = WIDTH//2 - (text_title.get_width()//2)
+                xd = WIDTH//2 - (text_title.get_width()//2) #centering
                 yd = HEIGHT//2-40
                 screen.blit(text_title, (xd, yd))
                 pygame.display.update()
-                pygame.time.delay(2000)
+                pygame.time.delay(2000) #show bye-bye screen for 2 seconds
                 pygame.quit()
                 sys.exit()
 
+            #making collidepoints
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mousePos = pygame.mouse.get_pos()
                 mx = mousePos[0]
@@ -149,6 +152,7 @@ def mainMenu(Title, message, MENU):
                     Game_2()
                 if Button_score.collidepoint((mx, my)):
                     print(score)
+                    #adding score into file
                     date = datetime.datetime.now()
                     scrLine=str(score)+('      ')+ ("Christan") + ('      ') + date.strftime("%m-%d-%Y")+ "\n"
                     myFile = open("pygame files\CircleMenu\score.txt", "a")
@@ -161,6 +165,7 @@ def mainMenu(Title, message, MENU):
 def settings():
     global menu_color, screen, WIDTH, HEIGHT
     screen.fill(menu_color)
+    #getting text for button 
     Title2=TITLE_FONT.render('Settings', 1, colors.get('blue'))
     text2=MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
     text3=MENU_FONT.render('On', 1, colors.get('blue'))
@@ -170,7 +175,7 @@ def settings():
     text7=MENU_FONT.render('Width +100', 1, colors.get('blue'))
     text8=MENU_FONT.render('Width-100', 1, colors.get('blue'))
 
-    myFile = open("pygame files\CircleMenu\settings.txt", "r")
+    myFile = open("pygame files\CircleMenu\settings.txt", "r") #bring in settings file
     content = myFile.readlines()
     myFile.close()
 
@@ -182,14 +187,16 @@ def settings():
         # pygame.time.delay(50)
         yi += 40
 
+    #making buttons for game
     Button_2 = pygame.Rect(450, 600, 200, 50)
-    Button_color = pygame.Rect(250, 220, 200, 50)
-    Button_sound_on = pygame.Rect(175, 360, 150, 50)
-    Button_sound_off = pygame.Rect(375, 360, 150, 50)
-    Button_size0 = pygame.Rect(100, 520, 150, 50)
-    Button_size1 = pygame.Rect(275, 520, 150, 50)
-    Button_size2 = pygame.Rect(450, 520, 150, 50)
+    Button_color = pygame.Rect(WIDTH//2-100, 220, 200, 50)
+    Button_sound_on = pygame.Rect(WIDTH//4, 360, 150, 50)
+    Button_sound_off = pygame.Rect(WIDTH//4+200, 360, 150, 50)
+    Button_size0 = pygame.Rect(WIDTH//7, 520, 150, 50)
+    Button_size1 = pygame.Rect(WIDTH//7+175, 520, 150, 50)
+    Button_size2 = pygame.Rect(WIDTH//7+350, 520, 150, 50)
 
+    #making colors for button
     pygame.draw.rect(screen, colors.get("pink"), Button_2)
     pygame.draw.rect(screen, colors.get("pink"), Button_color)
     pygame.draw.rect(screen, colors.get("pink"), Button_sound_on)
@@ -198,21 +205,25 @@ def settings():
     pygame.draw.rect(screen, colors.get("pink"), Button_size1)
     pygame.draw.rect(screen, colors.get("pink"), Button_size2)
 
+    #placement of words on screen
     xd = WIDTH//2 - (Title2.get_width()//2)
+    a = WIDTH//4 
+    b = WIDTH//2
+    c = WIDTH//7
     screen.blit(Title2, (xd, 50))
     screen.blit(text2, (480,605))
-    screen.blit(text3, (235,370))
-    screen.blit(text4, (430,370))
-    screen.blit(text5, (310,230))
-    screen.blit(text6, (115,530))
-    screen.blit(text7, (300,530))
-    screen.blit(text8, (475,530))
+    screen.blit(text3, (a+55,370))
+    screen.blit(text4, (a+255,370))
+    screen.blit(text5, (b-40,230))
+    screen.blit(text6, (c+20,530))
+    screen.blit(text7, (c+195,530))
+    screen.blit(text8, (c+375,530))
 
     pygame.display.update()
 
     while True:
         for event in pygame.event.get():
-            if event.type==pygame.QUIT:
+            if event.type==pygame.QUIT: #if press x go back to menu
                 run=False
                 mainMenu(title_main, message_menu, True)
                 print("You quit")
@@ -220,11 +231,8 @@ def settings():
                 mousePos=pygame.mouse.get_pos()
                 mx=mousePos[0]
                 my=mousePos[1]
-                if Button_2.collidepoint((mx, my)):
+                if Button_2.collidepoint((mx, my)): #return button take back to menu
                     mainMenu(title_main, message_menu, True)
-                if Button_color.collidepoint((mx,my)):
-                    menu_color = (random.randint(0,255), random.randint(0,255), random.randint(0,255))
-                    print("change color")
                 if Button_sound_on.collidepoint((mx,my)):
                     mixer.music.play(-1)
                     print("music on")
@@ -232,17 +240,23 @@ def settings():
                     mixer.music.stop()
                     print("music off")
                 if Button_size0.collidepoint((mx,my)):
-                    screen=pygame.display.set_mode((WIDTH,HEIGHT)) 
-                if Button_size1.collidepoint((mx,my)) and WIDTH < 1100:
+                    screen=pygame.display.set_mode((700,700)) 
+                if Button_size1.collidepoint((mx,my)):
                     WIDTH+=100
-                    screen=pygame.display.set_mode((WIDTH,HEIGHT)) 
+                    screen=pygame.display.set_mode((WIDTH,HEIGHT))
+                    pygame.display.update()
                 if Button_size2.collidepoint((mx, my)) and WIDTH > 600: 
                     WIDTH-=100
-                    screen=pygame.display.set_mode((WIDTH,HEIGHT)) 
-            pygame.display.update()
-            settings()
+                    screen=pygame.display.set_mode((WIDTH,HEIGHT))
+                    pygame.display.update() 
+                if Button_color.collidepoint((mx,my)): #change background color
+                    menu_color = (random.randint(0,255), random.randint(0,255), random.randint(0,255)) #MUST BE = not ==
+                    print("change color")
+                pygame.display.update()
+                settings()
             
-    
+
+            
 def readFile(titleF, fileN):
     global menu_color
     #fill screen with white
