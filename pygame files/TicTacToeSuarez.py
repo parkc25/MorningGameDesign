@@ -610,6 +610,8 @@ screen=pygame.display.set_mode((WIDTH,HEIGHT))
 pygame.display.set_caption("Tic Tac Te")  #change the title of my window
 backgrnd=colors.get("pink")
 
+clock = pygame.time.Clock()
+
 #game Variable
 player=1        #Change players 1 and -1
 gameOver=False  #check is game is Over
@@ -633,7 +635,7 @@ def draw_grid():
     for x in range(1,3):
         pygame.draw.line(screen,lineClr,(0,HEIGHT//3*x),(WIDTH,HEIGHT//3*x),lineWidth)  #Hztal line
         pygame.draw.line(screen,lineClr,(WIDTH//3*x, 0),(WIDTH//3*x,HEIGHT),lineWidth)  #Vert line
-    pygame.time.delay(100)
+    clock.tick(20)
 
 def draw_Markers():
     xValue=0
@@ -725,7 +727,7 @@ def gameEnd():
                 word_bye=MENU_FONT.render('Bye-Bye!', 1, (txtcolor))
                 screen.blit(word_bye, (WIDTH//2-50, HEIGHT//2-200))
                 pygame.display.update()
-                pygame.time.delay(1000)
+                clock.tick(500)
                 pygame.quit()
                 sys.exit()
             if event.type==pygame.MOUSEBUTTONDOWN:
@@ -738,7 +740,7 @@ def gameEnd():
                     word_bye=MENU_FONT.render('Bye-Bye!', 1, (txtcolor))
                     screen.blit(word_bye, (WIDTH//2-50, HEIGHT//2-200))
                     pygame.display.update()
-                    pygame.time.delay(1000)
+                    clock.tick(500)
                     pygame.quit()
                     sys.exit()
                 if Button_yes.collidepoint((mx, my)):
