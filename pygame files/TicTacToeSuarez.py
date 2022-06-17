@@ -1,4 +1,4 @@
-#MAria   
+#Christan Park   
 # TICTACTOE  
 # zero_Array() 
 # draw_grid() 
@@ -745,8 +745,6 @@ def gameEnd():
                     markers.clear()
                     markers=[]
                     zero_Array()
-                    pygame.display.update()
-                    Game = True
                     game_ttt()
 
 def game_ttt():
@@ -764,7 +762,7 @@ def game_ttt():
                 MxMy = pygame.mouse.get_pos()
                 cellx=MxMy[0]//(WIDTH//3)
                 celly=MxMy[1]//(HEIGHT//3)
-                
+
                 if markers[cellx][celly]==0:
                     markers[cellx][celly]=player
                     player *=-1
