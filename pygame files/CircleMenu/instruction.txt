@@ -1,10 +1,12 @@
-Goal Of Game:
+Goal Of Game 1:
 CIRCLE goal: chase square around screen to eat and grow bigger 
 SQUARE goal: run around scrren to avoid being eaten by circle 
-
 Keys: 
 circle =  a, s, w, d 
 square = up, down, right, left 
+
+Game2:
+Normal rules of Tic Tac Toe
 
 *Use return button or X to return to Menu
 *Play one game, exit, then play another for your score to be correct
