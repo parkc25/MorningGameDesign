@@ -6,6 +6,7 @@
 # checkWinner() 
 # Game_end()
 
+from cgitb import text
 import os, random, time, pygame, math, datetime,sys
 os.system('cls')
 
@@ -694,7 +695,7 @@ def checkWinner():
             winner=0
 
 def gameEnd():
-    global Game, scoreo, scorex, markers
+    global Game, scoreo, scorex, markers, winner, gameOver
     Game = False
     if winner == 1:
         scorex+=1
@@ -702,12 +703,12 @@ def gameEnd():
         scoreo+=1
     scro = str(scoreo)
     scrx = str(scorex)
-    txtcolor = colors.get("white") #i changed colors
-    word_scorex=MENU_FONT.render("X's score is "+scrx, 1, (txtcolor))
-    word_scoreo=MENU_FONT.render("O's score is "+scro, 1, (txtcolor))
-    word_playagain=MENU_FONT.render('Want to play again?', 1, (txtcolor))
-    word_yes=MENU_FONT.render('Yes', 1, (txtcolor))
-    word_no=MENU_FONT.render('No', 1, (txtcolor))
+    textcolor = colors.get("white") #i changed colors
+    word_playagain=MENU_FONT.render('Want to play again?', 1, (textcolor))
+    word_scorex=MENU_FONT.render("X's score is "+scrx, 1, (textcolor))
+    word_scoreo=MENU_FONT.render("O's score is "+scro, 1, (textcolor))
+    word_yes=MENU_FONT.render('Yes', 1, (textcolor))
+    word_no=MENU_FONT.render('No', 1, (textcolor))
     Button_yes=pygame.Rect(WIDTH//3-50, 4*HEIGHT//6, 100, 50)
     Button_no=pygame.Rect(WIDTH//3+175, 4*HEIGHT//6, 100, 50)
     screen.fill(backgrnd)
@@ -724,10 +725,10 @@ def gameEnd():
         for event in pygame.event.get():
             if event.type==pygame.QUIT: #if press x go back to menu
                 screen.fill(backgrnd)
-                word_bye=MENU_FONT.render('Bye-Bye!', 1, (txtcolor))
+                word_bye=MENU_FONT.render('Bye-Bye!', 1, (textcolor))
                 screen.blit(word_bye, (WIDTH//2-50, HEIGHT//2-200))
                 pygame.display.update()
-                clock.tick(500)
+                pygame.time.delay(2000)
                 pygame.quit()
                 sys.exit()
             if event.type==pygame.MOUSEBUTTONDOWN:
@@ -737,17 +738,23 @@ def gameEnd():
                 if Button_no.collidepoint((mx, my)):
                     pygame.event.get()
                     screen.fill(backgrnd)
-                    word_bye=MENU_FONT.render('Bye-Bye!', 1, (txtcolor))
+                    if scorex > scoreo:
+                        winner = MENU_FONT.render(("X won with " + scrx + " wins!"), 1, (textcolor))
+                    if scorex < scoreo:
+                        winner = MENU_FONT.render("O won with " + scro + " wins!")
+                    if scorex == scoreo:
+                        winner = MENU_FONT.render(("Tie! Each team had " + scro + " wins!"), 1, (textcolor))
+                    word_bye=MENU_FONT.render('Bye-Bye!', 1, (textcolor))
                     screen.blit(word_bye, (WIDTH//2-50, HEIGHT//2-200))
+                    screen.blit(winner,(WIDTH//2-100, HEIGHT//2-100) )
                     pygame.display.update()
-                    clock.tick(500)
+                    pygame.time.delay(2000)
                     pygame.quit()
                     sys.exit()
                 if Button_yes.collidepoint((mx, my)):
-                    run = False
                     markers.clear()
-                    markers=[]
                     zero_Array()
+                    gameOver = False
                     game_ttt()
 
 def game_ttt():
@@ -765,13 +772,13 @@ def game_ttt():
                 MxMy = pygame.mouse.get_pos()
                 cellx=MxMy[0]//(WIDTH//3)
                 celly=MxMy[1]//(HEIGHT//3)
-
                 if markers[cellx][celly]==0:
                     markers[cellx][celly]=player
                     player *=-1
                     checkWinner()
                     print(winner)
                     if gameOver:
+                        pygame.time.delay(100)
                         gameEnd()
                         gameOver = False
 

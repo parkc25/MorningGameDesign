@@ -39,8 +39,8 @@ colors2 = {"grey":(96,96,96), "black":(0,0,0), "red":(255,0,0), "green":(0,255,0
 #background colors
 menu_color = (random.randint(0,255), random.randint(0,255), random.randint(0,255)) #random color generator
 
-message_menu=['          Instructions', '             Settings', '              Game 1', '              Game 2', '          Scoreboard', '                Exit']
-title_main = "Circle Eats Square Menu"
+message_menu=['          Instructions', '             Settings', '      Circle Eats Square', '          Tic Tac Toe', '          Scoreboard', '                Exit']
+title_main = "Game Menu"
 
 #create dispay wind with any name y like
 screen=pygame.display.set_mode((WIDTH,HEIGHT)) #setting screen size to set height and width
@@ -55,7 +55,7 @@ Button_game2 = pygame.Rect(bx, 300, WIDTH//4, 40)
 Button_score = pygame.Rect(bx, 350, WIDTH//4, 40)
 Button_exit = pygame.Rect(bx, 400, WIDTH//4, 40)
 
-#images
+#images 
 bg=pygame.image.load('pygame files\Images\pygame background.jpg')
 char = pygame.image.load('pygame files\Images\\alien.jpg')
 char = pygame.transform.scale(char, (50, 50))
@@ -363,16 +363,7 @@ def readFile(titleF, fileN):
                 mx=mousePos[0]
                 my=mousePos[1]
                 if Button_3.collidepoint((mx, my)):
-                    mainMenu(title_main, message_menu, True)
-
-def exit():
-    title=TITLE_FONT.render('Bye-Bye', 1, colors.get('blue'))
-    screen.fill(colors.get('white'))
-    screen.blit(title, (275,200))
-    pygame.display.update()
-    pygame.time.delay(3000)
-    pygame.quit()
-    sys.exit()                
+                    mainMenu(title_main, message_menu, True)               
 
 def Game_1():
 
@@ -549,7 +540,7 @@ def Game_2():
                 winner=0
 
     def gameEnd():
-        global Game, scoreo, scorex, markers
+        global Game, scoreo, scorex, markers, winner, gameOver
         Game = False
         if winner == 1:
             scorex+=1
@@ -557,12 +548,12 @@ def Game_2():
             scoreo+=1
         scro = str(scoreo)
         scrx = str(scorex)
-        txtcolor = colors.get("white") #i changed colors
-        word_scorex=MENU_FONT.render("X's score is "+scrx, 1, (txtcolor))
-        word_scoreo=MENU_FONT.render("O's score is "+scro, 1, (txtcolor))
-        word_playagain=MENU_FONT.render('Want to play again?', 1, (txtcolor))
-        word_yes=MENU_FONT.render('Yes', 1, (txtcolor))
-        word_no=MENU_FONT.render('No', 1, (txtcolor))
+        textcolor = colors.get("white") #i changed colors
+        word_playagain=MENU_FONT.render('Want to play again?', 1, (textcolor))
+        word_scorex=MENU_FONT.render("X's score is "+scrx, 1, (textcolor))
+        word_scoreo=MENU_FONT.render("O's score is "+scro, 1, (textcolor))
+        word_yes=MENU_FONT.render('Yes', 1, (textcolor))
+        word_no=MENU_FONT.render('No', 1, (textcolor))
         Button_yes=pygame.Rect(WIDTH//3-50, 4*HEIGHT//6, 100, 50)
         Button_no=pygame.Rect(WIDTH//3+175, 4*HEIGHT//6, 100, 50)
         screen.fill(backgrnd)
@@ -578,20 +569,28 @@ def Game_2():
         while run:
             for event in pygame.event.get():
                 if event.type==pygame.QUIT: #if press x go back to menu
-                    markers.clear()
                     mainMenu(title_main, message_menu, True)
                 if event.type==pygame.MOUSEBUTTONDOWN:
                     mousePos=pygame.mouse.get_pos()
                     mx=mousePos[0]
                     my=mousePos[1]
                     if Button_no.collidepoint((mx, my)):
-                        markers.clear()
+                        pygame.event.get()
+                        screen.fill(backgrnd)
+                        if scorex > scoreo:
+                            winner = MENU_FONT.render(("Team X won with " + scrx + " wins!"), 1, (textcolor))
+                        if scorex < scoreo:
+                            winner = MENU_FONT.render("Team O won with " + scro + " wins!")
+                        if scorex == scoreo:
+                            winner = MENU_FONT.render(("Tie! Each team had " + scro + " wins!"), 1, (textcolor))
+                        screen.blit(winner,(WIDTH//2-100, HEIGHT//2-100) )
+                        pygame.display.update()
+                        pygame.time.delay(2000)
                         mainMenu(title_main, message_menu, True)
                     if Button_yes.collidepoint((mx, my)):
-                        run = False
                         markers.clear()
-                        markers=[]
                         zero_Array()
+                        gameOver = False
                         game_ttt()
 
     def game_ttt():
@@ -603,19 +602,18 @@ def Game_2():
             draw_Markers()
             for event in pygame.event.get():
                 if event.type==pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
+                    mainMenu(title_main, message_menu, True)
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     MxMy = pygame.mouse.get_pos()
                     cellx=MxMy[0]//(WIDTH//3)
                     celly=MxMy[1]//(HEIGHT//3)
-
                     if markers[cellx][celly]==0:
                         markers[cellx][celly]=player
                         player *=-1
                         checkWinner()
                         print(winner)
                         if gameOver:
+                            pygame.time.delay(100)
                             gameEnd()
                             gameOver = False
 
@@ -663,6 +661,15 @@ def name():
 
                 #clock.tick(60) means that for every second at most  60 frams should be passed
                 clock.tick(60)
+
+def exit():
+    title=TITLE_FONT.render('Bye-Bye', 1, colors.get('blue'))
+    screen.fill(menu_color)
+    screen.blit(title, (275,200))
+    pygame.display.update()
+    pygame.time.delay(3000)
+    pygame.quit()
+    sys.exit() 
 
 name()
 mainMenu(title_main, message_menu, True)
