@@ -717,8 +717,8 @@ def gameEnd():
     screen.blit(word_yes, (WIDTH//3-20, 4*HEIGHT//6))
     screen.blit(word_playagain, (WIDTH//2-90, 3*HEIGHT//6))
     pygame.display.update()
-
-    while True:
+    run = True
+    while run:
         for event in pygame.event.get():
             if event.type==pygame.QUIT: #if press x go back to menu
                 screen.fill(backgrnd)
@@ -742,13 +742,14 @@ def gameEnd():
                     pygame.quit()
                     sys.exit()
                 if Button_yes.collidepoint((mx, my)):
+                    run = False
                     markers.clear()
                     markers=[]
                     zero_Array()
                     game_ttt()
 
 def game_ttt():
-    global Game, player, markers, cellx, celly, MxMy
+    global Game, player, markers, cellx, celly, MxMy, gameOver
     Game = True
     while Game:
         screen.fill(backgrnd)
@@ -770,6 +771,7 @@ def game_ttt():
                     print(winner)
                     if gameOver:
                         gameEnd()
+                        gameOver = False
 
 zero_Array()
 game_ttt()
