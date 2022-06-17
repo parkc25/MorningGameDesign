@@ -39,7 +39,7 @@ colors2 = {"grey":(96,96,96), "black":(0,0,0), "red":(255,0,0), "green":(0,255,0
 #background colors
 menu_color = (random.randint(0,255), random.randint(0,255), random.randint(0,255)) #random color generator
 
-message_menu=['          Instructions', '             Settings', '      Circle Eats Square', '          Tic Tac Toe', '          Scoreboard', '                Exit']
+message_menu=['          Instructions', '             Settings', '      Circle Eats Square', '          Tic Tac Toe', '         Scoreboard1','          Scoreboard2' ,'                Exit']
 title_main = "Game Menu"
 
 #create dispay wind with any name y like
@@ -52,8 +52,9 @@ Button_instruct = pygame.Rect(bx, 150, WIDTH//4, 40) #//4 to make words in the c
 Button_settings = pygame.Rect(bx, 200, WIDTH//4, 40)
 Button_game1 = pygame.Rect(bx, 250, WIDTH//4, 40)
 Button_game2 = pygame.Rect(bx, 300, WIDTH//4, 40)
-Button_score = pygame.Rect(bx, 350, WIDTH//4, 40)
-Button_exit = pygame.Rect(bx, 400, WIDTH//4, 40)
+Button_score1 = pygame.Rect(bx, 350, WIDTH//4, 40)
+Button_score2 = pygame.Rect(bx, 400, WIDTH//4, 40)
+Button_exit = pygame.Rect(bx, 450, WIDTH//4, 40)
 
 #images 
 bg=pygame.image.load('pygame files\Images\pygame background.jpg')
@@ -161,7 +162,7 @@ def mainMenu(Title, message, MENU):
                     Game_1()
                 if Button_game2.collidepoint((mx, my)):
                     Game_2()
-                if Button_score.collidepoint((mx, my)):
+                if Button_score1.collidepoint((mx, my)):
                     print(score)
                     #adding score into file
                     date = datetime.datetime.now()
@@ -170,6 +171,8 @@ def mainMenu(Title, message, MENU):
                     myFile.write(str(scrLine))
                     myFile.close()
                     readFile("Scoreboard", "pygame files\CircleMenu\score.txt")
+                if Button_score1.collidepoint((mx, my)):
+                    readFile("Tic Tac Toe Scoreboard", "pygame files\CircleMenu\ttt_score.txt")
                 if Button_exit.collidepoint((mx, my)):
                     exit()
 
@@ -578,12 +581,22 @@ def Game_2():
                         pygame.event.get()
                         screen.fill(backgrnd)
                         if scorex > scoreo:
-                            winner = MENU_FONT.render(("Team X won with " + scrx + " wins!"), 1, (textcolor))
+                            winner = MENU_FONT.render(("X won with " + scrx + " wins!"), 1, (textcolor))
+                            score = "X won with " + scrx + " wins"
                         if scorex < scoreo:
-                            winner = MENU_FONT.render("Team O won with " + scro + " wins!")
+                            winner = MENU_FONT.render("O won with " + scro + " wins!")
+                            score = "X won with " + scro + " wins"
                         if scorex == scoreo:
                             winner = MENU_FONT.render(("Tie! Each team had " + scro + " wins!"), 1, (textcolor))
+                            score = "Tie! No winner"
+                        word_bye=MENU_FONT.render('Bye-Bye!', 1, (textcolor))
+                        screen.blit(word_bye, (WIDTH//2-50, HEIGHT//2-200))
                         screen.blit(winner,(WIDTH//2-100, HEIGHT//2-100) )
+                        date = datetime.datetime.now()
+                        scrLine=str(score)+('      ') + date.strftime("%m-%d-%Y")+ "\n"
+                        File=open('pygame files\\ttt_score.txt', 'a')
+                        File.write(str(scrLine))
+                        File.close()
                         pygame.display.update()
                         pygame.time.delay(2000)
                         mainMenu(title_main, message_menu, True)

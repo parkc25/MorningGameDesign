@@ -740,13 +740,21 @@ def gameEnd():
                     screen.fill(backgrnd)
                     if scorex > scoreo:
                         winner = MENU_FONT.render(("X won with " + scrx + " wins!"), 1, (textcolor))
+                        score = "X won with " + scrx + " wins"
                     if scorex < scoreo:
                         winner = MENU_FONT.render("O won with " + scro + " wins!")
+                        score = "X won with " + scro + " wins"
                     if scorex == scoreo:
                         winner = MENU_FONT.render(("Tie! Each team had " + scro + " wins!"), 1, (textcolor))
+                        score = "Tie! No winner"
                     word_bye=MENU_FONT.render('Bye-Bye!', 1, (textcolor))
                     screen.blit(word_bye, (WIDTH//2-50, HEIGHT//2-200))
                     screen.blit(winner,(WIDTH//2-100, HEIGHT//2-100) )
+                    date = datetime.datetime.now()
+                    scrLine=str(score)+('      ') + date.strftime("%m-%d-%Y")+ "\n"
+                    File=open('pygame files\\ttt_score.txt', 'a')
+                    File.write(str(scrLine))
+                    File.close()
                     pygame.display.update()
                     pygame.time.delay(2000)
                     pygame.quit()
