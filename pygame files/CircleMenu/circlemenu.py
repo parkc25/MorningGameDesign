@@ -255,8 +255,6 @@ def settings():
                 pygame.display.update()
                 settings()
             
-
-            
 def readFile(titleF, fileN):
     global menu_color
     #fill screen with white
