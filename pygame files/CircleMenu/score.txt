@@ -1,12 +1,10 @@
 Scores: 
 4      Christan      06-14-2022
 3      Christan      06-14-2022
-4      Christan      06-14-2022
 5      Christan      06-15-2022
 9      Christan      06-15-2022
-0      Christan      06-15-2022
 4      Christan      06-16-2022
 0      Christan      06-16-2022
 4      Christan      06-17-2022
-6      Christan      06-17-20220      Christan      06-17-2022
-0      Christan      06-17-2022
+6      Christan      06-17-2022
+4      Christan      06-18-20220      Christan      06-18-2022

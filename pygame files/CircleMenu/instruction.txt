@@ -9,6 +9,7 @@ Goal of Tic Tac Toe:
 Get three in a row veritcally, horizontally, or diagonally
 
 *Use return button or X to return to Menu
-*Scores will only be saved for Circle Ears Square Game
+*Scorebaord 1 => Circle Eats Square Scores
+#Scorebaord 2 => Tic Tac Toe Scores
 
 

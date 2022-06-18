@@ -171,8 +171,8 @@ def mainMenu(Title, message, MENU):
                     myFile.write(str(scrLine))
                     myFile.close()
                     readFile("Scoreboard", "pygame files\CircleMenu\score.txt")
-                if Button_score1.collidepoint((mx, my)):
-                    readFile("Tic Tac Toe Scoreboard", "pygame files\CircleMenu\ttt_score.txt")
+                if Button_score2.collidepoint((mx, my)):
+                    readFile("Tic Tac Toe Scoreboard", "pygame files\CircleMenu\\ttt_score.txt")
                 if Button_exit.collidepoint((mx, my)):
                     exit()
 
@@ -578,13 +578,14 @@ def Game_2():
                     mx=mousePos[0]
                     my=mousePos[1]
                     if Button_no.collidepoint((mx, my)):
+                        markers.clear()
                         pygame.event.get()
                         screen.fill(backgrnd)
                         if scorex > scoreo:
                             winner = MENU_FONT.render(("X won with " + scrx + " wins!"), 1, (textcolor))
                             score = "X won with " + scrx + " wins"
                         if scorex < scoreo:
-                            winner = MENU_FONT.render("O won with " + scro + " wins!")
+                            winner = MENU_FONT.render(("O won with " + scro + " wins!"), 1, (textcolor))
                             score = "X won with " + scro + " wins"
                         if scorex == scoreo:
                             winner = MENU_FONT.render(("Tie! Each team had " + scro + " wins!"), 1, (textcolor))
@@ -594,7 +595,7 @@ def Game_2():
                         screen.blit(winner,(WIDTH//2-100, HEIGHT//2-100) )
                         date = datetime.datetime.now()
                         scrLine=str(score)+('      ') + date.strftime("%m-%d-%Y")+ "\n"
-                        File=open('pygame files\\ttt_score.txt', 'a')
+                        File=open('pygame files\CircleMenu\\ttt_score.txt', 'a')
                         File.write(str(scrLine))
                         File.close()
                         pygame.display.update()
