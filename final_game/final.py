@@ -27,10 +27,11 @@ WIDTH=700 #like constant
 HEIGHT=600
 TITLE_FONT = pygame.font.SysFont('comicsans', 40) #making specific fonts for different text
 MENU_FONT = pygame.font.SysFont('comicsans', 20)
-score = 0 #set score to 0 to start game
+score = 0
 
 #clock
 clock = pygame.time.Clock()
+fpr = 60  #frame rate 
 
 #colors for game
 colors={"white":(255,255,255),"pink":(255,0,255),"blue":(0,0,255),"limeGreen":(153,255,51)}
@@ -71,10 +72,6 @@ win = pygame.transform.scale(win_before, (700,600))
 #background sound
 mixer.music.load("pygame files\CircleMenu\\background.wav")
 mixer.music.play(0)
-
-#frame rate 
-fpr = 60 
-timer = pygame.time.Clock()
 
 #mouse varuables
 mx = 0
@@ -319,46 +316,8 @@ def readFile(titleF, fileN):
     screen.blit(title, (WIDTH//3,50))
     screen.blit(text3, (480,605))
     pygame.display.update()
-    
-    print(score)
-    # if score>high:
-    #     high=score
-    # scrLine=str(high)+"\t " (':')+ "\t" +date.strftime('%m/%d/%Y')+ "\n"
-    date = datetime.datetime.now()
-    scrLine=str(score)+('      ')+ ("Christan") + ('      ') + date.strftime("%m-%d-%Y")+ "\n"
-    myFile = open("pygame files\CircleMenu\score.txt", "a")
-    myFile.write(str(scrLine))
-    myFile.close()
 
-    myFile=open('pygame files\CircleMenu\score.txt', 'r')
-    content = myFile.readlines()
-
-    #var to controll change of line
-    yscore = 150
-    for lines in content:
-        Instruc = MENU_FONT.render(lines[0:-1], 1, colors.get("blue"))
-        screen.blit(Instruc, (40, yscore))
-        pygame.display.update()
-        pygame.time.delay(50)
-        yscore += 40
-
-    myFile.close()
-
-    scoreboard=True
-    while scoreboard:
-        for event in pygame.event.get():
-            if event.type==pygame.QUIT:
-                run=False
-                pygame.display.quit()
-                print("You quit")
-            if event.type==pygame.MOUSEBUTTONDOWN:
-                mousePos=pygame.mouse.get_pos()
-                mx=mousePos[0]
-                my=mousePos[1]
-                if Button_3.collidepoint((mx, my)):
-                    mainMenu(title_main, message_menu, True)               
-
-def Game_1():
+def Game_1(): #ADD SCOREEEEE
     def draw_board(): #making board
         global turn , board
         for col in range (0,5): #0,5 becuase 0 through 4 
@@ -379,7 +338,7 @@ def Game_1():
 
     wordle = True 
     while wordle:
-        timer.tick(fpr) #making game run for 60 frames per minute
+        clock.tick(fpr) #making game run for 60 frames per minute
         screen.blit(bg,(0,0)) #making background CHANGE LATER
         check_word() #put check word first so the green/yellow box are under what you right
         draw_board()
