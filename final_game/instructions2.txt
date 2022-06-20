@@ -1,0 +1,12 @@
+Slime Jump 
+Goal of the Game:
+Get as high as you can using the platforms 
+ 
+Rules:
+Use the spacebar to jump once and press the spacebar 
+twice to double jump 
+you die once you fall off the screen 
+ 
+*Use return button or X to return to Menu 
+*Scoreboard 1 => Wordle Scoreboard 
+*Scoreboard 2 => Slime Jump Scoreboard 

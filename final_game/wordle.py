@@ -38,6 +38,7 @@ board = [[" ", " ", " ", " ", " "],
 #fonts
 LETTER_FONT = pygame.font.SysFont('comicsans', 55)
 win_font = pygame.font.SysFont('comicsans', 45)
+again_font = pygame.font.SysFont('comicsans', 20)
 
 #other variables
 turn = 0
@@ -48,8 +49,19 @@ game_over = False
 #words for game 
 # words = ("apple, power,  ")
 # random_word = words[random.randint(0, len(words) - 1)]
-random_word = "power"
-
+words = ["power", 'apple','cabin','eager', 'jazzy', 'buzzy', 'fuzzy', 'fizzy','adult', 'anger', 'award', 'beach',
+'birth', 'blood', 'brain', 'bread', 'break', 'brown', 'cause', 'chain', 'chair', 'chest', 'child', 'claim', 'class', 'clock'
+'cream', 'dance', 'death', 'crown', 'cycle', 'doubt', 'depth', 'draft', 'drama', 'dress', 'dream', 'enemy', 'error', 'entry'
+'event', 'faith', 'field', 'flight', 'final', 'floor', 'focus', 'force', 'glass', 'fruit', 'grass', 'green', 'heart', 'group', 
+'hotel', 'image', 'index', 'input', 'issue', 'judge', 'knife', 'level', 'light', 'limit', 'lunch', 'major', 'match', 'march', 
+'metal', 'model', 'money', 'month', 'music', 'mouth', 'night', 'noise', 'north', 'nurse', 'offer', 'order', 'other', 'owner', 
+'panel', 'paper', 'party', 'peace', 'phase', 'phone', 'pilet', 'pitch', 'place', 'plane', 'plant', 'power', 'prize', 'queen', 
+'radio', 'replay', 'right', 'round', 'scale', 'scene', 'shape', 'score', 'sheep', 'sense', 'shift', 'shirt', 'skill', 'smoke', 
+'speed', 'sport', 'staff', 'stage', 'steam', 'state', 'steel', 'study', 'table', 'sugar', 'taste', 'theme', 'touch', 'tower', 
+'track', 'trade', 'train', 'trend', 'trial', 'trust', 'truth', 'uncle', 'union', 'unity', 'video', 'visit', 'voice', 'while', 
+'water', 'while', 'world', 'women', 'youth']
+random_word = random.choice(words)
+print(random_word)
 
 def draw_board(): #making board
     global turn , board
@@ -59,7 +71,6 @@ def draw_board(): #making board
             letter_font = LETTER_FONT.render(board[row][col], True, black)
             screen.blit(letter_font, (col*100+125, row*100+10))
         pygame.draw.rect(screen, yellow, [5, turn*100, WIDTH-10, 100], 2, 5) #making box around row you are on
-
 
 def check_word(): #to check if guess = random work
     global turn, board, random_word
@@ -96,6 +107,8 @@ while wordle:
             if event.key == pygame.K_RETURN: #allow game to restart 
                 turn = 0 #puts turns back to 0
                 letters = 0 #put letter back to zero
+                random_word = random.choice(words)
+                print(random_word)
                 game_over = False 
                 # random_word = words[random.randint(0, len(words) -1 )]
                 #make board empty to start new game
@@ -123,9 +136,9 @@ while wordle:
             screen.blit(lose_text, (WIDTH//2 -100,HEIGHT//2-150))
             word = ("The word was " + random_word)
             word_text = win_font.render( word, True, black)
-            screen.blit(word_text, (WIDTH//2 - 200,HEIGHT//2-80))
-            playagain_text = ("To play again press 'enter' and to stop play press the x")
-            screen.blit(playagain_text, (WIDTH//2 - 200,HEIGHT//2+200))
+            screen.blit(word_text, (WIDTH//2 - 200,HEIGHT//2-50))
+            playagain_text = again_font.render("To play again press 'enter' and to stop play press the x", 1, black)
+            screen.blit(playagain_text, (WIDTH//2 - 250,HEIGHT//6-80))
 
         if game_over and turn < 7 and guess == random_word: #have to use 'and' and not game_over = True becuase game starts like that if do game wont play 
             screen.blit(win,(0,0))
@@ -134,6 +147,8 @@ while wordle:
             word = ("The word was " + random_word)
             word_text = win_font.render( word, True, black)
             screen.blit(word_text, (WIDTH//2 - 200,HEIGHT//2+220))
+            playagain_text = again_font.render("To play again press 'enter' and to stop play press the x", 1, black)
+            screen.blit(playagain_text, (WIDTH//2 - 250,HEIGHT//6-80))
 
     pygame.display.flip()
 

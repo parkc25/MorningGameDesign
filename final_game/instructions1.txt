@@ -1,0 +1,13 @@
+Wordle 
+Goal of the Game: 
+Guess the word before or on your fifth try 
+ 
+Rules: 
+Guess a five letter word 
+If green that letter is in the correct spot and is a letter in the word 
+If yellow that letter is in the word but not in the correct spot 
+ 
+*Use return button or X to return to Menu 
+*Scoreboard 1 => Wordle Scoreboard 
+*Scoreboard 2 => Slime Jump Scoreboard 
+
