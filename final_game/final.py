@@ -24,7 +24,7 @@ os.system('cls')
 
 #basic stuff for game
 WIDTH=700 #like constant
-HEIGHT=700
+HEIGHT=600
 TITLE_FONT = pygame.font.SysFont('comicsans', 40) #making specific fonts for different text
 MENU_FONT = pygame.font.SysFont('comicsans', 20)
 score = 0 #set score to 0 to start game
@@ -202,13 +202,13 @@ def settings():
         yi += 40
 
     #making buttons for game
-    Button_2 = pygame.Rect(450, 600, 200, 50)
-    Button_color = pygame.Rect(WIDTH//2-100, 220, 200, 50)
-    Button_sound_on = pygame.Rect(WIDTH//4, 360, 150, 50)
-    Button_sound_off = pygame.Rect(WIDTH//4+200, 360, 150, 50)
-    Button_size0 = pygame.Rect(WIDTH//7, 520, 150, 50)
-    Button_size1 = pygame.Rect(WIDTH//7+175, 520, 150, 50)
-    Button_size2 = pygame.Rect(WIDTH//7+350, 520, 150, 50)
+    Button_2 = pygame.Rect(450, HEIGHT//6+400, 200, 50)
+    Button_color = pygame.Rect(WIDTH//2-100, HEIGHT//6+150, 200, 50)
+    Button_sound_on = pygame.Rect(WIDTH//4, HEIGHT//6+250, 150, 50)
+    Button_sound_off = pygame.Rect(WIDTH//4+200, HEIGHT//6+250, 150, 50)
+    Button_size0 = pygame.Rect(WIDTH//7, HEIGHT//6+4000, 150, 50)
+    Button_size1 = pygame.Rect(WIDTH//7+175, HEIGHT//6+400, 150, 50)
+    Button_size2 = pygame.Rect(WIDTH//7+350, HEIGHT//6+400, 150, 50)
 
     #making colors for button
     pygame.draw.rect(screen, colors.get("pink"), Button_2)
@@ -225,7 +225,7 @@ def settings():
     b = WIDTH//2
     c = WIDTH//7
     screen.blit(Title2, (xd, 50))
-    screen.blit(text2, (480,605))
+    screen.blit(text2, (480,HEIGHT//6+405))
     screen.blit(text3, (a+55,370))
     screen.blit(text4, (a+255,370))
     screen.blit(text5, (b-40,230))
@@ -280,7 +280,7 @@ def readFile(titleF, fileN):
     text3 = MENU_FONT.render("Return to Menu", 1, colors.get("blue"))
 
     #making button
-    Button_3 = pygame.Rect(450, 600, 200, 50)
+    Button_3 = pygame.Rect(450, HEIGHT//6+400, 200, 50)
     pygame.draw.rect(screen, colors.get("pink"), Button_3)
 
 
@@ -302,7 +302,7 @@ def readFile(titleF, fileN):
     
     xd = WIDTH//2 - (Title.get_width()//2)
     screen.blit(Title, (xd, 50))
-    screen.blit(text3, (480,605))
+    screen.blit(text3, (480,HEIGHT//6+400))
     pygame.display.update()
 
     scoreboard=True

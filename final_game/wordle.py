@@ -11,13 +11,17 @@ colors={"white":(255,255,255),"pink":(255,0,255),"blue":(0,0,255),"limeGreen":(1
 #screen/display
 colors = ()
 WIDTH = 700
-HEIGHT = 700
+HEIGHT = 600
 screen=pygame.display.set_mode((WIDTH,HEIGHT))
 pygame.display.set_caption("Wordle")
 white = (255,255,255)
 black = (0,0,0) #change to menu_color later 
 green = (0,255,0)
 yellow = (255,255,0)
+bg_before=pygame.image.load('final_game\images\wordlebackground.jpg')
+bg = pygame.transform.scale(bg_before, (700,600))
+win_before=pygame.image.load('final_game\images\winning.png')
+win = pygame.transform.scale(win_before, (700,600))
 
 #frame rate 
 fpr = 60 
@@ -31,9 +35,12 @@ board = [[" ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " "],]
 
+#fonts
+LETTER_FONT = pygame.font.SysFont('comicsans', 55)
+win_font = pygame.font.SysFont('comicsans', 45)
+
 #other variables
 turn = 0
-LETTER_FONT = pygame.font.SysFont('comicsans', 55)
 letters = 0
 turn_now = True
 game_over = False
@@ -44,51 +51,54 @@ game_over = False
 random_word = "power"
 
 
-def draw_board():
+def draw_board(): #making board
     global turn , board
-    for col in range (0,5):
-        for row in range(0,6):
-            pygame.draw.rect(screen, black, [col*110+70, row*110+25, 90, 90], 4,5)
+    for col in range (0,5): #0,5 becuase 0 through 4 
+        for row in range(0,6): #0,6 becuase 0 through 5 
+            pygame.draw.rect(screen, black, [col*100+100, row*100+5, 90, 90], 4,5) # 4, 5 -> making rectangle round and just outline
             letter_font = LETTER_FONT.render(board[row][col], True, black)
-            screen.blit(letter_font, (col*110+80, row*110+35))
-        pygame.draw.rect(screen, yellow, [5, turn*110+20, WIDTH-30, 100], 3, 5)
+            screen.blit(letter_font, (col*100+125, row*100+10))
+        pygame.draw.rect(screen, yellow, [5, turn*100, WIDTH-10, 100], 2, 5) #making box around row you are on
 
 
-def check_word():
+def check_word(): #to check if guess = random work
     global turn, board, random_word
     for col in range(0,5):
         for row in range(0,6):
-            if random_word[col] == board[row][col] and turn > row:
-                pygame.draw.rect(screen, green, [col*110+70, row*110+25, 90, 90], 0,5)
+            if random_word[col] == board[row][col] and turn > row: #if a letter in right place making that rect green
+                pygame.draw.rect(screen, green, [col*100+100, row*100+5, 90, 90], 0,5)
             elif board[row][col] in random_word and turn > row:
-                pygame.draw.rect(screen, yellow, [col*110+70, row*110+25, 90, 90], 0,5)
+                pygame.draw.rect(screen, yellow, [col*100+100, row*100+5, 90, 90], 0,5) #if letter in word but not right palce making rec yellow
 
-running = True 
-while running:
-    timer.tick(fpr)
-    screen.fill(white)
-    check_word()
+wordle = True 
+while wordle:
+    timer.tick(fpr) #making game run for 60 frames per minute
+    screen.blit(bg,(0,0)) #making background CHANGE LATER
+    check_word() #put check word first so the green/yellow box are under what you right
     draw_board()
 
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+        if event.type == pygame.QUIT: #if press x will take back to menu
+            wordle = False
+            #mainMenu(title_main, message_menu, True)
         if event.type == pygame.TEXTINPUT and turn_now and not game_over:
-            guess = event.__getattribute__('text')
-            board[turn][letters] = guess
-            letters += 1
+            #__getattribute__() is used to retrieve an attribute from an instance
+            guess = event.__getattribute__('text') #__getattribute__('text') -> allows user to write with 'text' 
+            board[turn][letters] = guess #making guess = new board as letters are added and turn to know when to stop 
+            letters += 1 #make it easier for code to add letter so you can put restriction of 5 letters only 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_BACKSPACE and letters > 0:
-                board[turn][letters-1] = ' '
-                letters -= 1 
-            if event.key == pygame.K_SPACE:
-                turn += 1 
-                letters = 0 
-            if event.key == pygame.K_RETURN:
-                turn =0
-                letters = 0 
-                game_over = False
+                board[turn][letters-1] = ' ' #makes board[turn][letters] back to '' to put new letter
+                letters -= 1  #take away letter to allow 5 letters
+            if event.key == pygame.K_SPACE: #finalize guess
+                turn += 1 #if press space go to next line to make new guess and +turn to make resriction of 5 turns
+                letters = 0 #bring letters back to 0 to allow 5 letter guesses
+            if event.key == pygame.K_RETURN: #allow game to restart 
+                turn = 0 #puts turns back to 0
+                letters = 0 #put letter back to zero
+                game_over = False 
                 # random_word = words[random.randint(0, len(words) -1 )]
+                #make board empty to start new game
                 board = [[" ", " ", " ", " ", " "],
                         [" ", " ", " ", " ", " "],
                         [" ", " ", " ", " ", " "],
@@ -97,28 +107,35 @@ while running:
                         [" ", " ", " ", " ", " "],]
 
     for row in range(0,6):
-        guess = board[row][0] + board[row][1] +board[row][2] +board[row][3] +board[row][4]
-        if guess == random_word and row < turn:
-            game_over = True
+        guess = board[row][0] + board[row][1] +board[row][2] +board[row][3] +board[row][4] #guess per row and column
+        if guess == random_word and row < turn: #allows game to continue untill row>turn 
+            game_over = True #ends game
 
-        if letters == 5:
+        if letters == 5: #makes turn done if put 5 letters
             turn_now = False
-        if letters < 5:
+        if letters < 5: #if less than 5 continues game
             turn_now = True
 
-        if turn == 6:
+        if turn == 6 and not guess == random_word:
             game_over = True
             screen.fill(white)
             lose_text = LETTER_FONT.render("You lost", True, black)
             screen.blit(lose_text, (WIDTH//2 -100,HEIGHT//2-150))
+            word = ("The word was " + random_word)
+            word_text = win_font.render( word, True, black)
+            screen.blit(word_text, (WIDTH//2 - 200,HEIGHT//2-80))
+            playagain_text = ("To play again press 'enter' and to stop play press the x")
+            screen.blit(playagain_text, (WIDTH//2 - 200,HEIGHT//2+200))
 
-        if game_over and turn < 6:
-            screen.fill(white)
-            win_text = LETTER_FONT.render("You Win!", True, black)
-            screen.blit(win_text, (WIDTH//2 -100,HEIGHT//2-150))
+        if game_over and turn < 7 and guess == random_word: #have to use 'and' and not game_over = True becuase game starts like that if do game wont play 
+            screen.blit(win,(0,0))
+            win_text = win_font.render("You Win!", True, black)
+            screen.blit(win_text, (WIDTH//2 -90,HEIGHT//2-170))
+            word = ("The word was " + random_word)
+            word_text = win_font.render( word, True, black)
+            screen.blit(word_text, (WIDTH//2 - 200,HEIGHT//2+220))
 
     pygame.display.flip()
-pygame.quit()
-    
 
+    
 
