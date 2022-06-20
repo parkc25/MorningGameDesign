@@ -10,7 +10,7 @@ colors={"white":(255,255,255),"pink":(255,0,255),"blue":(0,0,255),"limeGreen":(1
 
 #screen/display
 colors = ()
-WIDTH = 500
+WIDTH = 700
 HEIGHT = 700
 screen=pygame.display.set_mode((WIDTH,HEIGHT))
 pygame.display.set_caption("Wordle")
@@ -48,10 +48,10 @@ def draw_board():
     global turn , board
     for col in range (0,5):
         for row in range(0,6):
-            pygame.draw.rect(screen, black, [col*100+12, row*100+12, 75, 75], 4,5)
+            pygame.draw.rect(screen, black, [col*110+70, row*110+25, 90, 90], 4,5)
             letter_font = LETTER_FONT.render(board[row][col], True, black)
-            screen.blit(letter_font, (col*100+35, row*100+10))
-        pygame.draw.rect(screen, yellow, [5, turn*100+5, WIDTH-10, 90], 3, 5)
+            screen.blit(letter_font, (col*110+80, row*110+35))
+        pygame.draw.rect(screen, yellow, [5, turn*110+20, WIDTH-30, 100], 3, 5)
 
 
 def check_word():
@@ -59,9 +59,9 @@ def check_word():
     for col in range(0,5):
         for row in range(0,6):
             if random_word[col] == board[row][col] and turn > row:
-                pygame.draw.rect(screen, green, [col*100+12, row*100+12, 75, 75], 0,5)
+                pygame.draw.rect(screen, green, [col*110+70, row*110+25, 90, 90], 0,5)
             elif board[row][col] in random_word and turn > row:
-                pygame.draw.rect(screen, yellow, [col*100+12, row*100+12, 75, 75], 0,5)
+                pygame.draw.rect(screen, yellow, [col*110+70, row*110+25, 90, 90], 0,5)
 
 running = True 
 while running:
@@ -108,12 +108,14 @@ while running:
 
         if turn == 6:
             game_over = True
+            screen.fill(white)
             lose_text = LETTER_FONT.render("You lost", True, black)
-            screen.blit(lose_text, (40,610))
+            screen.blit(lose_text, (WIDTH//2 -100,HEIGHT//2-150))
 
         if game_over and turn < 6:
+            screen.fill(white)
             win_text = LETTER_FONT.render("You Win!", True, black)
-            screen.blit(win_text, (40,610))
+            screen.blit(win_text, (WIDTH//2 -100,HEIGHT//2-150))
 
     pygame.display.flip()
 pygame.quit()
