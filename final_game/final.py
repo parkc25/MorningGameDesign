@@ -413,6 +413,7 @@ def Game_2():
         clock.tick(fps)
         black = colors2.get("black")
         screen.fill(black)
+        pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 mainMenu(title_main, message_menu, True)
