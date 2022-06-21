@@ -15,7 +15,7 @@ SCORE_FONT = pygame.font.SysFont('comicsans', 30)
 clock = pygame.time.Clock()
 score = 0
 high = 0 
-game_over = False
+game_over1 = False
 
 player_x = 300
 player_y = 380
@@ -24,8 +24,6 @@ jump = False
 y_change = 0 
 x_change = 0
 player_speed = 3
-left = False 
-right = False
 
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -92,9 +90,9 @@ while Slime_Jump:
             Slime_Jump = False
             # mainMenu(title_main, message_menu, True)
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE and game_over:
+            if event.key == pygame.K_SPACE and game_over1:
                 slime1 = pygame.transform.scale(slime1_before, (75,60)) 
-                game_over = False
+                game_over1 = False
                 score = 0
                 player_x = 300
                 player_y = 380
@@ -116,7 +114,7 @@ while Slime_Jump:
     if player_y <640:
         player_y = update_player(player_y) #use to control up and down movement 
     else:
-        game_over = True
+        game_over1 = True
         y_change = 0
         x_change = 0
     platforms = update_platforms(platforms, player_y, y_change) #lets you know how much you need to modify loction fo platforms 
