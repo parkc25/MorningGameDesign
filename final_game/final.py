@@ -338,7 +338,7 @@ def readFile(titleF, fileN):
     screen.blit(text3, (480,605))
     pygame.display.update()
 
-def Game_1(): #ADD SCOREEEEE
+def Game_1(): 
     def draw_board(): #making board
         global turn , board
         for col in range (0,5): #0,5 becuase 0 through 4 
@@ -356,18 +356,19 @@ def Game_1(): #ADD SCOREEEEE
                     pygame.draw.rect(screen, colors2.get("green"), [col*100+100, row*100+5, 90, 90], 0,5)
                 elif board[row][col] in random_word and turn > row:
                     pygame.draw.rect(screen, colors2.get("yellow"), [col*100+100, row*100+5, 90, 90], 0,5) #if letter in word but not right palce making rec yellow
-
+    
     wordle = True 
     while wordle:
+        global board, random_word, turn, letters, turn_now, game_over, background
         clock.tick(fps) #making game run for 60 frames per minute
         screen.blit(background,(0,0)) #making background CHANGE LATER
         check_word() #put check word first so the green/yellow box are under what you right
         draw_board()
-        global board, random_word, turn, letters, turn_now, game_over
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT: #if press x will take back to menu
-                mainMenu(title_main, message_menu, True)
+                wordle = False
+                # mainMenu(title_main, message_menu, True) #something wrong HERE
             if event.type == pygame.TEXTINPUT and turn_now and not game_over:
                 #__getattribute__() is used to retrieve an attribute from an instance
                 guess = event.__getattribute__('text') #__getattribute__('text') -> allows user to write with 'text' 
@@ -405,28 +406,34 @@ def Game_1(): #ADD SCOREEEEE
             if letters < 5: #if less than 5 continues game
                 turn_now = True
 
-            if turn == 6 and not guess == random_word: #if guess 5 words and didnt get it show this
-                game_over = True #game is over
-                screen.fill(colors.get("white")) #white background
-                lose_text = LETTER_FONT.render("You lost", True, colors2.get("black")) #printing they lost
-                screen.blit(lose_text, (WIDTH//2 -100,HEIGHT//2-150)) #placement of lose text
-                word = ("The word was " + random_word) #telling what word it was
-                word_text = win_font.render( word, True, colors2.get("black")) #setting color and font of telling what word
-                screen.blit(word_text, (WIDTH//2 - 200,HEIGHT//2-50)) #placement of what word text
-                playagain_text = again_font.render("To play again press 'enter' and to stop playing press the x", 1, colors2.get("black")) #telling them how to play again or exit
-                screen.blit(playagain_text, (WIDTH//2 - 245,HEIGHT//6-80)) #placement of play again or not text 
+            if turn == 6 and not guess == random_word:
+                game_over = True
+                screen.fill(colors.get('white'))
+                lose_text = LETTER_FONT.render("You lost", True, colors2.get('black'))
+                screen.blit(lose_text, (WIDTH//2 -100,HEIGHT//2-150))
+                word = ("The word was " + random_word)
+                word_text = win_font.render( word, True, colors2.get('black'))
+                screen.blit(word_text, (WIDTH//2 - 200,HEIGHT//2-50))
+                playagain_text = again_font.render("To play again press 'enter' and to stop play press the x", 1, colors2.get('black'))
+                screen.blit(playagain_text, (WIDTH//2 - 250,HEIGHT//6-80))
 
             if game_over and turn < 7 and guess == random_word: #have to use 'and' and not game_over = True becuase game starts like that if do game wont play 
-                screen.blit(win,(0,0)) #setting trophy background
-                win_text = win_font.render("You Win!", True, colors2.get("black")) #printing they won and setting color and font
-                screen.blit(win_text, (WIDTH//2 -90,HEIGHT//2-170)) #placement of winning text 
-                word = ("The word was " + random_word) #printing what word was in case they forgot
-                word_text = win_font.render( word, True, colors2.get("black")) #setting color and font
-                screen.blit(word_text, (WIDTH//2 - 200,HEIGHT//2+220)) #setting placement of word text 
-                playagain_text = again_font.render("To play again press 'enter' and to stop playing press the x", 1, colors2.get("black")) #telling them how to play again or exit
-                screen.blit(playagain_text, (WIDTH//2 - 245,HEIGHT//6-80)) #placement of play again or not text 
+                screen.blit(win,(0,0))
+                win_text = win_font.render("You Win!", True, colors2.get('black'))
+                screen.blit(win_text, (WIDTH//2 -90,HEIGHT//2-170))
+                word = ("The word was " + random_word)
+                word_text = win_font.render( word, True, colors2.get('black'))
+                screen.blit(word_text, (WIDTH//2 - 200,HEIGHT//2+220))
+                playagain_text = again_font.render("To play again press 'enter' and to stop play press the x", 1, colors2.get('black'))
+                screen.blit(playagain_text, (WIDTH//2 - 250,HEIGHT//6-80))
 
-        pygame.display.flip() #llows only a portion of the screen to updated, instead of the entire area -> this case just game 
+        pygame.display.flip()
+
+    date = datetime.datetime.now()
+    scrLine=str(turn)+('      ')+ ("Christan") + ('      ') + date.strftime("%m-%d-%Y")+ "\n"
+    myFile = open("final_game\wordleScore.txt", "a")
+    myFile.write(str(scrLine))
+    myFile.close() 
 
 def Game_2():
    #check for collision with blocks 
@@ -545,8 +552,7 @@ def name():
     while run:
         for event in pygame.event.get():
                 if event.type==pygame.QUIT: #if press x go back to menu
-                    pygame.quit()
-                    sys.exit()
+                    mainMenu(title_main, message_menu, True)
                 if event.type==pygame.MOUSEBUTTONDOWN:
                     #make box 
                     name_box = pygame.Rect(WIDTH/2-90, HEIGHT//2, 200, 50)
