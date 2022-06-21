@@ -11,7 +11,7 @@ grey = (128,128,128)
 WIDTH = 700 
 HEIGHT = 600
 fps = 60
-MENU_FONT = pygame.font.SysFont('comicsans', 30)
+SCORE_FONT = pygame.font.SysFont('comicsans', 30)
 clock = pygame.time.Clock()
 score = 0
 high = 0 
@@ -33,8 +33,8 @@ pygame.display.set_caption('Slime Jumper')
 
 slime1_before = pygame.image.load('final_game\images\slimejumpimages\slime1.1.png')
 slime1 = pygame.transform.scale(slime1_before, (75, 60))
-slime2 = pygame.image.load('final_game\images\slimejumpimages\slime2.png')
-slime3 = pygame.image.load('final_game\images\slimejumpimages\slime3.png')
+slime2 = pygame.image.load('final_game\images\slimejumpimages\slime2.2.png')
+slime3 = pygame.image.load('final_game\images\slimejumpimages\slime3.3.png')
 bg_before = pygame.image.load('final_game\images\cloud.jfif')
 bg = pygame.transform.scale(bg_before, (700, 600))
 
@@ -76,11 +76,11 @@ Slime_Jump = True
 while Slime_Jump:
     clock.tick(fps)
     screen.blit(bg,(0,0))
-    slime = screen.blit(slime1,(player_x, player_y))
+    screen.blit(slime1,(player_x, player_y))
     blocks = []
-    score_text = MENU_FONT.render('Score: '+ str(score), True, black, white)
+    score_text = SCORE_FONT.render('Score: '+ str(score), True, black, white)
     screen.blit(score_text, (530,20))
-    highscore_text = MENU_FONT.render('High Score: '+ str(score), True, black, white)
+    highscore_text = SCORE_FONT.render('High Score: '+ str(score), True, black, white)
     screen.blit(highscore_text, (490,60))
 
     for i in range(len(platforms)):                                 # 0,5 makes it round and filled in 
@@ -93,6 +93,7 @@ while Slime_Jump:
             # mainMenu(title_main, message_menu, True)
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and game_over:
+                slime1 = pygame.transform.scale(slime1_before, (75,60)) 
                 game_over = False
                 score = 0
                 player_x = 300
@@ -118,13 +119,17 @@ while Slime_Jump:
         game_over = True
         y_change = 0
         x_change = 0
-        
     platforms = update_platforms(platforms, player_y, y_change) #lets you know how much you need to modify loction fo platforms 
     
     if player_x < -70:
         player_x = -70 
     elif player_x > 750:
         player_x = 750
+
+    if x_change > 0:
+        slime1 = pygame.transform.scale(slime2, (75,60)) 
+    if x_change < 0:
+        slime1 = pygame.transform.scale(slime3, (75,60))
 
     if score > high:
         high = score 
