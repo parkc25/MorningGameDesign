@@ -24,14 +24,19 @@ jump = False
 y_change = 0 
 x_change = 0
 player_speed = 3
+left = False 
+right = False
+
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Slime Jumper')
 
-slime1 = pygame.image.load('final_game\images\slimejumpimages\slime1.png')
+slime1_before = pygame.image.load('final_game\images\slimejumpimages\slime1.png')
+slime1 = pygame.transform.scale(slime1_before, (200, 175))
 slime2 = pygame.image.load('final_game\images\slimejumpimages\slime2.png')
 slime3 = pygame.image.load('final_game\images\slimejumpimages\slime3.png')
-slime4 = pygame.image.load('final_game\images\slimejumpimages\slime4.png')
+bg_before = pygame.image.load('final_game\images\cloud.jfif')
+bg = pygame.transform.scale(bg_before, (700, 600))
 
 #check for collision with blocks 
 def check_collisions(rect_list, j):
@@ -56,7 +61,7 @@ def update_player(y_pos):
 #handle movement of platforms as game progresses 
 def update_platforms(my_list, y_pos, change):
     global score
-    if player_y < 250 and change < 0: #only when you are jumping and hit position fo 250 will the screen go up
+    if y_pos < 250 and change < 0: #only when you are jumping and hit position fo 250 will the screen go up
         for i in range(len(my_list)):
             my_list[i][1] -= change
     else:
@@ -67,12 +72,10 @@ def update_platforms(my_list, y_pos, change):
             score += 1
     return my_list
 
-
-
 Slime_Jump = True 
 while Slime_Jump:
     clock.tick(fps)
-    screen.fill(white)
+    screen.blit(bg,(0,0))
     screen.blit(slime1,(player_x, player_y))
     blocks = []
     score_text = MENU_FONT.render('Score: '+ str(score), True, black, white)
@@ -89,6 +92,14 @@ while Slime_Jump:
             Slime_Jump = False
             # mainMenu(title_main, message_menu, True)
         if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE and game_over:
+                game_over = False
+                score = 0
+                player_x = 225
+                player_y = 400
+                platforms = [[270,550,150,10], [70, 450, 150, 10], [470, 450, 150, 10], [270,350,150,10],[70,250,150,10], [470,250,150,10]]
+                screen.blit(bg,(0,0))
+
             if event.key == pygame.K_LEFT:
                 x_change = -player_speed
             if event.key == pygame.K_RIGHT:
@@ -107,7 +118,7 @@ while Slime_Jump:
     else:
         game_over = True
         y_change = 0
-
+        x_change = 0
         
     platforms = update_platforms(platforms, player_y, y_change) #lets you know how much you need to modify loction fo platforms 
     
@@ -116,15 +127,8 @@ while Slime_Jump:
     elif player_x > 550:
         player_x = 550
 
-    if x_change > 0:
-        player = pygame.image.load('final_game\images\slimejumpimages\slime2.png')
-    elif x_change < 0:
-        player = pygame.transform.flip(pygame.image.load('final_game\images\slimejumpimages\slime3.png'), 1,0)
-
     if score > high:
         high = score 
-
-
 
     pygame.display.flip()
 pygame.quit()
