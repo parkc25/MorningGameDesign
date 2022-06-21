@@ -1,7 +1,7 @@
 #Christan Park 
 # worlde game 
 
-import pygame, sys, os, random
+import pygame, sys, os, random, datetime
 pygame.init()
 os.system('cls')
 
@@ -45,6 +45,7 @@ turn = 0
 letters = 0
 turn_now = True
 game_over = False
+score1 = 0
 
 #words for game 
 # words = ("apple, power,  ")
@@ -152,5 +153,10 @@ while wordle:
 
     pygame.display.flip()
 
-    
+
+date = datetime.datetime.now()
+scrLine=str(turn)+('      ')+ ("Christan") + ('      ') + date.strftime("%m-%d-%Y")+ "\n"
+myFile = open("final_game\wordleScore.txt", "a")
+myFile.write(str(scrLine))
+myFile.close()
 

@@ -1,4 +1,3 @@
-Wordle 
 Goal of the Game: 
 Guess the word before or on your fifth try 
  

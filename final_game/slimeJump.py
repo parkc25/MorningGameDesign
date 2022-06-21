@@ -1,7 +1,8 @@
 #Christan Park
 #slime jump game 
 
-import pygame, os, random
+from operator import truediv
+import pygame, os, random, datetime, sys
 pygame.init()
 os.system('cls')
 
@@ -72,8 +73,8 @@ def update_platforms(my_list, y_pos, change):
             score += 1
     return my_list
 
-Slime_Jump = True 
-while Slime_Jump:
+slime_jump = True
+while slime_jump:
     clock.tick(fps)
     screen.blit(bg,(0,0))
     screen.blit(slime1,(player_x, player_y))
@@ -89,7 +90,7 @@ while Slime_Jump:
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            Slime_Jump = False
+            sys.exit()
             # mainMenu(title_main, message_menu, True)
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and game_over:
@@ -131,4 +132,9 @@ while Slime_Jump:
         high = score 
 
     pygame.display.flip()
-pygame.quit()
+
+date = datetime.datetime.now()
+scrLine=str(score)+('      ')+ ("Christan") + ('      ') + date.strftime("%m-%d-%Y")+ "\n"
+myFile = open("final_game\slimpJumpScore.txt", "a")
+myFile.write(str(scrLine))
+myFile.close()
