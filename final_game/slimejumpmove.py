@@ -17,8 +17,8 @@ score = 0
 high = 0 
 game_over = False
 
-player_x = 225
-player_y = 400
+player_x = 300
+player_y = 380
 platforms = [[270,550,150,10], [70, 450, 150, 10], [470, 450, 150, 10], [270,350,150,10],[70,250,150,10], [470,250,150,10]]
 jump = False
 y_change = 0 
@@ -31,8 +31,8 @@ right = False
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Slime Jumper')
 
-slime1_before = pygame.image.load('final_game\images\slimejumpimages\slime1.png')
-slime1 = pygame.transform.scale(slime1_before, (200, 175))
+slime1_before = pygame.image.load('final_game\images\slimejumpimages\slime1.1.png')
+slime1 = pygame.transform.scale(slime1_before, (75, 60))
 slime2 = pygame.image.load('final_game\images\slimejumpimages\slime2.png')
 slime3 = pygame.image.load('final_game\images\slimejumpimages\slime3.png')
 bg_before = pygame.image.load('final_game\images\cloud.jfif')
@@ -42,7 +42,7 @@ bg = pygame.transform.scale(bg_before, (700, 600))
 def check_collisions(rect_list, j):
     global player_x, player_y, y_change
     for i in range(len(rect_list)):
-        if rect_list[i].colliderect([player_x, player_y+60, 90, 50]) and jump == False and y_change > 0: #checks is rect collides when jump == false and player is falling 
+        if rect_list[i].colliderect([player_x, player_y+60, 90, 5]) and jump == False and y_change > 0: #checks is rect collides when jump == false and player is falling 
             j = True
     return j
 
@@ -76,7 +76,7 @@ Slime_Jump = True
 while Slime_Jump:
     clock.tick(fps)
     screen.blit(bg,(0,0))
-    screen.blit(slime1,(player_x, player_y))
+    slime = screen.blit(slime1,(player_x, player_y))
     blocks = []
     score_text = MENU_FONT.render('Score: '+ str(score), True, black, white)
     screen.blit(score_text, (530,20))
@@ -95,11 +95,10 @@ while Slime_Jump:
             if event.key == pygame.K_SPACE and game_over:
                 game_over = False
                 score = 0
-                player_x = 225
-                player_y = 400
+                player_x = 300
+                player_y = 380
                 platforms = [[270,550,150,10], [70, 450, 150, 10], [470, 450, 150, 10], [270,350,150,10],[70,250,150,10], [470,250,150,10]]
                 screen.blit(bg,(0,0))
-
             if event.key == pygame.K_LEFT:
                 x_change = -player_speed
             if event.key == pygame.K_RIGHT:
@@ -124,8 +123,8 @@ while Slime_Jump:
     
     if player_x < -70:
         player_x = -70 
-    elif player_x > 550:
-        player_x = 550
+    elif player_x > 750:
+        player_x = 750
 
     if score > high:
         high = score 
