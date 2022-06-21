@@ -31,7 +31,7 @@ score = 0
 
 #clock
 clock = pygame.time.Clock()
-fpr = 60  #frame rate 
+fps = 60  #frame rate 
 
 #colors for game
 colors={"white":(255,255,255),"pink":(255,0,255),"blue":(0,0,255),"limeGreen":(153,255,51)}
@@ -338,7 +338,7 @@ def Game_1(): #ADD SCOREEEEE
 
     wordle = True 
     while wordle:
-        clock.tick(fpr) #making game run for 60 frames per minute
+        clock.tick(fps) #making game run for 60 frames per minute
         screen.blit(bg,(0,0)) #making background CHANGE LATER
         check_word() #put check word first so the green/yellow box are under what you right
         draw_board()
@@ -408,8 +408,15 @@ def Game_1(): #ADD SCOREEEEE
         pygame.display.flip() #llows only a portion of the screen to updated, instead of the entire area -> this case just game 
 
 def Game_2():
-   pass
-
+   Slime_Jump = True 
+   while Slime_Jump:
+        clock.tick(fps)
+        black = colors2.get("black")
+        screen.fill(black)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                mainMenu(title_main, message_menu, True)
+            
 def name():
     screen.fill(menu_color)
     run = True 
