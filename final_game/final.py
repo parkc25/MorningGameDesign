@@ -80,6 +80,7 @@ bg = pygame.transform.scale(bg_before, (700, 600))
 #background sound
 mixer.music.load("pygame files\CircleMenu\\background.wav")
 mixer.music.play(0)
+mixer.music.stop()
 
 #mouse varuables
 mx = 0
@@ -367,8 +368,8 @@ def Game_1():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT: #if press x will take back to menu
+                mainMenu(title_main, message_menu, True) #something wrong HERE
                 wordle = False
-                # mainMenu(title_main, message_menu, True) #something wrong HERE
             if event.type == pygame.TEXTINPUT and turn_now and not game_over:
                 #__getattribute__() is used to retrieve an attribute from an instance
                 guess = event.__getattribute__('text') #__getattribute__('text') -> allows user to write with 'text' 
@@ -382,6 +383,11 @@ def Game_1():
                     turn += 1 #if press space go to next line to make new guess and +turn to make resriction of 5 turns
                     letters = 0 #bring letters back to 0 to allow 5 letter guesses
                 if event.key == pygame.K_RETURN: #allow game to restart 
+                    date = datetime.datetime.now()
+                    scrLine=str(turn)+('      ')+ ("Christan") + ('      ') + date.strftime("%m-%d-%Y")+ "\n"
+                    myFile = open("final_game\wordleScore.txt", "a")
+                    myFile.write(str(scrLine))
+                    myFile.close() 
                     turn = 0 #puts turns back to 0
                     letters = 0 #put letter back to zero
                     random_word = random.choice(words)
@@ -416,6 +422,8 @@ def Game_1():
                 screen.blit(word_text, (WIDTH//2 - 200,HEIGHT//2-50))
                 playagain_text = again_font.render("To play again press 'enter' and to stop play press the x", 1, colors2.get('black'))
                 screen.blit(playagain_text, (WIDTH//2 - 250,HEIGHT//6-80))
+                scoreinfo_text = again_font.render("Press enter to save score", 1, colors2.get('black'))
+                screen.blit(scoreinfo_text, (WIDTH//2 - 125,HEIGHT//6-50))
 
             if game_over and turn < 7 and guess == random_word: #have to use 'and' and not game_over = True becuase game starts like that if do game wont play 
                 screen.blit(win,(0,0))
@@ -426,29 +434,25 @@ def Game_1():
                 screen.blit(word_text, (WIDTH//2 - 200,HEIGHT//2+220))
                 playagain_text = again_font.render("To play again press 'enter' and to stop play press the x", 1, colors2.get('black'))
                 screen.blit(playagain_text, (WIDTH//2 - 250,HEIGHT//6-80))
+                scoreinfo_text = again_font.render("Press enter to save score", 1, colors2.get('black'))
+                screen.blit(scoreinfo_text, (WIDTH//2 - 125,HEIGHT//6-50))
 
         pygame.display.flip()
 
-    date = datetime.datetime.now()
-    scrLine=str(turn)+('      ')+ ("Christan") + ('      ') + date.strftime("%m-%d-%Y")+ "\n"
-    myFile = open("final_game\wordleScore.txt", "a")
-    myFile.write(str(scrLine))
-    myFile.close() 
-
 def Game_2():
    #check for collision with blocks 
-    def check_collisions(rect_list, j):
+    def check_collisions(rect_list, j): #checking if rect_list = platforms and j= jump hit 
         global player_x, player_y, y_change
-        for i in range(len(rect_list)):
+        for i in range(len(rect_list)): 
             if rect_list[i].colliderect([player_x, player_y+60, 90, 5]) and jump == False and y_change > 0: #checks is rect collides when jump == false and player is falling 
                 j = True
         return j
 
     #update user y positions every loop 
-    def update_player(y_pos):
+    def update_player(y_pos): #finding y position to know when to scroll screen up 
         global jump, y_change
-        jump_height = 11
-        gravity = 0.5
+        jump_height = 11 #how high the slime will jump
+        gravity = 0.5 #how quickly it comes down 
         if jump: #send player jumping but then immidietly bring back down 
             y_change = -jump_height
             jump = False
@@ -457,7 +461,7 @@ def Game_2():
         return y_pos
 
     #handle movement of platforms as game progresses 
-    def update_platforms(my_list, y_pos, change):
+    def update_platforms(my_list, y_pos, change): #getting randomized platforms 
         global score
         if y_pos < 250 and change < 0: #only when you are jumping and hit position fo 250 will the screen go up
             for i in range(len(my_list)):
@@ -465,32 +469,34 @@ def Game_2():
         else:
             pass 
         for item in range(len(my_list)):
-            if my_list[item][1] > 600:
-                my_list[item] = [random.randint(50,520), random.randint(250,300), 150,10]
-                score += 1
+            if my_list[item][1] > 600: #create when screen hit x = 600 
+                my_list[item] = [random.randint(50,520), random.randint(250,300), 150,10] #randomize platform x and y positions
+                score += 1 
         return my_list
     
-    Slime_Jump = True 
+    Slime_Jump = True  #game part 
     while Slime_Jump:
         global slime1, slime1_before, player_x, player_y, bg, fps, score, score_text, platforms, block, x_change, y_change, high, jump
         clock.tick(fps)
         screen.blit(bg,(0,0))
         screen.blit(slime1,(player_x, player_y))
         blocks = []
-        score_text = SCORE_FONT.render('Score: '+ str(score), True, colors2.get('black'), colors.get('white'))
+        #top right with scores
+        score_text = SCORE_FONT.render('Score: '+ str(score), True, colors2.get('black'), colors.get('white')) 
         screen.blit(score_text, (530,20))
         highscore_text = SCORE_FONT.render('High Score: '+ str(high), True, colors2.get('black'), colors.get('white'))
         screen.blit(highscore_text, (490,60))
 
-        for i in range(len(platforms)):                                 # 0,5 makes it round and filled in 
-            block = pygame.draw.rect(screen, colors2.get('black'), platforms[i], 0,5) #[i] making length height cuardonates as platform []
+        for i in range(len(platforms)): #drawing first 7 platforms before random      # 0,5 makes it round and filled in 
+            block = pygame.draw.rect(screen, colors2.get('black'), platforms[i], 0,5) #[i] making length height corrdinates as platform []
             blocks.append(block)
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+        for event in pygame.event.get(): 
+            if event.type == pygame.QUIT: #if press x go to menu and stop game 
                 mainMenu(title_main, message_menu, True)
+                Slime_Jump = False
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE and game_over1:
+                if event.key == pygame.K_SPACE and game_over1: #if press space start game over and bring to starting position
                     slime1 = pygame.transform.scale(slime1_before, (75,60)) 
                     game_over1 = False
                     score = 0
@@ -498,20 +504,20 @@ def Game_2():
                     player_y = 380
                     platforms = [[270,550,150,10], [70, 450, 150, 10], [470, 450, 150, 10], [270,350,150,10],[70,250,150,10], [470,250,150,10]]
                     screen.blit(bg,(0,0))
-                if event.key == pygame.K_LEFT:
-                    x_change = -player_speed
+                if event.key == pygame.K_LEFT: #if press left arrow x will change depending on player speed 
+                    x_change = -player_speed #negative bc x has to become less to go left
                 if event.key == pygame.K_RIGHT:
-                    x_change = player_speed
+                    x_change = player_speed #positive bc x has to be higher to move right 
             if event.type == pygame.K_UP:
                 if event.key == pygame.K_LEFT:
-                    x_change = 0
+                    x_change = 0 #when they let go the change will be 0 to stop going left or right and stay in one place
                 if event.key == pygame.K_RIGHT:
                     x_change = 0
 
-        jump = check_collisions(blocks, jump)
-        player_x += x_change
+        jump = check_collisions(blocks, jump) #making each time they jump = jumping and chekcing collisions with platforms 
+        player_x += x_change #player_x positon + x_change made before with left and right arrows 
 
-        if player_y <640:
+        if player_y <640: 
             player_y = update_player(player_y) #use to control up and down movement 
         else:
             game_over1 = True
@@ -519,11 +525,13 @@ def Game_2():
             x_change = 0
         platforms = update_platforms(platforms, player_y, y_change) #lets you know how much you need to modify loction fo platforms 
         
-        if player_x < -70:
+        #setting boundries so the slime can fall off right and left edges instead of stop against edge 
+        if player_x < -70: 
             player_x = -70 
         elif player_x > 750:
             player_x = 750
 
+        #making when going left and right the slime character changes too 
         if x_change > 0:
             slime1 = pygame.transform.scale(slime2, (75,60)) 
         if x_change < 0:
