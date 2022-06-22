@@ -497,6 +497,11 @@ def Game_2():
                 Slime_Jump = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE and game_over1: #if press space start game over and bring to starting position
+                    date = datetime.datetime.now()
+                    scrLine=str(score)+('      ')+ ("Christan") + ('      ') + date.strftime("%m-%d-%Y")+ "\n"
+                    myFile = open("final_game\slimpJumpScore.txt", "a")
+                    myFile.write(str(scrLine))
+                    myFile.close()
                     slime1 = pygame.transform.scale(slime1_before, (75,60)) 
                     game_over1 = False
                     score = 0
@@ -528,8 +533,8 @@ def Game_2():
         #setting boundries so the slime can fall off right and left edges instead of stop against edge 
         if player_x < -70: 
             player_x = -70 
-        elif player_x > 750:
-            player_x = 750
+        elif player_x > 625:
+            player_x = 625
 
         #making when going left and right the slime character changes too 
         if x_change > 0:
@@ -540,9 +545,8 @@ def Game_2():
         if score > high:
             high = score 
         
-
         pygame.display.flip()
-                
+
 def name():
     screen.fill(menu_color)
     run = True 

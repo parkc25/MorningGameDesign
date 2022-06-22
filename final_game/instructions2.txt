@@ -4,8 +4,7 @@ Get as high as you can using the platforms
 Rules:
 Use the left and right arrows to move
 You die once you fall off the screen 
-Use the space bar to restart when you die
+Use the space bar to restart when you die and save your score
  
 *Use return button or X to return to Menu 
-*Scoreboard 1 => Wordle Scoreboard 
 *Scoreboard 2 => Slime Jump Scoreboard 

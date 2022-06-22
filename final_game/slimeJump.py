@@ -94,6 +94,11 @@ while slime_jump:
             # mainMenu(title_main, message_menu, True)
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and game_over:
+                date = datetime.datetime.now()
+                scrLine=str(score)+('      ')+ ("Christan") + ('      ') + date.strftime("%m-%d-%Y")+ "\n"
+                myFile = open("final_game\slimpJumpScore.txt", "a")
+                myFile.write(str(scrLine))
+                myFile.close()
                 game_over = False
                 score = 0
                 player_x = 225
@@ -125,16 +130,17 @@ while slime_jump:
     
     if player_x < -70:
         player_x = -70 
-    elif player_x > 550:
-        player_x = 550
+    elif player_x > 625:
+        player_x = 625
 
     if score > high:
         high = score 
 
+
     pygame.display.flip()
 
-date = datetime.datetime.now()
-scrLine=str(score)+('      ')+ ("Christan") + ('      ') + date.strftime("%m-%d-%Y")+ "\n"
-myFile = open("final_game\slimpJumpScore.txt", "a")
-myFile.write(str(scrLine))
-myFile.close()
+# date = datetime.datetime.now()
+# scrLine=str(score)+('      ')+ ("Christan") + ('      ') + date.strftime("%m-%d-%Y")+ "\n"
+# myFile = open("final_game\slimpJumpScore.txt", "a")
+# myFile.write(str(scrLine))
+# myFile.close()
