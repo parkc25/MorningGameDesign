@@ -1,51 +1,48 @@
 #Christan Park
-#6/9/2022 - 6/14/2022
-#We are learning pygame basic functins, 
-# creating screens, clrs, shape ,move 
-# move  the square
-# K_UP                  up arrow
-# K_DOWN                down arrow
-# K_RIGHT               right arrow
-# K_LEFT                left arrow
-#picture = pygame. image. load(filename)
-#picture = pygame. transform. scale(picture, (1280, 720))
-#bg=pygame.image.load('ClassStuff\CircleEatsSquare\Images\\bgSmaller.jpg')
+#6/20/2022 = 6/24/2022 
+#Final Project - Wordle and Slime Jump 
 
 import sys
-import pygame, time,os,random, math
+import pygame,os,random
 import datetime
 from pygame import mixer
 from pygame.locals import*
 pygame.init()#initialize the pygame package
-os.system('cls')
-
-# print(pygame.font.get_fonts())
-# pygame.time.delay(10000)
+os.system('cls') #clear terminal
 
 #basic stuff for game
-WIDTH=700 #like constant
+WIDTH=700 
 HEIGHT=600
 TITLE_FONT = pygame.font.SysFont('comicsans', 40) #making specific fonts for different text
 MENU_FONT = pygame.font.SysFont('comicsans', 20)
-score = 0
 
 #clock
 clock = pygame.time.Clock()
-fps = 60  #frame rate 
+fpr = 60  #frame rate 
+
+#background sound
+mixer.music.load("pygame files\CircleMenu\\background.wav")
+mixer.music.play(0)
+# mixer.music.stop()
+
+#mouse varuables
+mx = 0
+my = 0
 
 #colors for game
 colors={"white":(255,255,255),"pink":(255,0,255),"blue":(0,0,255),"limeGreen":(153,255,51)}
 colors2 = {"grey":(96,96,96), "black":(0,0,0), "red":(255,0,0), "green":(0,255,0), "orange":(255,128,0), "yellow":(255,255,0), "purple":(127,0,255)}
 
-#background colors
+#background color
 menu_color = (random.randint(0,255), random.randint(0,255), random.randint(0,255)) #random color generator
 
-message_menu=['    Wordle Instructions',' Slime Jump Instructions', '             Settings', '              Wordle', '           Slime Jump', '          Scoreboard1','          Scoreboard2' ,'                Exit']
-title_main = "Game Menu"
-
-#create dispay wind with any name y like
+#Screen Name and Size
 screen=pygame.display.set_mode((WIDTH,HEIGHT)) #setting screen size to set height and width
 pygame.display.set_caption("Christan's Game")  #change the title of my window
+
+#Names of Buttons on Main Menu
+message_menu=['    Wordle Instructions',' Slime Jump Instructions', '             Settings', '              Wordle', '           Slime Jump', '          Scoreboard1','          Scoreboard2' ,'                Exit']
+title_main = "Game Menu"
 
 #creating buttons
 bx = WIDTH//3 #making buttons be in the same spot no matter the size of screen
@@ -57,11 +54,6 @@ Button_game2 = pygame.Rect(bx, 350, WIDTH//4, 40)
 Button_score1 = pygame.Rect(bx, 400, WIDTH//4, 40)
 Button_score2 = pygame.Rect(bx, 450, WIDTH//4, 40)
 Button_exit = pygame.Rect(bx, 500, WIDTH//4, 40)
-
-#images 
-bg=pygame.image.load('pygame files\Images\pygame background.jpg')
-char = pygame.image.load('pygame files\Images\\alien.jpg')
-char = pygame.transform.scale(char, (50, 50))
 
 #wordle images 
 bg_before=pygame.image.load('final_game\images\wordlebackground.jpg')
@@ -77,33 +69,20 @@ slime3 = pygame.image.load('final_game\images\slimejumpimages\slime3.3.png')
 bg_before = pygame.image.load('final_game\images\cloud.jfif')
 bg = pygame.transform.scale(bg_before, (700, 600))
 
-#background sound
-mixer.music.load("pygame files\CircleMenu\\background.wav")
-mixer.music.play(0)
-mixer.music.stop()
-
-#mouse varuables
-mx = 0
-my = 0
-
-#wordle stuff 
-#board
+#wordle stuff (board, fonts, words, other variables)
 board = [[" ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " "],]
-#fonts
 LETTER_FONT = pygame.font.SysFont('comicsans', 55)
 win_font = pygame.font.SysFont('comicsans', 45)
 again_font = pygame.font.SysFont('comicsans', 20)
-#other variables
 turn = 0
 letters = 0
 turn_now = True
 game_over = False
-#words for game 
 words = ["power", 'apple','cabin','eager', 'jazzy', 'buzzy', 'fuzzy', 'fizzy','adult', 'anger', 'award', 'beach',
 'birth', 'blood', 'brain', 'bread', 'break', 'brown', 'cause', 'chain', 'chair', 'chest', 'child', 'claim', 'class', 'clock'
 'cream', 'dance', 'death', 'crown', 'cycle', 'doubt', 'depth', 'draft', 'drama', 'dress', 'dream', 'enemy', 'error', 'entry'
@@ -118,7 +97,7 @@ words = ["power", 'apple','cabin','eager', 'jazzy', 'buzzy', 'fuzzy', 'fizzy','a
 random_word = random.choice(words)
 print(random_word)
 
-#Slime Jump Stuff
+#Slime Jump Stuff (font, platforms, score, other variables)
 SCORE_FONT = pygame.font.SysFont('comicsans', 30)
 score = 0
 high = 0 
@@ -131,7 +110,6 @@ y_change = 0
 x_change = 0
 player_speed = 3
 
-
 def mainMenu(Title, message, MENU):
     global menu_color #have to import undefined variables 
     text_title = TITLE_FONT.render(Title, 1, colors.get("blue")) 
@@ -140,7 +118,7 @@ def mainMenu(Title, message, MENU):
     screen.blit(text_title, (xd, 50))
     yMenu=150
     
-    for item in message:
+    for item in message: #making buttons for Menu 
         Button_menu=pygame.Rect(bx, yMenu, WIDTH//3, 40)
         text=MENU_FONT.render(item, 1, colors.get('blue'))
         pygame.draw.rect(screen, colors.get('pink'), Button_menu)
@@ -151,7 +129,7 @@ def mainMenu(Title, message, MENU):
     
     while MENU:
         for event in pygame.event.get():
-            if event.type==pygame.QUIT:
+            if event.type==pygame.QUIT: #exit screen if press x
                 #bye-bye screen
                 text_title = TITLE_FONT.render("Bye-Bye", 1, colors.get("blue")) 
                 screen.fill(menu_color)
@@ -163,7 +141,7 @@ def mainMenu(Title, message, MENU):
                 pygame.quit()
                 sys.exit()
 
-            #making collidepoints
+            #making collidepoints for Menu options
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mousePos = pygame.mouse.get_pos()
                 mx = mousePos[0]
@@ -198,12 +176,13 @@ def settings():
     text7=MENU_FONT.render('Width +100', 1, colors.get('blue'))
     text8=MENU_FONT.render('Width-100', 1, colors.get('blue'))
 
-    myFile = open("final_game\settings.txt", "r") #bring in settings file
+    #bring in settings file and read it
+    myFile = open("final_game\settings.txt", "r") 
     content = myFile.readlines()
     myFile.close()
 
     yi = 100
-    for line in content:
+    for line in content: #size and color of words in file
         Instruc = MENU_FONT.render(line[0:-1], 1, colors.get("blue"))
         screen.blit(Instruc, (40, yi))
         pygame.display.update()
@@ -244,7 +223,7 @@ def settings():
 
     pygame.display.update()
 
-    while True:
+    while True: #making colidepoints for each button in settings and x button
         for event in pygame.event.get():
             if event.type==pygame.QUIT: #if press x go back to menu
                 run=False
@@ -278,7 +257,7 @@ def settings():
                 pygame.display.update()
                 settings()
             
-def readFile(titleF, fileN):
+def readFile(titleF, fileN): #making code for any file I open 
     global menu_color
     #fill screen with white
     screen.fill(menu_color)
@@ -292,8 +271,7 @@ def readFile(titleF, fileN):
     Button_3 = pygame.Rect(480, HEIGHT//6+420, 200, 50)
     pygame.draw.rect(screen, colors.get("pink"), Button_3)
 
-
-    #Instructions
+    #Instructions of opening and reading file
     myFile = open(fileN, "r")
     content = myFile.readlines()
     myFile.close()
@@ -316,7 +294,7 @@ def readFile(titleF, fileN):
 
     scoreboard=True
     while scoreboard:
-        for event in pygame.event.get():
+        for event in pygame.event.get(): #if press x or return button go back to main menu 
             if event.type==pygame.QUIT:
                 mainMenu(title_main, message_menu, True)
                 print("You quit")
@@ -327,14 +305,14 @@ def readFile(titleF, fileN):
                 if Button_3.collidepoint((mx, my)):
                     mainMenu(title_main, message_menu, True)
 
-    high=0
+    #making words for buttons/title
     title=TITLE_FONT.render('Scoreboard', 1, colors.get('blue'))
     text3 = MENU_FONT.render("Return to Menu", 1, colors.get("blue"))
 
+    # Making buttons and placement of them
     screen.fill(menu_color)
     Button_3 = pygame.Rect(450, 600, 200, 50)
     pygame.draw.rect(screen, colors.get("pink"), Button_3)
-    
     screen.blit(title, (WIDTH//3,50))
     screen.blit(text3, (480,605))
     pygame.display.update()
@@ -361,7 +339,7 @@ def Game_1():
     wordle = True 
     while wordle:
         global board, random_word, turn, letters, turn_now, game_over, background
-        clock.tick(fps) #making game run for 60 frames per minute
+        clock.tick(fpr) #making game run for 60 frames per minute
         screen.blit(background,(0,0)) #making background CHANGE LATER
         check_word() #put check word first so the green/yellow box are under what you right
         draw_board()
@@ -476,8 +454,8 @@ def Game_2():
     
     Slime_Jump = True  #game part 
     while Slime_Jump:
-        global slime1, slime1_before, player_x, player_y, bg, fps, score, score_text, platforms, block, x_change, y_change, high, jump
-        clock.tick(fps)
+        global slime1, slime1_before, player_x, player_y, bg, fpr, score, score_text, platforms, block, x_change, y_change, high, jump
+        clock.tick(fpr)
         screen.blit(bg,(0,0))
         screen.blit(slime1,(player_x, player_y))
         blocks = []
@@ -547,37 +525,39 @@ def Game_2():
         
         pygame.display.flip()
 
-def name():
+def name(): #making computer ask user name 
     screen.fill(menu_color)
     run = True 
     user_name = ''
     nameClr = (0,105,105)
     bxClr = (200,200,200)
 
+    #making title and position of it
     title = TITLE_FONT.render("Enter name ", 1, bxClr)
     screen.blit(title, (WIDTH//2-100,200))
     pygame.time.delay(500)
-
     pygame.display.update()
-
+    
+    #box to write in
     name_box = pygame.Rect(WIDTH/2-90, HEIGHT//2, 200, 50)
+
     while run:
         for event in pygame.event.get():
                 if event.type==pygame.QUIT: #if press x go back to menu
                     mainMenu(title_main, message_menu, True)
                 if event.type==pygame.MOUSEBUTTONDOWN:
-                    #make box 
+                    #making box 
                     name_box = pygame.Rect(WIDTH/2-90, HEIGHT//2, 200, 50)
                     pygame.draw.rect(screen, colors.get("white"), name_box)
                     pygame.display.update()
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RETURN:
+                    if event.key == pygame.K_RETURN: #when press enter goes to menu 
                         mainMenu(title_main, message_menu, True)
-                    if event == pygame.K_BACKSPACE:
+                    if event == pygame.K_BACKSPACE: #allows user to delete past letters to fix mistakes if made one
                         user_name = user_name[:-1]
                     else:
                         user_name+= event.unicode
-                pygame.draw.rect(screen, bxClr, name_box)
+                pygame.draw.rect(screen, bxClr, name_box) 
 
                 text_surface = MENU_FONT.render(user_name, True, nameClr)
                 #user ur rect x, y, to 
