@@ -3,6 +3,7 @@
 #Final Project - Wordle and Slime Jump 
 
 import sys
+from tkinter import E
 import pygame,os,random
 import datetime
 from pygame import mixer
@@ -212,14 +213,16 @@ def settings():
     a = WIDTH//4 
     b = WIDTH//2
     c = WIDTH//7
+    d = HEIGHT//2 -30
+    e = HEIGHT//6 +300
     screen.blit(Title2, (xd, 50))
     screen.blit(text2, (480,HEIGHT//6+405))
-    screen.blit(text3, (a+55,265))
-    screen.blit(text4, (a+255,265))
-    screen.blit(text5, (b-40,165))
-    screen.blit(text6, (c+20,400))
-    screen.blit(text7, (c+195,400))
-    screen.blit(text8, (c+375,400))
+    screen.blit(text3, (a+55,d))
+    screen.blit(text4, (a+255,d))
+    screen.blit(text5, (b-40,d-100))
+    screen.blit(text6, (c+20,e))
+    screen.blit(text7, (c+195,e))
+    screen.blit(text8, (c+375,e))
 
     pygame.display.update()
 
@@ -568,14 +571,14 @@ def name(): #making computer ask user name
                 #clock.tick(60) means that for every second at most  60 frams should be passed
                 clock.tick(60)
 
-def exit():
-    title=TITLE_FONT.render('Bye-Bye', 1, colors.get('blue'))
-    screen.fill(menu_color)
-    screen.blit(title, (275,200))
-    pygame.display.update()
-    pygame.time.delay(3000)
-    pygame.quit()
-    sys.exit() 
+def exit(): #when press x from menu close screen 
+    title=TITLE_FONT.render('Bye-Bye', 1, colors.get('blue')) #making words
+    screen.fill(menu_color) #making background color
+    screen.blit(title, (WIDTH//2-100,HEIGHT//2-100)) #making placement of words
+    pygame.display.update() #updating screen to show up
+    pygame.time.delay(1000) #stays there for a second 
+    pygame.quit() #close pygame
+    sys.exit() #closes entire system
 
 name()
 mainMenu(title_main, message_menu, True)
