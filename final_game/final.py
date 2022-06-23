@@ -451,7 +451,7 @@ def Game_2():
             pass 
         for item in range(len(my_list)):
             if my_list[item][1] > 600: #create when screen hit x = 600 
-                my_list[item] = [random.randint(50,520), random.randint(250,300), 150,10] #randomize platform x and y positions
+                my_list[item] = [random.randint(50,520), random.randint(250,300), 100,10] #randomize platform x and y positions
                 score += 1 
         return my_list
     
