@@ -134,9 +134,7 @@ def mainMenu(Title, message, MENU):
                 #bye-bye screen
                 text_title = TITLE_FONT.render("Bye-Bye", 1, colors.get("blue")) 
                 screen.fill(menu_color)
-                xd = WIDTH//2 - (text_title.get_width()//2) #centering
-                yd = HEIGHT//2-40
-                screen.blit(text_title, (xd, yd))
+                screen.blit(text_title, (WIDTH//2-80,HEIGHT//2-100)) 
                 pygame.display.update()
                 pygame.time.delay(2000) #show bye-bye screen for 2 seconds
                 pygame.quit()
@@ -574,7 +572,7 @@ def name(): #making computer ask user name
 def exit(): #when press x from menu close screen 
     title=TITLE_FONT.render('Bye-Bye', 1, colors.get('blue')) #making words
     screen.fill(menu_color) #making background color
-    screen.blit(title, (WIDTH//2-100,HEIGHT//2-100)) #making placement of words
+    screen.blit(title, (WIDTH//2-80,HEIGHT//2-100)) #making placement of words
     pygame.display.update() #updating screen to show up
     pygame.time.delay(1000) #stays there for a second 
     pygame.quit() #close pygame

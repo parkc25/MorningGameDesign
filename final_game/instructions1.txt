@@ -1,5 +1,6 @@
 Goal of the Game: 
 Guess the word before or on your sixth try 
+
 Rules: 
 Guess a five letter word 
 If green that letter is in the correct spot and is a letter in the word 
@@ -8,4 +9,3 @@ Press space to move to your next guess and enter to start over
  
 *Use return button or X to return to Menu 
 *Scoreboard 1 => Wordle Scoreboard 
-
